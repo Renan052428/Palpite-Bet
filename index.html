@@ -3,71 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PalpiteBet</title>
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>PalpiteBet App</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { font-family: -apple-system, sans-serif; -webkit-tap-highlight-color: transparent; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
     </style>
 </head>
-<body class="bg-gray-50 text-slate-900 pb-10">
+<body class="bg-gray-50 text-slate-900 pb-20">
 
-    <div class="bg-gradient-to-r from-pink-600 to-purple-600 text-white p-6 sticky top-0 z-50 shadow-lg">
-        <h1 class="text-xl font-black italic tracking-tighter">PALPITEBET</h1>
-    </div>
-
-    <main class="max-w-md mx-auto p-4 space-y-6">
-        
-        <div class="flex gap-2 overflow-x-auto no-scrollbar py-2">
-            <div class="flex flex-col items-center bg-pink-600 text-white p-3 rounded-2xl min-w-[70px] shadow-md">
-                <span class="text-[10px] font-bold uppercase">Hoje</span>
-                <span class="text-sm font-bold">08.04</span>
-            </div>
-            <div class="flex flex-col items-center bg-white border border-gray-100 p-3 rounded-2xl min-w-[70px] opacity-50">
-                <span class="text-[10px] font-bold text-gray-400 uppercase">Qui</span>
-                <span class="text-sm text-gray-400">09.04</span>
-            </div>
+    <div id="home" class="tab-content active">
+        <div class="bg-gradient-to-r from-pink-600 to-purple-600 text-white p-6 sticky top-0 z-50 shadow-lg">
+            <h1 class="text-xl font-black italic tracking-tighter">PALPITEBET</h1>
         </div>
 
-        <div class="space-y-4">
-            <h3 class="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-1">Palpite do Dia</h3>
-            
-            <a href="analise.html" class="block bg-white rounded-3xl p-5 border border-gray-100 shadow-sm active:scale-[0.98] transition-all">
-                <div class="flex justify-between items-center mb-3">
-                    <span class="text-[10px] bg-slate-100 px-2 py-1 rounded font-bold uppercase">Champions League</span>
-                    <span class="text-green-500 font-bold text-[10px]">● 94% MATCH</span>
+        <main class="max-w-md mx-auto p-4 space-y-6">
+            <div class="flex gap-2 overflow-x-auto no-scrollbar py-2">
+                <div class="flex flex-col items-center bg-pink-600 text-white p-3 rounded-2xl min-w-[70px] shadow-md">
+                    <span class="text-[10px] font-bold">HOJE</span>
+                    <span class="text-sm font-bold">08.04</span>
                 </div>
-                
-                <h4 class="font-bold text-slate-900 text-lg mb-4 text-center">Real Madrid vs Man. City</h4>
-                
-                <div class="bg-pink-50 p-4 rounded-2xl flex justify-between items-center">
-                    <div>
-                        <p class="text-[9px] text-pink-400 font-bold uppercase">Palpite IA</p>
-                        <p class="font-bold text-pink-700">Mais de 2.5 Gols</p>
+                <div class="flex flex-col items-center bg-white border border-gray-100 p-3 rounded-2xl min-w-[70px] opacity-40">
+                    <span class="text-[10px] font-bold">AMANHÃ</span>
+                    <span class="text-sm text-gray-400">09.04</span>
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                <h3 class="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-1">Palpite em Destaque</h3>
+                <div onclick="openTab('analise')" class="bg-white rounded-3xl p-5 border border-gray-100 shadow-sm active:scale-95 transition-all">
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="text-[10px] bg-slate-100 px-2 py-1 rounded font-bold">CHAMPIONS</span>
+                        <span class="text-green-500 font-bold text-[10px]">● 94% MATCH</span>
                     </div>
-                    <div class="text-right">
-                        <p class="text-[9px] text-gray-400 font-bold">ODD</p>
+                    <h4 class="font-bold text-slate-900 text-lg mb-4 text-center">Real Madrid vs Man. City</h4>
+                    <div class="bg-pink-50 p-4 rounded-2xl flex justify-between items-center">
+                        <div><p class="text-[9px] text-pink-400 font-bold uppercase">Mercado</p><p class="font-bold text-pink-700">Mais de 2.5 Gols</p></div>
                         <p class="font-black text-slate-900 text-xl">1.72</p>
                     </div>
+                    <p class="text-[10px] text-center mt-4 text-pink-600 font-bold">CLIQUE PARA VER ANÁLISE →</p>
                 </div>
-
-                <div class="mt-4 text-center">
-                    <span class="text-[11px] text-pink-600 font-bold underline">VER ANÁLISE COMPLETA →</span>
-                </div>
-            </a>
-        </div>
-
-        <div class="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm">
-            <h3 class="text-[10px] font-bold text-gray-400 uppercase mb-3">Último Green</h3>
-            <div class="flex items-center gap-3">
-                <div class="w-8 h-8 bg-green-100 text-green-600 rounded-full flex items-center justify-center font-bold text-xs">RB</div>
-                <p class="text-[11px] text-slate-600"><strong>Renan B.</strong> analisou e lucrou <strong>R$240</strong> agora pouco!</p>
             </div>
+        </main>
+    </div>
+
+    <div id="analise" class="tab-content bg-white min-h-screen">
+        <div class="p-4 border-b border-gray-100 flex items-center gap-4 sticky top-0 bg-white">
+            <button onclick="openTab('home')" class="text-pink-600 font-bold text-lg">←</button>
+            <h2 class="font-bold text-sm text-slate-700">Relatório da IA</h2>
         </div>
+        <div class="p-6 space-y-6">
+            <div class="bg-slate-900 text-white p-6 rounded-3xl shadow-xl">
+                <p class="text-[10px] text-pink-400 font-bold mb-1">PROBABILIDADE</p>
+                <h3 class="text-2xl font-black italic mb-4">GREEN: 94.2%</h3>
+                <div class="space-y-2 text-xs border-t border-slate-700 pt-4">
+                    <p>⚽ Média de gols do Real: 2.4/jogo</p>
+                    <p>⚽ Média de gols do City: 2.1/jogo</p>
+                </div>
+            </div>
+            <div class="bg-pink-50 p-5 rounded-2xl border-l-4 border-pink-500">
+                <h4 class="font-bold text-sm text-pink-700 mb-2">Por que entrar?</h4>
+                <p class="text-xs text-slate-600 leading-relaxed">O Manchester City joga sem sua zaga principal. O Real Madrid marcou em todos os jogos em casa nesta temporada. A tendência é de muitos gols.</p>
+            </div>
+            <button onclick="window.print()" class="w-full bg-pink-600 text-white py-4 rounded-2xl font-bold shadow-lg">COPIAR BILHETE</button>
+        </div>
+    </div>
 
-    </main>
+    <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 flex justify-around p-3 z-50 shadow-2xl">
+        <button onclick="openTab('home')" class="flex flex-col items-center">
+            <span class="text-lg">🏠</span>
+            <span class="text-[9px] font-bold text-slate-400">Início</span>
+        </button>
+        <button onclick="openTab('analise')" class="flex flex-col items-center">
+            <span class="text-lg">📊</span>
+            <span class="text-[9px] font-bold text-slate-400">Análises</span>
+        </button>
+    </nav>
 
+    <script>
+        function openTab(tabId) {
+            // Esconde todas as abas
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            // Mostra a aba clicada
+            document.getElementById(tabId).classList.add('active');
+            // Rola para o topo
+            window.scrollTo(0, 0);
+        }
+    </script>
 </body>
 </html>
