@@ -3,101 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PalpiteBet Pro Auto</title>
+    <title>PalpiteBet Pro</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { font-family: -apple-system, sans-serif; -webkit-tap-highlight-color: transparent; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
-        /* Garante que o escudo não quebre o layout */
-        .team-logo { width: 32px; height: 32px; object-fit: contain; }
+        .card-shadow { box-shadow: 0 10px 25px -5px rgba(0, 150, 255, 0.08); }
     </style>
 </head>
 <body class="bg-slate-50 pb-24 text-slate-900">
 
-    <header class="bg-white p-6 sticky top-0 z-50 shadow-sm border-b border-sky-100 rounded-b-[32px]">
+    <header class="bg-white p-6 sticky top-0 z-50 border-b border-sky-100 rounded-b-[32px] shadow-sm">
         <div class="max-w-md mx-auto flex justify-between items-center">
             <div>
-                <p class="text-[9px] font-black text-sky-500 uppercase tracking-[3px]">Inteligência Automática</p>
+                <p class="text-[9px] font-black text-sky-500 uppercase tracking-[2px]">Inteligência Pro</p>
                 <h1 class="text-2xl font-black italic tracking-tighter uppercase text-slate-800">Palpite<span class="text-sky-500">Bet</span></h1>
             </div>
-            <div class="flex gap-3">
-                <div class="bg-sky-50 p-2.5 rounded-2xl border border-sky-100 text-sky-600">🔍</div>
-                <div class="bg-slate-800 p-2.5 rounded-2xl border border-slate-700 text-white font-black text-xs">AI</div>
+            <div class="flex gap-2">
+                <div class="bg-sky-50 p-2 rounded-xl border border-sky-100 text-sky-500">🔍</div>
+                <div class="bg-slate-800 p-2 rounded-xl text-white font-bold text-[10px] flex items-center">AI</div>
             </div>
         </div>
     </header>
 
     <main class="max-w-md mx-auto p-5 space-y-6">
         
-        <div class="flex justify-between items-end px-1">
-            <h3 class="text-xs font-black text-slate-400 uppercase tracking-widest">Dicas da Rodada</h3>
-            <span class="text-[9px] bg-sky-100 text-sky-600 px-3 py-1 rounded-full font-bold">● LIVE DATA</span>
+        <div class="flex justify-between items-center px-1">
+            <h3 class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Dicas da Rodada</h3>
+            <span class="flex items-center gap-1.5 text-[10px] text-sky-600 font-bold bg-sky-50 px-3 py-1 rounded-full">
+                <span class="w-1.5 h-1.5 bg-sky-500 rounded-full animate-pulse"></span> AO VIVO
+            </span>
         </div>
 
         <div id="prediction-list" class="space-y-5">
-            <div class="animate-pulse bg-white h-40 rounded-[32px]"></div>
-        </div>
+            </div>
 
+        <a href="https://www.livescore.com/en/football/live/" target="_blank" class="block w-full bg-white border border-sky-100 p-5 rounded-[28px] card-shadow active:scale-95 transition-transform">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    <div class="bg-sky-500 w-10 h-10 rounded-full flex items-center justify-center text-white">📡</div>
+                    <div>
+                        <p class="font-bold text-slate-800 text-sm">Central de Resultados</p>
+                        <p class="text-[10px] text-slate-400 uppercase">Design Premium • Sem Anúncios</p>
+                    </div>
+                </div>
+                <span class="text-sky-300">➜</span>
+            </div>
+        </a>
     </main>
 
-    <nav class="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-slate-100 flex justify-around p-5 z-50 rounded-t-[32px] shadow-[0_-10px_40px_rgba(0,100,200,0.05)]">
-        <div class="flex flex-col items-center gap-1 text-sky-600"><span class="text-xl">🏠</span><p class="text-[9px] font-black uppercase tracking-tighter">Início</p></div>
-        <div class="flex flex-col items-center gap-1 text-slate-300 opacity-60"><span class="text-xl">📡</span><p class="text-[9px] font-black uppercase tracking-tighter">Live</p></div>
-        <div class="flex flex-col items-center gap-1 text-slate-300 opacity-60"><span class="text-xl">🏆</span><p class="text-[9px] font-black uppercase tracking-tighter">Ligas</p></div>
+    <nav class="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-md border-t border-slate-100 flex justify-around p-5 z-50 rounded-t-[32px]">
+        <div class="flex flex-col items-center gap-1 text-sky-600">
+            <span class="text-xl">🏠</span><p class="text-[9px] font-black uppercase">Início</p>
+        </div>
+        <div class="flex flex-col items-center gap-1 text-slate-300">
+            <span class="text-xl">⭐</span><p class="text-[9px] font-black uppercase">Favoritos</p>
+        </div>
+        <div class="flex flex-col items-center gap-1 text-slate-300">
+            <span class="text-xl">🏆</span><p class="text-[9px] font-black uppercase">Ligas</p>
+        </div>
     </nav>
 
     <script>
-        // Função para obter a URL do escudo do time (API-Football Team Logos)
-        function getTeamLogo(teamName) {
-            return `https://media.api-sports.io/football/teams/${teamName.toLowerCase().replace(/\s+/g, '-')}.png`;
+        // Função para definir as cores solicitadas
+        function getStyleByTip(tip) {
+            const lowTip = tip.toLowerCase();
+            if (lowTip.includes('vitória')) return 'text-green-600';
+            if (lowTip.includes('ambos marcam')) return 'text-black font-black';
+            return 'text-sky-600';
         }
 
-        // Função para definir a cor do palpite com base na lógica pedida
-        function getTipColorClass(tipText) {
-            if (tipText.toLowerCase().includes('vitória')) {
-                return 'text-green-600'; // Vitória é VERDE
-            }
-            if (tipText.toLowerCase().includes('ambos marcam')) {
-                return 'text-slate-950'; // Ambos Marcam é PRETO
-            }
-            return 'text-sky-600'; // Outros palpites usam o azul padrão
-        }
-
-        // LISTA DE JOGOS AUTOMÁTICA
+        // LISTA DE JOGOS (Mude os nomes e IDs de imagem aqui)
         const matches = [
-            { home: "Barcelona", away: "Atl. Madrid", campeonato: "La Liga", dica: "Vitória Casa", odd: "1.90", conf: "88%" },
-            { home: "Man. City", away: "Liverpool", campeonato: "Premier League", dica: "Ambos Marcam", odd: "1.62", conf: "91%" },
-            { home: "Palmeiras", away: "Flamengo", campeonato: "Brasileirão", dica: "Vitória Mandante", odd: "1.85", conf: "89%" },
-            { home: "Arsenal", away: "Bayern", campeonato: "Champions", dica: "Ambos Marcam", odd: "1.70", conf: "94%" }
+            { 
+                h: "Barcelona", hImg: "81", 
+                a: "Real Madrid", aImg: "541", 
+                league: "La Liga", tip: "Vitória Casa", odd: "1.90", conf: "94%" 
+            },
+            { 
+                h: "Man. City", hImg: "50", 
+                a: "Liverpool", aImg: "84", 
+                league: "Premier League", tip: "Ambos Marcam", odd: "1.62", conf: "91%" 
+            },
+            { 
+                h: "Palmeiras", hImg: "1053", 
+                a: "Flamengo", aImg: "1048", 
+                league: "Brasileirão", tip: "Vitória Mandante", odd: "1.85", conf: "88%" 
+            }
         ];
 
-        // GERAÇÃO DOS CARDS
         document.getElementById('prediction-list').innerHTML = matches.map(m => `
-            <div class="bg-white rounded-[32px] p-7 shadow-sm border border-sky-50 relative overflow-hidden">
-                <div class="absolute top-0 right-0 bg-sky-500 text-white text-[8px] px-4 py-1.5 rounded-bl-2xl font-black">${m.conf} CONF.</div>
+            <div class="bg-white rounded-[32px] p-6 border border-sky-50 card-shadow relative overflow-hidden">
+                <div class="absolute top-0 right-0 bg-sky-500 text-white text-[8px] px-4 py-1.5 rounded-bl-2xl font-black italic underline">${m.conf} CONF.</div>
                 
-                <p class="text-[10px] font-bold text-slate-400 uppercase mb-4 tracking-widest">${m.campeonato}</p>
+                <p class="text-[10px] font-bold text-slate-300 uppercase mb-5 tracking-widest">${m.league}</p>
                 
-                <div class="flex items-center justify-center gap-4 mb-6">
-                    <div class="flex-1 flex flex-col items-center gap-2 text-center">
-                        <img src="${getTeamLogo(m.home)}" alt="${m.home}" class="team-logo">
-                        <p class="text-sm font-bold text-slate-800 leading-tight">${m.home}</p>
+                <div class="flex items-center justify-between gap-2 mb-6 px-2">
+                    <div class="flex flex-col items-center gap-2 w-24">
+                        <img src="https://api.sofascore.app/api/v1/team/${m.hImg}/image" class="w-10 h-10 object-contain">
+                        <p class="text-[11px] font-bold text-slate-700 text-center leading-tight">${m.h}</p>
                     </div>
-                    <span class="text-2xl font-black text-slate-200 italic">vs</span>
-                    <div class="flex-1 flex flex-col items-center gap-2 text-center">
-                        <img src="${getTeamLogo(m.away)}" alt="${m.away}" class="team-logo">
-                        <p class="text-sm font-bold text-slate-800 leading-tight">${m.away}</p>
+                    <span class="text-xs font-black text-slate-200 italic">VS</span>
+                    <div class="flex flex-col items-center gap-2 w-24">
+                        <img src="https://api.sofascore.app/api/v1/team/${m.aImg}/image" class="w-10 h-10 object-contain">
+                        <p class="text-[11px] font-bold text-slate-700 text-center leading-tight">${m.a}</p>
                     </div>
                 </div>
 
-                <div class="flex justify-between items-center bg-sky-50 rounded-2xl p-5 border border-sky-100 shadow-inner">
-                    <div class="flex flex-col gap-0.5">
-                        <p class="text-[9px] text-sky-400 font-bold uppercase tracking-widest">Palpite Sugerido</p>
-                        <p class="font-black text-lg ${getTipColorClass(m.dica)}">${m.dica}</p>
+                <div class="bg-sky-50/50 rounded-2xl p-4 flex justify-between items-center border border-sky-100">
+                    <div>
+                        <p class="text-[8px] text-sky-400 font-bold uppercase tracking-tighter">Sugestão</p>
+                        <p class="text-sm uppercase ${getStyleByTip(m.tip)}">${m.tip}</p>
                     </div>
-                    <div class="text-right flex flex-col gap-0.5">
-                        <p class="text-[9px] text-slate-400 font-bold uppercase tracking-widest">Cotação</p>
-                        <p class="font-black text-slate-950 text-2xl">@${m.odd}</p>
+                    <div class="text-right">
+                        <p class="text-[8px] text-slate-400 font-bold uppercase tracking-tighter">Cotação</p>
+                        <p class="text-xl font-black text-slate-900">@${m.odd}</p>
                     </div>
                 </div>
             </div>
