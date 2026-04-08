@@ -7,35 +7,67 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: -apple-system, sans-serif; -webkit-tap-highlight-color: transparent; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
 </head>
-<body class="bg-gray-50 text-slate-900 pb-10" style="font-family: -apple-system, sans-serif; font-size: 13px;">
-    <div class="bg-gradient-to-r from-pink-600 to-purple-600 text-white p-5 sticky top-0 z-50">
-        <h1 class="text-lg font-black italic">PALPITEBET</h1>
+<body class="bg-gray-50 text-slate-900 pb-10">
+
+    <div class="bg-gradient-to-r from-pink-600 to-purple-600 text-white p-6 sticky top-0 z-50 shadow-lg">
+        <h1 class="text-xl font-black italic tracking-tighter">PALPITEBET</h1>
     </div>
+
     <main class="max-w-md mx-auto p-4 space-y-6">
-        <div class="flex gap-2 overflow-x-auto py-2">
-            <div class="flex flex-col items-center bg-pink-600 text-white p-3 rounded-2xl min-w-[65px] shadow-lg">
-                <span class="text-[9px] font-bold">HOJE</span><span class="text-xs font-bold">08.04</span>
+        
+        <div class="flex gap-2 overflow-x-auto no-scrollbar py-2">
+            <div class="flex flex-col items-center bg-pink-600 text-white p-3 rounded-2xl min-w-[70px] shadow-md">
+                <span class="text-[10px] font-bold uppercase">Hoje</span>
+                <span class="text-sm font-bold">08.04</span>
             </div>
-            <div class="flex flex-col items-center bg-white border border-gray-100 p-3 rounded-2xl min-w-[65px]">
-                <span class="text-[9px] font-bold text-gray-400">QUI</span><span class="text-xs text-gray-400">09.04</span>
+            <div class="flex flex-col items-center bg-white border border-gray-100 p-3 rounded-2xl min-w-[70px] opacity-50">
+                <span class="text-[10px] font-bold text-gray-400 uppercase">Qui</span>
+                <span class="text-sm text-gray-400">09.04</span>
             </div>
         </div>
-        <div class="bg-white rounded-3xl p-5 border border-gray-100 shadow-sm">
-            <h4 class="font-bold text-base mb-3">Real Madrid vs Manchester City</h4>
-            <div class="bg-pink-50 p-4 rounded-2xl flex justify-between items-center mb-3">
-                <p class="font-bold text-pink-700">Mais de 2.5 Gols</p>
-                <p class="font-black text-lg">@1.72</p>
+
+        <div class="space-y-4">
+            <h3 class="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-1">Palpite do Dia</h3>
+            
+            <a href="analise.html" class="block bg-white rounded-3xl p-5 border border-gray-100 shadow-sm active:scale-[0.98] transition-all">
+                <div class="flex justify-between items-center mb-3">
+                    <span class="text-[10px] bg-slate-100 px-2 py-1 rounded font-bold uppercase">Champions League</span>
+                    <span class="text-green-500 font-bold text-[10px]">● 94% MATCH</span>
+                </div>
+                
+                <h4 class="font-bold text-slate-900 text-lg mb-4 text-center">Real Madrid vs Man. City</h4>
+                
+                <div class="bg-pink-50 p-4 rounded-2xl flex justify-between items-center">
+                    <div>
+                        <p class="text-[9px] text-pink-400 font-bold uppercase">Palpite IA</p>
+                        <p class="font-bold text-pink-700">Mais de 2.5 Gols</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-[9px] text-gray-400 font-bold">ODD</p>
+                        <p class="font-black text-slate-900 text-xl">1.72</p>
+                    </div>
+                </div>
+
+                <div class="mt-4 text-center">
+                    <span class="text-[11px] text-pink-600 font-bold underline">VER ANÁLISE COMPLETA →</span>
+                </div>
+            </a>
+        </div>
+
+        <div class="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm">
+            <h3 class="text-[10px] font-bold text-gray-400 uppercase mb-3">Último Green</h3>
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 bg-green-100 text-green-600 rounded-full flex items-center justify-center font-bold text-xs">RB</div>
+                <p class="text-[11px] text-slate-600"><strong>Renan B.</strong> analisou e lucrou <strong>R$240</strong> agora pouco!</p>
             </div>
-            <p class="text-[11px] text-slate-500 bg-slate-50 p-3 rounded-xl border-l-4 border-pink-400">
-                <strong>Análise:</strong> City com desfalque na zaga. Grande chance de jogo aberto.
-            </p>
         </div>
-        <div class="bg-white rounded-2xl p-4 border border-gray-100">
-            <h3 class="text-[10px] font-bold text-gray-400 uppercase mb-3">Histórico</h3>
-            <p class="text-[11px]"><strong>Renan B.</strong> analisou e deu Green! <span class="text-green-500">+R$240</span></p>
-        </div>
+
     </main>
+
 </body>
 </html>
-
