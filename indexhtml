@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PalpiteBet</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-slate-900 pb-10" style="font-family: -apple-system, sans-serif; font-size: 13px;">
+    <div class="bg-gradient-to-r from-pink-600 to-purple-600 text-white p-5 sticky top-0 z-50">
+        <h1 class="text-lg font-black italic">PALPITEBET</h1>
+    </div>
+    <main class="max-w-md mx-auto p-4 space-y-6">
+        <div class="flex gap-2 overflow-x-auto py-2">
+            <div class="flex flex-col items-center bg-pink-600 text-white p-3 rounded-2xl min-w-[65px] shadow-lg">
+                <span class="text-[9px] font-bold">HOJE</span><span class="text-xs font-bold">08.04</span>
+            </div>
+            <div class="flex flex-col items-center bg-white border border-gray-100 p-3 rounded-2xl min-w-[65px]">
+                <span class="text-[9px] font-bold text-gray-400">QUI</span><span class="text-xs text-gray-400">09.04</span>
+            </div>
+        </div>
+        <div class="bg-white rounded-3xl p-5 border border-gray-100 shadow-sm">
+            <h4 class="font-bold text-base mb-3">Real Madrid vs Manchester City</h4>
+            <div class="bg-pink-50 p-4 rounded-2xl flex justify-between items-center mb-3">
+                <p class="font-bold text-pink-700">Mais de 2.5 Gols</p>
+                <p class="font-black text-lg">@1.72</p>
+            </div>
+            <p class="text-[11px] text-slate-500 bg-slate-50 p-3 rounded-xl border-l-4 border-pink-400">
+                <strong>Análise:</strong> City com desfalque na zaga. Grande chance de jogo aberto.
+            </p>
+        </div>
+        <div class="bg-white rounded-2xl p-4 border border-gray-100">
+            <h3 class="text-[10px] font-bold text-gray-400 uppercase mb-3">Histórico</h3>
+            <p class="text-[11px]"><strong>Renan B.</strong> analisou e deu Green! <span class="text-green-500">+R$240</span></p>
+        </div>
+    </main>
+</body>
+</html>
+
