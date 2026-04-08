@@ -1,4 +1,4 @@
-TV<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -8,23 +8,16 @@ TV<!DOCTYPE html>
     <style>
         body { font-family: -apple-system, sans-serif; -webkit-tap-highlight-color: transparent; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
-        iframe { border-radius: 20px; }
     </style>
 </head>
-<body class="bg-gray-50 text-slate-900 pb-20">
-
+<body class="bg-gray-50 pb-24">
     <div class="bg-gradient-to-r from-pink-600 to-purple-600 text-white p-5 sticky top-0 z-50 shadow-lg">
         <div class="flex justify-between items-center mb-4">
             <h1 class="text-xl font-black italic">PALPITEBET</h1>
-            <div class="flex gap-3">
-                <span>🔍</span>
-                <span>👤</span>
-            </div>
+            <div class="flex gap-4 text-lg"><span>🔍</span><span>👤</span></div>
         </div>
-        
-        <div class="flex gap-4 overflow-x-auto no-scrollbar text-[10px] font-bold uppercase opacity-80">
+        <div class="flex gap-4 overflow-x-auto no-scrollbar text-[10px] font-bold uppercase opacity-90">
             <div class="flex flex-col items-center"><span>DOM</span><span>05.04</span></div>
-            <div class="flex flex-col items-center"><span>SEG</span><span>06.04</span></div>
             <div class="flex flex-col items-center border-b-2 border-white pb-1"><span>HOJE</span><span>08.04</span></div>
             <div class="flex flex-col items-center"><span>QUI</span><span>09.04</span></div>
             <div class="flex flex-col items-center"><span>SEX</span><span>10.04</span></div>
@@ -32,54 +25,27 @@ TV<!DOCTYPE html>
     </div>
 
     <main class="max-w-md mx-auto p-4 space-y-4">
-        
         <div class="bg-white rounded-3xl p-5 shadow-sm border border-gray-100">
-            <div class="flex justify-between items-center mb-2">
-                <span class="text-[9px] font-bold text-gray-400 uppercase">Sugestão Principal</span>
-                <span class="text-green-500 font-bold text-[10px]">94% Confiança</span>
-            </div>
-            <h2 class="font-bold text-center mb-4">Real Madrid vs Man. City</h2>
-            <div class="bg-pink-50 rounded-2xl p-3 flex justify-between items-center">
-                <span class="font-bold text-pink-600 text-sm">Mais de 2.5 Gols</span>
-                <span class="font-black text-lg">@1.72</span>
+            <div class="flex justify-between mb-2"><span class="text-[9px] font-bold text-gray-400 uppercase">Dica do Dia</span><span class="text-green-500 font-bold text-[10px]">94% Confiança</span></div>
+            <h2 class="font-bold text-center text-lg mb-3">Real Madrid vs Man. City</h2>
+            <div class="bg-pink-50 rounded-2xl p-4 flex justify-between items-center font-bold text-pink-700">
+                <span>Mais de 2.5 Gols</span><span class="text-xl font-black text-slate-900">@1.72</span>
             </div>
         </div>
 
-        <div class="space-y-3">
-            <div class="flex justify-between items-center px-1">
-                <h3 class="text-[11px] font-bold text-gray-400 uppercase tracking-widest">Jogos em Tempo Real</h3>
-                <span class="bg-red-500 text-white text-[9px] px-2 py-0.5 rounded-full animate-pulse">LIVE</span>
-            </div>
-            
-            <div class="w-full bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden" style="height: 600px;">
-                <iframe src="https://www.livescore.in/pt/free/widgets/live/?type=event&amp;fixed_height=600&amp;containerId=ls-widget&amp;theme=light" width="100%" height="600" frameborder="0"></iframe>
+        <div class="space-y-2">
+            <h3 class="text-[10px] font-bold text-gray-400 uppercase px-1">Resultados ao Vivo</h3>
+            <div class="bg-white rounded-3xl shadow-sm border overflow-hidden" style="height: 600px;">
+                <iframe src="https://www.livescore.in/pt/free/widgets/live/?type=event&fixed_height=600&theme=light" width="100%" height="600" frameborder="0"></iframe>
             </div>
         </div>
-
     </main>
 
-    <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 flex justify-around p-3 z-50 shadow-[0_-5px_15px_rgba(0,0,0,0,0.05)]">
-        <div class="flex flex-col items-center text-pink-600">
-            <span class="text-xl">🏠</span>
-            <span class="text-[9px] font-bold">Hoje</span>
-        </div>
-        <div class="flex flex-col items-center text-gray-400">
-            <span class="text-xl">📡</span>
-            <span class="text-[9px] font-bold">Ao Vivo</span>
-        </div>
-        <div class="flex flex-col items-center text-gray-400">
-            <span class="text-xl">⭐</span>
-            <span class="text-[9px] font-bold">Favoritos</span>
-        </div>
-        <div class="flex flex-col items-center text-gray-400">
-            <span class="text-xl">📰</span>
-            <span class="text-[9px] font-bold">Notícias</span>
-        </div>
-        <div class="flex flex-col items-center text-gray-400">
-            <span class="text-xl">🏆</span>
-            <span class="text-[9px] font-bold">Ligas</span>
-        </div>
+    <nav class="fixed bottom-0 left-0 right-0 bg-white border-t flex justify-around p-4 z-50 shadow-2xl">
+        <div class="flex flex-col items-center text-pink-600"><span class="text-xl">🏠</span><span class="text-[9px] font-bold">Hoje</span></div>
+        <div class="flex flex-col items-center text-gray-400"><span class="text-xl">📡</span><span class="text-[9px] font-bold">Ao Vivo</span></div>
+        <div class="flex flex-col items-center text-gray-400"><span class="text-xl">⭐</span><span class="text-[9px] font-bold">Favoritos</span></div>
+        <div class="flex flex-col items-center text-gray-400"><span class="text-xl">🏆</span><span class="text-[9px] font-bold">Ligas</span></div>
     </nav>
-
 </body>
 </html>
