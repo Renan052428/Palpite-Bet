@@ -3,36 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PalpiteBet</title>
+    <title>PalpiteBet Pro</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { font-family: -apple-system, system-ui, sans-serif; -webkit-tap-highlight-color: transparent; }
-        /* Esconde scrollbars */
         .no-scrollbar::-webkit-scrollbar { display: none; }
-        /* Garante que o widget tenha espaço para carregar */
-        .widget-placeholder { min-height: 500px; width: 100%; }
+        .main-container { max-width: 450px; margin: 0 auto; }
     </style>
 </head>
 <body class="bg-slate-50 pb-24">
 
     <header class="bg-gradient-to-r from-pink-600 to-purple-700 text-white p-6 sticky top-0 z-50 shadow-md">
-        <div class="flex justify-between items-center max-w-md mx-auto">
+        <div class="main-container flex justify-between items-center">
             <h1 class="text-xl font-black italic tracking-tighter uppercase">PalpiteBet</h1>
             <div class="flex gap-4"><span>🔍</span><span>👤</span></div>
         </div>
-        <div class="max-w-md mx-auto mt-5 flex gap-6 overflow-x-auto no-scrollbar text-[10px] font-bold uppercase whitespace-nowrap opacity-90">
-            <div class="flex flex-col items-center opacity-40"><span>ONTEM</span></div>
+        <div class="main-container mt-5 flex gap-6 overflow-x-auto no-scrollbar text-[10px] font-bold uppercase whitespace-nowrap opacity-90">
             <div class="flex flex-col items-center border-b-2 border-white pb-1"><span>HOJE</span></div>
             <div class="flex flex-col items-center opacity-40"><span>AMANHÃ</span></div>
             <div class="flex flex-col items-center opacity-40"><span>SEX</span></div>
+            <div class="flex flex-col items-center opacity-40"><span>SÁB</span></div>
         </div>
     </header>
 
-    <main class="max-w-md mx-auto p-4 space-y-6">
+    <main class="main-container p-4 space-y-6">
         
         <section class="bg-white rounded-[32px] p-6 shadow-sm border border-slate-100">
             <div class="flex justify-between items-center mb-4">
-                <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Destaque</span>
+                <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Sugestão VIP</span>
                 <span class="bg-green-100 text-green-600 text-[10px] px-3 py-1 rounded-full font-black">94% CONF.</span>
             </div>
             <h2 class="font-bold text-slate-800 text-center text-xl mb-4">Real Madrid vs Man. City</h2>
@@ -43,19 +41,17 @@
         </section>
 
         <section class="space-y-4">
-            <h3 class="text-[11px] font-bold text-slate-400 uppercase tracking-widest px-1">Resultados em Tempo Real</h3>
+            <h3 class="text-[11px] font-bold text-slate-400 uppercase tracking-widest px-1">Placares ao Vivo</h3>
             
-            <div class="bg-white rounded-[28px] shadow-md border border-slate-200 overflow-hidden">
-                <div id="livescore-widget-container" class="widget-placeholder">
-                    <iframe src="https://www.scoreaxis.com/widget/live-scores?autoHeight=1&bodyBackground=%23ffffff&textColor=%23334155&font=Open%20Sans&inst=1" width="100%" height="600" frameborder="0"></iframe>
-                </div>
+            <div class="bg-white rounded-[28px] shadow-md border border-slate-200 overflow-hidden" style="min-height: 800px;">
+                <iframe src="https://www.livescore.in/pt/free/widgets/live/?type=event&fixed_height=800&containerId=ls-widget&theme=light" width="100%" height="800" frameborder="0"></iframe>
             </div>
         </section>
 
     </main>
 
-    <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-100 flex justify-around p-4 z-50">
-        <div class="flex flex-col items-center text-pink-600"><span class="text-2xl">🏠</span><span class="text-[9px] font-bold uppercase">Hoje</span></div>
+    <nav class="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-slate-100 flex justify-around p-4 z-50">
+        <div class="flex flex-col items-center text-pink-600"><span class="text-2xl">🏠</span><span class="text-[9px] font-bold uppercase text-pink-600">Início</span></div>
         <div class="flex flex-col items-center text-slate-300"><span class="text-2xl">📡</span><span class="text-[9px] font-bold uppercase">Ao Vivo</span></div>
         <div class="flex flex-col items-center text-slate-300"><span class="text-2xl">🏆</span><span class="text-[9px] font-bold uppercase">Ligas</span></div>
     </nav>
