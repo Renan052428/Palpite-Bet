@@ -8,56 +8,88 @@
     <style>
         body { font-family: -apple-system, system-ui, sans-serif; -webkit-tap-highlight-color: transparent; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
-        /* Garante que o widget se adapte ao seu design */
-        #fs-official-widget { border-radius: 24px; overflow: hidden; border: 1px solid #e2e8f0; }
+        /* Garante que o widget ocupe o espaço correto sem bugar o scroll */
+        #broadage-widget { min-height: 600px; background: white; border-radius: 24px; overflow: hidden; }
     </style>
 </head>
-<body class="bg-slate-50 pb-20">
+<body class="bg-slate-50 pb-24">
 
-    <header class="bg-gradient-to-r from-pink-600 to-purple-700 text-white p-5 sticky top-0 z-50 shadow-md">
+    <header class="bg-gradient-to-r from-pink-600 to-purple-700 text-white p-6 sticky top-0 z-50 shadow-lg">
         <div class="flex justify-between items-center max-w-md mx-auto">
             <h1 class="text-xl font-black italic tracking-tighter uppercase">PalpiteBet</h1>
-            <div class="flex gap-4"><span class="text-lg">🔍</span><span class="text-lg">👤</span></div>
+            <div class="flex gap-4">
+                <span class="text-xl">🔍</span>
+                <span class="text-xl">👤</span>
+            </div>
         </div>
-        <div class="max-w-md mx-auto mt-4 flex gap-5 overflow-x-auto no-scrollbar text-[10px] font-bold uppercase whitespace-nowrap">
+        
+        <div class="max-w-md mx-auto mt-5 flex gap-6 overflow-x-auto no-scrollbar text-[10px] font-bold uppercase whitespace-nowrap">
+            <div class="flex flex-col items-center opacity-40"><span>SEG</span><span>06.04</span></div>
+            <div class="flex flex-col items-center opacity-40"><span>TER</span><span>07.04</span></div>
             <div class="flex flex-col items-center border-b-2 border-white pb-1"><span>HOJE</span><span>08.04</span></div>
             <div class="flex flex-col items-center opacity-40"><span>QUI</span><span>09.04</span></div>
             <div class="flex flex-col items-center opacity-40"><span>SEX</span><span>10.04</span></div>
-            <div class="flex flex-col items-center opacity-40"><span>SÁB</span><span>11.04</span></div>
         </div>
     </header>
 
-    <main class="max-w-md mx-auto p-4 space-y-5">
+    <main class="max-w-md mx-auto p-4 space-y-6">
         
         <section class="bg-white rounded-[32px] p-6 shadow-sm border border-slate-100">
             <div class="flex justify-between items-center mb-4">
-                <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Dica do Dia</span>
-                <span class="bg-green-100 text-green-600 text-[10px] px-2 py-1 rounded-full font-bold">94% Match</span>
+                <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Análise do Dia</span>
+                <span class="bg-green-100 text-green-600 text-[10px] px-3 py-1 rounded-full font-black italic">94% CONF.</span>
             </div>
-            <h2 class="font-bold text-slate-800 text-center text-lg mb-4">Real Madrid vs Man. City</h2>
-            <div class="bg-pink-50 rounded-2xl p-4 flex justify-between items-center">
-                <p class="font-bold text-pink-600">Mais de 2.5 Gols</p>
-                <p class="font-black text-slate-900 text-xl">@1.72</p>
+            
+            <div class="text-center mb-6">
+                <p class="text-[10px] text-pink-500 font-bold uppercase mb-1 tracking-widest">Champions League</p>
+                <h2 class="font-bold text-slate-800 text-xl">Real Madrid vs Man. City</h2>
+            </div>
+            
+            <div class="bg-pink-50 rounded-2xl p-5 flex justify-between items-center border border-pink-100">
+                <div class="flex flex-col">
+                    <span class="text-[9px] text-pink-400 font-bold uppercase">Mercado</span>
+                    <span class="font-bold text-pink-600 text-lg">Mais de 2.5 Gols</span>
+                </div>
+                <div class="text-right">
+                    <span class="text-[9px] text-slate-400 font-bold uppercase">Odd</span>
+                    <p class="font-black text-slate-900 text-2xl">1.72</p>
+                </div>
             </div>
         </section>
 
-        <section class="space-y-3">
-            <div class="flex justify-between items-center px-1">
-                <h3 class="text-[11px] font-bold text-slate-400 uppercase tracking-widest">Resultados em Tempo Real</h3>
-                <span class="bg-red-500 text-white text-[9px] px-2 py-0.5 rounded-full animate-pulse">LIVE</span>
+        <section class="space-y-4">
+            <div class="flex justify-between items-center px-2">
+                <h3 class="text-[11px] font-bold text-slate-400 uppercase tracking-widest">Jogos em Tempo Real</h3>
+                <div class="flex items-center gap-1.5">
+                    <span class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+                    <span class="text-[10px] font-bold text-red-500 uppercase tracking-tighter">Live Scores</span>
+                </div>
             </div>
-
-            <div id="fs-official-widget">
-                <iframe src="https://prod-widgets.livescore.com/widgets/v1/stage/soccer/today/1.00?culture=pt-br&timezone=3" width="100%" height="600" frameborder="0" scrolling="auto"></iframe>
+            
+            <div id="broadage-widget" class="shadow-md border border-slate-200">
+                <iframe src="https://soccer.widget.broadage.com/live-scores?key=7f267a3d-4c54-469b-9a4c-d107386d528b&theme=light&sportId=1" width="100%" height="700" frameborder="0"></iframe>
             </div>
         </section>
 
     </main>
 
-    <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-100 flex justify-around p-4 z-50 shadow-lg">
-        <div class="flex flex-col items-center text-pink-600"><span class="text-xl">🏠</span><span class="text-[9px] font-bold uppercase">Hoje</span></div>
-        <div class="flex flex-col items-center text-slate-400 opacity-40"><span class="text-xl">📡</span><span class="text-[9px] font-bold uppercase">Ao Vivo</span></div>
-        <div class="flex flex-col items-center text-slate-400 opacity-40"><span class="text-xl">🏆</span><span class="text-[9px] font-bold uppercase">Ligas</span></div>
+    <nav class="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-md border-t border-slate-100 flex justify-around p-4 z-50 shadow-[0_-10px_30px_rgba(0,0,0,0.05)]">
+        <div class="flex flex-col items-center gap-1 text-pink-600">
+            <span class="text-2xl">🏠</span>
+            <span class="text-[9px] font-bold uppercase">Hoje</span>
+        </div>
+        <div class="flex flex-col items-center gap-1 text-slate-300">
+            <span class="text-2xl">📡</span>
+            <span class="text-[9px] font-bold uppercase">Ao Vivo</span>
+        </div>
+        <div class="flex flex-col items-center gap-1 text-slate-300">
+            <span class="text-2xl">⭐</span>
+            <span class="text-[9px] font-bold uppercase">Favoritos</span>
+        </div>
+        <div class="flex flex-col items-center gap-1 text-slate-300">
+            <span class="text-2xl">🏆</span>
+            <span class="text-[9px] font-bold uppercase">Ligas</span>
+        </div>
     </nav>
 
 </body>
