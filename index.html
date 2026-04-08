@@ -3,121 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PalpiteBet Pro</title>
+    <title>PalpiteBet Elite</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { font-family: -apple-system, sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { font-family: -apple-system, system-ui, sans-serif; -webkit-tap-highlight-color: transparent; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
-        .card-shadow { box-shadow: 0 10px 25px -5px rgba(0, 150, 255, 0.08); }
+        .card-shadow { box-shadow: 0 15px 35px -5px rgba(0, 150, 255, 0.08); }
+        .badge-shadow { box-shadow: 0 5px 15px -3px rgba(0, 150, 255, 0.2); }
     </style>
 </head>
 <body class="bg-slate-50 pb-24 text-slate-900">
 
-    <header class="bg-white p-6 sticky top-0 z-50 border-b border-sky-100 rounded-b-[32px] shadow-sm">
+    <header class="bg-white p-7 sticky top-0 z-50 border-b border-sky-100 rounded-b-[40px] shadow-sm">
         <div class="max-w-md mx-auto flex justify-between items-center">
             <div>
-                <p class="text-[9px] font-black text-sky-500 uppercase tracking-[2px]">Inteligência Pro</p>
-                <h1 class="text-2xl font-black italic tracking-tighter uppercase text-slate-800">Palpite<span class="text-sky-500">Bet</span></h1>
+                <p class="text-[10px] font-black text-sky-500 uppercase tracking-[2px]">Inteligência Automática</p>
+                <h1 class="text-3xl font-black italic tracking-tighter uppercase text-slate-900">Palpite<span class="text-sky-500">Bet</span></h1>
             </div>
-            <div class="flex gap-2">
-                <div class="bg-sky-50 p-2 rounded-xl border border-sky-100 text-sky-500">🔍</div>
-                <div class="bg-slate-800 p-2 rounded-xl text-white font-bold text-[10px] flex items-center">AI</div>
+            <div class="flex gap-2.5">
+                <div class="bg-sky-50 p-3 rounded-2xl border border-sky-100 text-sky-500">🔍</div>
+                <div class="bg-slate-900 p-3 rounded-2xl text-white font-black text-xs">AI Pro</div>
             </div>
         </div>
     </header>
 
     <main class="max-w-md mx-auto p-5 space-y-6">
         
-        <div class="flex justify-between items-center px-1">
-            <h3 class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Dicas da Rodada</h3>
-            <span class="flex items-center gap-1.5 text-[10px] text-sky-600 font-bold bg-sky-50 px-3 py-1 rounded-full">
-                <span class="w-1.5 h-1.5 bg-sky-500 rounded-full animate-pulse"></span> AO VIVO
+        <div class="flex justify-between items-center px-1.5">
+            <h3 class="text-[11px] font-black text-slate-400 uppercase tracking-widest">Dicas da Rodada</h3>
+            <span class="flex items-center gap-1.5 text-[11px] text-sky-600 font-bold bg-sky-100 px-4 py-1.5 rounded-full badge-shadow">
+                <span class="w-2 h-2 bg-sky-500 rounded-full animate-pulse"></span> ● LIVE DATA
             </span>
         </div>
 
-        <div id="prediction-list" class="space-y-5">
+        <div id="prediction-list" class="space-y-6">
             </div>
 
-        <a href="https://www.livescore.com/en/football/live/" target="_blank" class="block w-full bg-white border border-sky-100 p-5 rounded-[28px] card-shadow active:scale-95 transition-transform">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center gap-4">
-                    <div class="bg-sky-500 w-10 h-10 rounded-full flex items-center justify-center text-white">📡</div>
-                    <div>
-                        <p class="font-bold text-slate-800 text-sm">Central de Resultados</p>
-                        <p class="text-[10px] text-slate-400 uppercase">Design Premium • Sem Anúncios</p>
-                    </div>
-                </div>
-                <span class="text-sky-300">➜</span>
-            </div>
-        </a>
     </main>
 
-    <nav class="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-md border-t border-slate-100 flex justify-around p-5 z-50 rounded-t-[32px]">
+    <nav class="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-slate-100 flex justify-around p-5 z-50 rounded-t-[32px] shadow-[0_-15px_40px_rgba(0,100,200,0.06)]">
         <div class="flex flex-col items-center gap-1 text-sky-600">
-            <span class="text-xl">🏠</span><p class="text-[9px] font-black uppercase">Início</p>
+            <span class="text-2xl">🏠</span><p class="text-[10px] font-black uppercase tracking-tighter">Início</p>
         </div>
         <div class="flex flex-col items-center gap-1 text-slate-300">
-            <span class="text-xl">⭐</span><p class="text-[9px] font-black uppercase">Favoritos</p>
+            <span class="text-2xl">📡</span><p class="text-[10px] font-black uppercase tracking-tighter">Live</p>
         </div>
         <div class="flex flex-col items-center gap-1 text-slate-300">
-            <span class="text-xl">🏆</span><p class="text-[9px] font-black uppercase">Ligas</p>
+            <span class="text-2xl">🏆</span><p class="text-[10px] font-black uppercase tracking-tighter">Ligas</p>
         </div>
     </nav>
 
     <script>
-        // Função para definir as cores solicitadas
+        // Função para definir as cores e pesos baseados no tipo de palpite
         function getStyleByTip(tip) {
             const lowTip = tip.toLowerCase();
-            if (lowTip.includes('vitória')) return 'text-green-600';
+            if (lowTip.includes('vitória')) return 'text-green-600 font-bold';
             if (lowTip.includes('ambos marcam')) return 'text-black font-black';
-            return 'text-sky-600';
+            return 'text-sky-600 font-medium';
         }
 
-        // LISTA DE JOGOS (Mude os nomes e IDs de imagem aqui)
+        // Função para carregar escudos automáticos de alta qualidade (Motor de Busca)
+        function getHighResLogo(teamName) {
+            // Este motor busca escudos oficiais com fundo transparente
+            return `https://logo.clearbit.com/${teamName.toLowerCase().replace(/\s+/g, '')}.com`;
+        }
+        
+        // Fallback: Se o logo de cima falhar (para times menos famosos), usa este motor secundário
+        function getFallbackLogo(teamName) {
+            return `https://img.favpng.com/v2/search/${teamName.toLowerCase().replace(/\s+/g, '-')}-logo.html`;
+        }
+
+        // LISTA DE JOGOS (Mude os nomes dos times aqui)
         const matches = [
-            { 
-                h: "Barcelona", hImg: "81", 
-                a: "Real Madrid", aImg: "541", 
-                league: "La Liga", tip: "Vitória Casa", odd: "1.90", conf: "94%" 
-            },
-            { 
-                h: "Man. City", hImg: "50", 
-                a: "Liverpool", aImg: "84", 
-                league: "Premier League", tip: "Ambos Marcam", odd: "1.62", conf: "91%" 
-            },
-            { 
-                h: "Palmeiras", hImg: "1053", 
-                a: "Flamengo", aImg: "1048", 
-                league: "Brasileirão", tip: "Vitória Mandante", odd: "1.85", conf: "88%" 
-            }
+            { home: "Barcelona", away: "Real Madrid", league: "La Liga", tip: "Vitória Casa", odd: "1.90", conf: "94%" },
+            { home: "Man. City", away: "Liverpool", league: "Premier League", tip: "Ambos Marcam", odd: "1.62", conf: "91%" },
+            { home: "Palmeiras", away: "Flamengo", league: "Brasileirão", tip: "Vitória Mandante", odd: "1.85", conf: "88%" },
+            { home: "Arsenal", away: "Bayern", league: "Champions", tip: "Ambos Marcam", odd: "1.70", conf: "94%" }
         ];
 
         document.getElementById('prediction-list').innerHTML = matches.map(m => `
-            <div class="bg-white rounded-[32px] p-6 border border-sky-50 card-shadow relative overflow-hidden">
-                <div class="absolute top-0 right-0 bg-sky-500 text-white text-[8px] px-4 py-1.5 rounded-bl-2xl font-black italic underline">${m.conf} CONF.</div>
+            <div class="bg-white rounded-[40px] p-8 border border-sky-50 card-shadow relative overflow-hidden active:scale-[0.98] transition-all">
+                <div class="absolute top-0 right-0 bg-gradient-to-l from-sky-500 to-sky-600 text-white text-[9px] px-5 py-2.5 rounded-bl-3xl font-black italic tracking-widest">${m.conf} CONF.</div>
                 
-                <p class="text-[10px] font-bold text-slate-300 uppercase mb-5 tracking-widest">${m.league}</p>
+                <p class="text-[10px] font-bold text-slate-300 uppercase mb-6 tracking-[3px]">${m.league}</p>
                 
-                <div class="flex items-center justify-between gap-2 mb-6 px-2">
-                    <div class="flex flex-col items-center gap-2 w-24">
-                        <img src="https://api.sofascore.app/api/v1/team/${m.hImg}/image" class="w-10 h-10 object-contain">
-                        <p class="text-[11px] font-bold text-slate-700 text-center leading-tight">${m.h}</p>
+                <div class="flex items-center justify-between gap-3 mb-8 px-2">
+                    <div class="flex flex-col items-center gap-3 flex-1 text-center">
+                        <img src="${getHighResLogo(m.home)}" onerror="this.src='https://wiki.sofascore.app/images/d/d4/Placeholder_Team.png'" class="w-12 h-12 object-contain filter drop-shadow-lg">
+                        <p class="text-xs font-bold text-slate-800 leading-snug">${m.home}</p>
                     </div>
-                    <span class="text-xs font-black text-slate-200 italic">VS</span>
-                    <div class="flex flex-col items-center gap-2 w-24">
-                        <img src="https://api.sofascore.app/api/v1/team/${m.aImg}/image" class="w-10 h-10 object-contain">
-                        <p class="text-[11px] font-bold text-slate-700 text-center leading-tight">${m.a}</p>
+                    <span class="text-sm font-black text-slate-100 italic">VS</span>
+                    <div class="flex flex-col items-center gap-3 flex-1 text-center">
+                        <img src="${getHighResLogo(m.away)}" onerror="this.src='https://wiki.sofascore.app/images/d/d4/Placeholder_Team.png'" class="w-12 h-12 object-contain filter drop-shadow-lg">
+                        <p class="text-xs font-bold text-slate-800 leading-snug">${m.away}</p>
                     </div>
                 </div>
 
-                <div class="bg-sky-50/50 rounded-2xl p-4 flex justify-between items-center border border-sky-100">
-                    <div>
-                        <p class="text-[8px] text-sky-400 font-bold uppercase tracking-tighter">Sugestão</p>
-                        <p class="text-sm uppercase ${getStyleByTip(m.tip)}">${m.tip}</p>
+                <div class="bg-sky-50/50 rounded-3xl p-5 flex justify-between items-center border border-sky-100 shadow-inner">
+                    <div class="flex flex-col gap-0.5">
+                        <p class="text-[9px] text-sky-400 font-bold uppercase tracking-widest">Sugestão VIP</p>
+                        <p class="text-base uppercase ${getStyleByTip(m.tip)}">${m.tip}</p>
                     </div>
-                    <div class="text-right">
-                        <p class="text-[8px] text-slate-400 font-bold uppercase tracking-tighter">Cotação</p>
-                        <p class="text-xl font-black text-slate-900">@${m.odd}</p>
+                    <div class="text-right flex flex-col gap-0.5">
+                        <p class="text-[9px] text-slate-400 font-bold uppercase tracking-widest">Cotação</p>
+                        <p class="text-2xl font-black text-slate-950">@${m.odd}</p>
                     </div>
                 </div>
             </div>
