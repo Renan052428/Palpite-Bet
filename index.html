@@ -3,99 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PalpiteBet Premium</title>
+    <title>PalpiteBet Pro - Global & VIP</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { font-family: -apple-system, sans-serif; background: #F8FAFC; }
-        .card-shadow { box-shadow: 0 10px 30px rgba(0, 100, 255, 0.05); }
-        .team-badge { width: 45px; height: 45px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-weight: 800; color: white; }
-        .ad-space { background: #f1f5f9; border: 2px dashed #cbd5e1; border-radius: 20px; text-align: center; color: #94a3b8; font-size: 10px; font-weight: bold; }
-        @keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
-        .animate-marquee { display: inline-block; white-space: nowrap; animation: marquee 15s linear infinite; }
+        body { font-family: -apple-system, sans-serif; background: #F8FAFC; color: #1e293b; }
+        .vip-blur { filter: blur(4px); pointer-events: none; user-select: none; }
+        .tab-active { border-bottom: 3px solid #0ea5e9; color: #0ea5e9; }
+        .card-premium { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); }
     </style>
 </head>
 <body class="pb-32">
 
-    <div class="bg-slate-900 text-white py-2 overflow-hidden border-b border-sky-500/30">
-        <div class="animate-marquee text-[10px] font-bold uppercase tracking-widest">
-            🔥 Real Madrid com força total para o clássico • Odd do Palmeiras subindo • Nova estratégia VIP disponível no menu • Gestão de banca é essencial para o Green!
+    <div class="bg-white sticky top-0 z-50 shadow-sm border-b border-slate-100">
+        <div class="flex justify-between items-center p-5">
+            <h1 class="text-xl font-black italic uppercase">Palpite<span class="text-sky-500">Bet</span></h1>
+            <button onclick="openVIP()" class="bg-amber-400 text-amber-900 px-4 py-1.5 rounded-full text-[10px] font-black animate-bounce shadow-lg shadow-amber-200">SEJA VIP</button>
+        </div>
+        <div class="flex gap-6 px-5 pb-3 overflow-x-auto no-scrollbar text-[11px] font-black uppercase tracking-widest text-slate-400">
+            <span class="tab-active pb-1">Futebol</span>
+            <span>Basquete</span>
+            <span>Tênis</span>
+            <span>E-Sports</span>
+            <span>MMA</span>
         </div>
     </div>
 
-    <header class="bg-white p-6 sticky top-0 z-50 border-b border-sky-50 shadow-sm flex justify-between items-center">
-        <h1 class="text-2xl font-black italic text-slate-900 uppercase leading-none">Palpite<span class="text-sky-500">Bet</span></h1>
-        <div class="flex items-center gap-2">
-            <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-            <span class="text-[10px] font-black text-slate-400">1.2k ONLINE</span>
-        </div>
-    </header>
-
     <main class="max-w-md mx-auto p-5 space-y-6">
 
-        <div class="ad-space py-4 uppercase tracking-tighter">Espaço Reservado para Publicidade</div>
-
-        <section class="bg-white rounded-[32px] p-6 card-shadow border border-sky-50">
-            <h3 class="text-[11px] font-black text-slate-800 uppercase mb-4 flex items-center gap-2">
-                🧮 Simulador de Meta
-            </h3>
-            <div class="space-y-3">
-                <input id="meta" type="number" placeholder="Quanto quer ganhar? (R$)" class="w-full bg-slate-50 border border-slate-100 p-3 rounded-xl text-sm outline-none focus:border-sky-300">
-                <input id="oddMeta" type="number" placeholder="Odd do Palpite (ex: 2.00)" class="w-full bg-slate-50 border border-slate-100 p-3 rounded-xl text-sm outline-none focus:border-sky-300">
-                <button onclick="calcular()" class="w-full bg-sky-500 text-white py-3 rounded-xl font-black text-xs uppercase tracking-widest shadow-lg shadow-sky-200">Calcular Aposta</button>
-                <p id="resCalc" class="text-center text-[11px] font-bold text-slate-400 hidden italic"></p>
+        <section class="bg-white rounded-[32px] p-6 border border-sky-50 shadow-sm">
+            <div class="flex items-center gap-2 mb-4">
+                <span class="text-lg">📈</span>
+                <h3 class="text-[11px] font-black uppercase tracking-wider">Calculadora de Gestão</h3>
             </div>
+            <div class="flex gap-2">
+                <input id="vlr" type="number" placeholder="Banca R$" class="w-1/2 bg-slate-50 p-3 rounded-2xl text-xs outline-none border border-slate-100">
+                <button onclick="calcBanca()" class="w-1/2 bg-slate-900 text-white rounded-2xl text-[10px] font-black uppercase tracking-widest">Sugerir Stake</button>
+            </div>
+            <p id="resBanca" class="text-center mt-3 text-[10px] font-bold text-sky-600 hidden"></p>
         </section>
 
-        <section id="prediction-list" class="space-y-6"></section>
+        <div class="bg-white rounded-[35px] p-6 border border-slate-100 shadow-sm relative">
+            <div class="flex justify-between items-center mb-4">
+                <span class="text-[9px] font-black bg-slate-100 px-3 py-1 rounded-full uppercase">Brasileirão</span>
+                <span class="text-[9px] font-black text-green-500">● LIVE</span>
+            </div>
+            <div class="flex justify-around items-center mb-6 font-bold text-sm">
+                <span>Flamengo</span>
+                <span class="text-slate-200 italic">vs</span>
+                <span>Palmeiras</span>
+            </div>
+            <div class="bg-sky-50 p-4 rounded-2xl flex justify-between items-center border border-sky-100">
+                <span class="text-[10px] font-black uppercase text-sky-600">Palpite:</span>
+                <span class="font-black text-slate-900 uppercase text-xs">Ambos Marcam</span>
+                <span class="font-black text-sky-500">@1.85</span>
+            </div>
+        </div>
 
-        <div class="ad-space py-8 uppercase tracking-tighter italic">Publicidade Parceira</div>
+        <div class="card-premium rounded-[35px] p-1 relative overflow-hidden">
+            <div class="bg-white/5 backdrop-blur-sm p-6 rounded-[34px]">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-[9px] font-black bg-amber-400 text-amber-900 px-3 py-1 rounded-full uppercase italic">Análise VIP PRO</span>
+                    <span class="text-[10px] text-white/50 font-bold">Confiança: 98%</span>
+                </div>
+                
+                <div class="vip-blur space-y-3">
+                    <div class="h-4 bg-white/10 rounded w-3/4"></div>
+                    <div class="h-4 bg-white/10 rounded w-1/2"></div>
+                    <div class="h-10 bg-white/10 rounded w-full"></div>
+                </div>
+
+                <div class="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
+                    <p class="text-white font-black text-sm uppercase mb-4 tracking-tighter">Assine o plano mensal para desbloquear análises detalhadas de +10 esportes</p>
+                    <button onclick="openVIP()" class="w-full bg-amber-400 text-amber-900 py-4 rounded-2xl font-black uppercase text-xs shadow-xl shadow-amber-500/20">Desbloquear Agora</button>
+                </div>
+            </div>
+        </div>
 
     </main>
 
     <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-100 flex justify-around p-5 z-50 rounded-t-[35px] shadow-2xl">
-        <div class="flex flex-col items-center text-sky-500"><span class="text-2xl">⚽</span><p class="text-[9px] font-black uppercase">Tips</p></div>
-        <div class="flex flex-col items-center text-slate-300"><span class="text-2xl">📈</span><p class="text-[9px] font-black uppercase">Sinais</p></div>
-        <div class="flex flex-col items-center text-slate-300"><span class="text-2xl">🎁</span><p class="text-[9px] font-black uppercase">Bônus</p></div>
+        <div class="flex flex-col items-center text-sky-500"><span class="text-2xl">🏟️</span><p class="text-[8px] font-black uppercase">Esportes</p></div>
+        <div class="flex flex-col items-center text-slate-300"><span class="text-2xl">💎</span><p class="text-[8px] font-black uppercase">VIP</p></div>
+        <div class="flex flex-col items-center text-slate-300"><span class="text-2xl">👤</span><p class="text-[8px] font-black uppercase">Perfil</p></div>
     </nav>
 
     <script>
-        function calcular() {
-            const m = document.getElementById('meta').value;
-            const o = document.getElementById('oddMeta').value;
-            const res = document.getElementById('resCalc');
-            if(m && o) {
-                const valor = (m / (o - 1)).toFixed(2);
-                res.innerHTML = `Para ganhar R$ ${m}, você deve apostar R$ ${valor}`;
+        function calcBanca() {
+            const v = document.getElementById('vlr').value;
+            const res = document.getElementById('resBanca');
+            if(v) {
+                const stake = (v * 0.03).toFixed(2);
+                res.innerHTML = `Sua entrada segura (3%): R$ ${stake}`;
                 res.classList.remove('hidden');
             }
         }
-
-        const matches = [
-            { h: "Barcelona", hCol: "#A50044", a: "Real Madrid", aCol: "#1C355E", league: "La Liga", tip: "Vitória Casa", odd: "1.90" },
-            { h: "Man City", hCol: "#6CABDD", a: "Liverpool", aCol: "#C8102E", league: "Premier League", tip: "Ambos Marcam", odd: "1.65" }
-        ];
-
-        document.getElementById('prediction-list').innerHTML = matches.map(m => `
-            <div class="bg-white rounded-[35px] p-7 border border-sky-50 card-shadow">
-                <p class="text-[9px] font-black text-slate-300 uppercase mb-5 tracking-[2px] text-center">${m.league}</p>
-                <div class="flex items-center justify-between mb-6">
-                    <div class="flex flex-col items-center gap-2 flex-1">
-                        <div class="team-badge" style="background:${m.hCol}">${m.h[0]}</div>
-                        <p class="text-[10px] font-black text-slate-700">${m.h}</p>
-                    </div>
-                    <div class="text-[10px] font-black text-slate-200">VS</div>
-                    <div class="flex flex-col items-center gap-2 flex-1">
-                        <div class="team-badge" style="background:${m.aCol}">${m.a[0]}</div>
-                        <p class="text-[10px] font-black text-slate-700">${m.a}</p>
-                    </div>
-                </div>
-                <div class="bg-slate-50 rounded-2xl p-4 flex justify-between items-center">
-                    <span class="text-[10px] font-black text-slate-400 uppercase">Sugestão</span>
-                    <span class="text-sm font-black ${m.tip.includes('Vitória') ? 'text-green-500' : 'text-slate-900'}">${m.tip}</span>
-                    <span class="text-lg font-black text-slate-900">@${m.odd}</span>
-                </div>
-            </div>
-        `).join('');
+        function openVIP() {
+            alert("Redirecionando para o Checkout de Assinatura... (Aqui você coloca seu link de pagamento)");
+        }
     </script>
 </body>
 </html>
