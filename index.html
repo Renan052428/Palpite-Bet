@@ -8,51 +8,88 @@
     <style>
         body { font-family: -apple-system, system-ui, sans-serif; -webkit-tap-highlight-color: transparent; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
-        .main-container { max-width: 450px; margin: 0 auto; }
+        .btn-glow { animation: shadow-pulse 2s infinite; }
+        @keyframes shadow-pulse {
+            0% { box-shadow: 0 0 0 0px rgba(219, 39, 119, 0.4); }
+            100% { box-shadow: 0 0 0 15px rgba(219, 39, 119, 0); }
+        }
     </style>
 </head>
 <body class="bg-slate-50 pb-24">
 
-    <header class="bg-gradient-to-r from-pink-600 to-purple-700 text-white p-6 sticky top-0 z-50 shadow-md">
-        <div class="main-container flex justify-between items-center">
+    <header class="bg-gradient-to-r from-pink-600 to-purple-700 text-white p-6 sticky top-0 z-50 shadow-lg">
+        <div class="max-w-md mx-auto flex justify-between items-center">
             <h1 class="text-xl font-black italic tracking-tighter uppercase">PalpiteBet</h1>
-            <div class="flex gap-4"><span>🔍</span><span>👤</span></div>
+            <div class="flex gap-4"><span class="text-xl">🔍</span><span class="text-xl">👤</span></div>
         </div>
-        <div class="main-container mt-5 flex gap-6 overflow-x-auto no-scrollbar text-[10px] font-bold uppercase whitespace-nowrap opacity-90">
-            <div class="flex flex-col items-center border-b-2 border-white pb-1"><span>HOJE</span></div>
-            <div class="flex flex-col items-center opacity-40"><span>AMANHÃ</span></div>
-            <div class="flex flex-col items-center opacity-40"><span>SEX</span></div>
-            <div class="flex flex-col items-center opacity-40"><span>SÁB</span></div>
+        
+        <div class="max-w-md mx-auto mt-5 flex gap-6 overflow-x-auto no-scrollbar text-[10px] font-bold uppercase whitespace-nowrap">
+            <div class="flex flex-col items-center border-b-2 border-white pb-1"><span>HOJE</span><span>08.04</span></div>
+            <div class="flex flex-col items-center opacity-40"><span>AMANHÃ</span><span>09.04</span></div>
+            <div class="flex flex-col items-center opacity-40"><span>SEX</span><span>10.04</span></div>
+            <div class="flex flex-col items-center opacity-40"><span>SÁB</span><span>11.04</span></div>
         </div>
     </header>
 
-    <main class="main-container p-4 space-y-6">
+    <main class="max-w-md mx-auto p-4 space-y-6">
         
         <section class="bg-white rounded-[32px] p-6 shadow-sm border border-slate-100">
             <div class="flex justify-between items-center mb-4">
-                <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Sugestão VIP</span>
+                <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Dica de Hoje</span>
                 <span class="bg-green-100 text-green-600 text-[10px] px-3 py-1 rounded-full font-black">94% CONF.</span>
             </div>
-            <h2 class="font-bold text-slate-800 text-center text-xl mb-4">Real Madrid vs Man. City</h2>
-            <div class="bg-pink-50 rounded-2xl p-5 flex justify-between items-center border border-pink-100 text-pink-600">
-                <span class="font-bold text-lg">Mais de 2.5 Gols</span>
+            
+            <div class="text-center mb-6">
+                <p class="text-[10px] text-pink-500 font-bold uppercase mb-1">Champions League</p>
+                <h2 class="font-bold text-slate-800 text-xl">Real Madrid vs Man. City</h2>
+            </div>
+            
+            <div class="bg-pink-50 rounded-2xl p-5 flex justify-between items-center border border-pink-100">
+                <span class="font-bold text-pink-600 text-lg">Mais de 2.5 Gols</span>
                 <span class="font-black text-slate-900 text-2xl">1.72</span>
             </div>
         </section>
 
         <section class="space-y-4">
-            <h3 class="text-[11px] font-bold text-slate-400 uppercase tracking-widest px-1">Placares ao Vivo</h3>
+            <h3 class="text-[11px] font-bold text-slate-400 uppercase tracking-widest px-1">Resultados e Ao Vivo</h3>
             
-            <div class="bg-white rounded-[28px] shadow-md border border-slate-200 overflow-hidden" style="min-height: 800px;">
-                <iframe src="https://www.livescore.in/pt/free/widgets/live/?type=event&fixed_height=800&containerId=ls-widget&theme=light" width="100%" height="800" frameborder="0"></iframe>
-            </div>
+            <a href="https://m.flashscore.com.br/" target="_blank" class="block bg-white p-5 rounded-[24px] border border-slate-200 shadow-sm hover:bg-slate-50 transition-all">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <span class="text-2xl">⚽</span>
+                        <div>
+                            <p class="font-bold text-slate-800">Ver Jogos de Hoje</p>
+                            <p class="text-xs text-slate-500 text-[10px]">Acompanhe todos os placares</p>
+                        </div>
+                    </div>
+                    <span class="text-slate-300">➜</span>
+                </div>
+            </a>
+
+            <a href="https://m.flashscore.com.br/?s=2" target="_blank" class="block bg-white p-5 rounded-[24px] border-2 border-pink-500 shadow-sm btn-glow transition-all">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <span class="text-2xl animate-pulse">📡</span>
+                        <div>
+                            <p class="font-bold text-pink-600 uppercase italic">Acompanhar Ao Vivo</p>
+                            <p class="text-xs text-pink-400 text-[10px]">Resultados em tempo real</p>
+                        </div>
+                    </div>
+                    <span class="text-pink-600 text-xl font-bold">●</span>
+                </div>
+            </a>
         </section>
+
+        <div class="bg-slate-800 rounded-[24px] p-5 text-white">
+            <p class="text-[10px] font-bold uppercase text-slate-400 mb-2">Como usar o app</p>
+            <p class="text-xs leading-relaxed opacity-80">Clique nos botões acima para ver os placares. Como somos uma plataforma de palpite, usamos os melhores servidores de resultados do mundo para você não perder nada.</p>
+        </div>
 
     </main>
 
-    <nav class="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-slate-100 flex justify-around p-4 z-50">
-        <div class="flex flex-col items-center text-pink-600"><span class="text-2xl">🏠</span><span class="text-[9px] font-bold uppercase text-pink-600">Início</span></div>
-        <div class="flex flex-col items-center text-slate-300"><span class="text-2xl">📡</span><span class="text-[9px] font-bold uppercase">Ao Vivo</span></div>
+    <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-100 flex justify-around p-4 z-50">
+        <div class="flex flex-col items-center text-pink-600"><span class="text-2xl">🏠</span><span class="text-[9px] font-bold uppercase">Início</span></div>
+        <div class="flex flex-col items-center text-slate-300"><span class="text-2xl">⭐</span><span class="text-[9px] font-bold uppercase">Favoritos</span></div>
         <div class="flex flex-col items-center text-slate-300"><span class="text-2xl">🏆</span><span class="text-[9px] font-bold uppercase">Ligas</span></div>
     </nav>
 
