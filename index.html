@@ -3,15 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PalpiteBet Pro - VIP</title>
+    <title>PalpiteBet Elite - VIP</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { font-family: -apple-system, sans-serif; background: #F8FAFC; color: #1e293b; }
-        .card-shadow { box-shadow: 0 10px 30px -5px rgba(0, 100, 255, 0.06); }
+        body { font-family: -apple-system, sans-serif; background: #F8FAFC; color: #1e293b; -webkit-tap-highlight-color: transparent; }
+        .card-shadow { box-shadow: 0 15px 35px -5px rgba(0, 100, 255, 0.08); }
         .pix-btn { background: linear-gradient(135deg, #0ea5e9 0%, #0369a1 100%); }
         .no-scrollbar::-webkit-scrollbar { display: none; }
-        /* Garante que o escudo apareça centralizado e visível */
-        .img-container { width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; background: white; border-radius: 12px; }
+        .team-logo { width: 52px; height: 52px; object-fit: contain; background: white; border-radius: 50%; padding: 4px; border: 1px solid #f1f5f9; }
     </style>
 </head>
 <body class="pb-32">
@@ -19,70 +18,83 @@
     <header class="bg-white p-6 sticky top-0 z-50 border-b border-sky-100 rounded-b-[40px] shadow-sm flex justify-between items-center">
         <div class="flex flex-col">
             <h1 class="text-2xl font-black italic text-slate-900 uppercase leading-none">Palpite<span class="text-sky-500">Bet</span></h1>
-            <p class="text-[9px] font-black text-sky-400 uppercase tracking-widest mt-1">Sinais VIP Liberados</p>
+            <p class="text-[9px] font-black text-sky-400 uppercase tracking-widest mt-1">Estatísticas Avançadas</p>
         </div>
-        <a href="https://pay.kiwify.com.br/mj9n838" class="pix-btn text-white px-5 py-2.5 rounded-2xl text-[10px] font-black shadow-lg">VIP R$ 9,99</a>
+        <a href="https://pay.kiwify.com.br/mj9n838" class="pix-btn text-white px-5 py-2.5 rounded-2xl text-[10px] font-black shadow-lg shadow-sky-200 active:scale-95 transition-all">
+            VIP R$ 9,99
+        </a>
     </header>
 
-    <main class="max-w-md mx-auto p-4 space-y-6">
-        
+    <nav class="bg-white/90 backdrop-blur-md sticky top-[84px] z-40 overflow-x-auto no-scrollbar flex gap-4 px-6 py-4 border-b border-slate-50">
+        <button class="bg-sky-500 text-white text-[10px] font-black uppercase px-6 py-2 rounded-full whitespace-nowrap">⚽ Futebol</button>
+        <button class="bg-slate-100 text-slate-400 text-[10px] font-black uppercase px-6 py-2 rounded-full whitespace-nowrap">🏀 NBA</button>
+        <button class="bg-slate-100 text-slate-400 text-[10px] font-black uppercase px-6 py-2 rounded-full whitespace-nowrap">🥊 UFC</button>
+        <button class="bg-slate-100 text-slate-400 text-[10px] font-black uppercase px-6 py-2 rounded-full whitespace-nowrap">🎯 Props</button>
+    </nav>
+
+    <main class="max-w-md mx-auto p-5 space-y-8">
+
         <div id="games-feed" class="space-y-6">
             </div>
 
-        <div class="bg-slate-900 rounded-[40px] p-8 text-white text-center shadow-2xl">
-            <p class="text-sky-400 text-[10px] font-black uppercase mb-2">Acesso Vitalício</p>
-            <h4 class="text-xl font-black mb-6 italic uppercase">Não perca nenhum Green</h4>
-            <a href="https://pay.kiwify.com.br/mj9n838" class="block w-full bg-white text-slate-900 py-4 rounded-2xl font-black uppercase text-[11px]">Liberar Grade Completa</a>
+        <div class="bg-slate-900 rounded-[40px] p-8 text-white card-shadow relative overflow-hidden text-center">
+            <h4 class="text-xl font-black mb-1 uppercase italic">Scanner VIP Pro</h4>
+            <p class="text-[10px] opacity-60 font-bold mb-6 uppercase tracking-widest leading-relaxed">Libere as análises de jogadores e escanteios agora.</p>
+            <a href="https://pay.kiwify.com.br/mj9n838" class="block w-full bg-sky-500 text-white py-4 rounded-2xl font-black uppercase text-[11px] shadow-lg">Comprar Acesso VIP</a>
         </div>
+
     </main>
 
     <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-sky-50 flex justify-around p-6 z-50 rounded-t-[40px] shadow-2xl">
-        <div class="flex flex-col items-center gap-1 text-sky-600 font-black text-[9px] uppercase"><span>⚡</span>TIPS</div>
-        <a href="https://pay.kiwify.com.br/mj9n838" class="flex flex-col items-center gap-1 text-slate-300 font-black text-[9px] uppercase"><span>💰</span>VIP PIX</a>
-        <div class="flex flex-col items-center gap-1 text-slate-300 font-black text-[9px] uppercase"><span>👤</span>PAINEL</div>
+        <div class="flex flex-col items-center gap-1 text-sky-600 font-black text-[9px] uppercase"><span class="text-2xl">⚡</span>Tips</div>
+        <a href="https://pay.kiwify.com.br/mj9n838" class="flex flex-col items-center gap-1 text-slate-300 font-black text-[9px] uppercase"><span class="text-2xl">💰</span>VIP Pix</a>
+        <div class="flex flex-col items-center gap-1 text-slate-300 font-black text-[9px] uppercase"><span class="text-2xl">👤</span>Painel</div>
     </nav>
 
     <script>
-        // Usei uma URL de imagem que o GitHub Pages aceita melhor
+        // Sistema de Escudos Estáveis
         const getLogo = (id) => `https://api.sofascore.app/api/v1/team/${id}/image`;
 
         const matches = [
-            { h: "Real Madrid", a: "Man. City", l: "Champions League", t: "Vitória Casa", o: "1.95", idH: "86", idA: "50" },
-            { h: "Flamengo", a: "Palmeiras", l: "Brasileirão", t: "Ambos Marcam", o: "1.80", idH: "5981", idA: "1053" },
-            { h: "Arsenal", a: "Bayern", l: "Champions League", t: "Vitória Casa", o: "1.72", idH: "42", idA: "81" },
-            { h: "Lakers", a: "Warriors", l: "NBA", t: "Vencedor: Lakers", o: "1.85", idH: "3427", idA: "3428" },
-            { h: "Chelsea", a: "Man. Utd", l: "Premier League", t: "Ambos Marcam", o: "1.65", idH: "38", idA: "35" },
-            { h: "Barcelona", a: "PSG", l: "Champions League", t: "Vitória Casa", o: "2.10", idH: "83", idA: "524" },
-            { h: "Liverpool", a: "Real Madrid", l: "Champions League", t: "Vitória Visitante", o: "2.35", idH: "44", idA: "86" },
-            { h: "Atlético-MG", a: "River Plate", l: "Libertadores", t: "Vitória Casa", o: "1.90", idH: "1029", idA: "1108" },
-            { h: "Inter", a: "Milan", l: "Série A Tim", t: "Ambos Marcam", o: "1.78", idH: "2697", idA: "2692" },
-            { h: "Dortmund", a: "Atl. Madrid", l: "Champions League", t: "Vitória Mandante", o: "2.20", idH: "2673", idA: "2836" }
+            { h: "Real Madrid", a: "Man City", l: "Champions League", t: "Mais 9.5 Escanteios", o: "1.85", idH: "86", idA: "50", sport: "⚽", color: "text-green-600" },
+            { h: "Haaland (Man City)", a: "Real Madrid", l: "Player Props", t: "2+ Chutes ao Gol", o: "1.70", idH: "50", idA: "86", sport: "🎯", color: "text-black" },
+            { h: "Flamengo", a: "Palmeiras", l: "Brasileirão", t: "Mais 10.5 Escanteios", o: "1.90", idH: "5981", idA: "1053", sport: "⚽", color: "text-green-600" },
+            { h: "Vini Jr (Real)", a: "Man City", l: "Player Props", t: "1+ Finalização no Gol", o: "1.55", idH: "86", idA: "50", sport: "🎯", color: "text-black" },
+            { h: "Lakers", a: "Warriors", l: "NBA", t: "LeBron James 25+ Pontos", o: "1.82", idH: "3427", idA: "3428", sport: "🏀", color: "text-black" },
+            { h: "Arsenal", a: "Bayern", l: "Champions League", t: "Vitória Casa", o: "1.72", idH: "42", idA: "81", sport: "⚽", color: "text-green-600" },
+            { h: "Liverpool", a: "Chelsea", l: "Premier League", t: "Salah 3+ Chutes", o: "1.65", idH: "44", idA: "38", sport: "🎯", color: "text-black" },
+            { h: "Barcelona", a: "PSG", l: "Champions League", t: "Mais 8.5 Escanteios", o: "1.75", idH: "83", idA: "524", sport: "⚽", color: "text-green-600" },
+            { h: "UFC 300", a: "Poatan vs Hill", l: "MMA", t: "Vitória Poatan", o: "1.60", idH: "394747", idA: "254427", sport: "🥊", color: "text-green-600" },
+            { h: "Inter", a: "Milan", l: "Série A", t: "Ambos Marcam", o: "1.80", idH: "2697", idA: "2692", sport: "⚽", color: "text-black" },
+            { h: "Grêmio", a: "Inter", l: "Gauchão", t: "Mais 9.5 Escanteios", o: "1.85", idH: "5981", idA: "2697", sport: "⚽", color: "text-green-600" },
+            { h: "Celtics", a: "Bulls", l: "NBA", t: "Tatum 3+ Triplos", o: "2.10", idH: "3427", idA: "3428", sport: "🏀", color: "text-black" }
         ];
 
         document.getElementById('games-feed').innerHTML = matches.map(m => `
-            <div class="bg-white rounded-[40px] p-8 border border-sky-50 card-shadow">
-                <p class="text-[9px] font-black text-slate-200 uppercase mb-6 tracking-[3px] text-center italic">${m.l}</p>
+            <div class="bg-white rounded-[40px] p-7 border border-sky-50 card-shadow">
+                <div class="flex justify-between items-center mb-5">
+                    <span class="text-[9px] font-black text-slate-200 uppercase tracking-widest">${m.sport} ${m.l}</span>
+                    <span class="text-[9px] font-black text-sky-500 italic">ANALISADO</span>
+                </div>
+                
                 <div class="flex items-center justify-between mb-8">
-                    <div class="flex flex-col items-center gap-3 flex-1">
-                        <div class="img-container">
-                            <img src="${getLogo(m.idH)}" class="w-10 h-10 object-contain">
-                        </div>
+                    <div class="flex flex-col items-center gap-2 flex-1">
+                        <img src="${getLogo(m.idH)}" onerror="this.src='https://ui-avatars.com/api/?name=${m.h}&background=0ea5e9&color=fff'" class="team-logo">
                         <p class="text-[10px] font-black text-slate-800 uppercase text-center leading-tight">${m.h}</p>
                     </div>
                     <div class="text-[10px] font-black text-slate-100 italic px-2">VS</div>
-                    <div class="flex flex-col items-center gap-3 flex-1">
-                        <div class="img-container">
-                            <img src="${getLogo(m.idA)}" class="w-10 h-10 object-contain">
-                        </div>
+                    <div class="flex flex-col items-center gap-2 flex-1">
+                        <img src="${getLogo(m.idA)}" onerror="this.src='https://ui-avatars.com/api/?name=${m.a}&background=0ea5e9&color=fff'" class="team-logo">
                         <p class="text-[10px] font-black text-slate-800 uppercase text-center leading-tight">${m.a}</p>
                     </div>
                 </div>
+
                 <div class="bg-sky-50 rounded-3xl p-5 flex justify-between items-center border border-sky-100">
                     <div class="flex flex-col">
-                        <p class="text-[8px] text-sky-400 font-black uppercase mb-1">Palpite AI</p>
-                        <p class="text-[11px] uppercase font-black ${m.t.includes('Vitória') ? 'text-green-600' : 'text-slate-900'}">${m.t}</p>
+                        <p class="text-[8px] text-sky-400 font-black uppercase mb-1">Mercado AI</p>
+                        <p class="text-xs uppercase font-black ${m.color}">${m.t}</p>
                     </div>
-                    <span class="text-2xl font-black text-slate-900 tracking-tighter leading-none">@${m.o}</span>
+                    <span class="text-2xl font-black text-slate-900 tracking-tighter">@${m.o}</span>
                 </div>
             </div>
         `).join('');
