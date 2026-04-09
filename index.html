@@ -3,207 +3,167 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PalpiteBet Global</title>
+    <title>PalpiteBet - Estatísticas e Dicas</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background: #F4F7F9; color: #1A1C1E; overflow-y: auto !important; height: auto !important; }
+        body { font-family: 'Inter', sans-serif; background: #F4F7F9; color: #1A1C1E; -webkit-tap-highlight-color: transparent; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         
-        /* Estilo Calendário */
-        .date-btn { color: #8E9194; font-weight: 800; text-align: center; min-width: 60px; cursor: pointer; }
+        /* Calendário Estilo Flashscore */
+        .date-btn { color: #8E9194; font-weight: 800; text-align: center; min-width: 60px; cursor: pointer; transition: 0.2s; }
         .date-btn.active { color: #000; position: relative; }
-        .date-btn.active::after { content: ''; position: absolute; bottom: -8px; left: 25%; width: 50%; height: 3px; background: #EF4444; border-radius: 2px; }
+        .date-btn.active::after { content: ''; position: absolute; bottom: -5px; left: 25%; width: 50%; height: 3px; background: #EF4444; border-radius: 2px; }
 
         /* Estilo Liga */
-        .league-row { background: #FFF; border-radius: 12px; border-left: 4px solid #0EA5E9; padding: 12px 15px; display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+        .league-row { background: #FFF; border-radius: 12px; border-left: 4px solid #0EA5E9; padding: 10px 15px; display: flex; align-items: center; gap: 8px; margin-top: 15px; }
 
         /* Card de Jogo */
-        .match-card { background: #FFF; border-radius: 20px; padding: 18px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
+        .match-card { background: #FFF; border-radius: 20px; padding: 16px; margin-top: 8px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 8px rgba(0,0,0,0.02); cursor: pointer; }
         .team-logo { width: 22px; height: 22px; object-fit: contain; }
         
-        /* Modal de Carregamento Pix */
-        #loader { display: none; position: fixed; inset: 0; background: rgba(255,255,255,0.9); z-index: 1000; flex-direction: column; align-items: center; justify-content: center; }
-        .spinner { border: 4px solid #f3f3f3; border-top: 4px solid #0ea5e9; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; }
+        /* Loader Neutro */
+        #loader { display: none; position: fixed; inset: 0; background: rgba(255,255,255,0.95); z-index: 1000; flex-direction: column; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
+        .spinner { border: 3px solid #f3f3f3; border-top: 3px solid #0ea5e9; border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* Modal Cadastro Rápido */
+        #auth-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 2000; align-items: center; justify-content: center; padding: 20px; }
     </style>
 </head>
 <body class="pb-32">
 
     <div id="loader">
-        <div class="spinner mb-4"></div>
-        <p class="text-[10px] font-black uppercase tracking-widest text-slate-500">Processando com a Casa de Apostas...</p>
+        <div class="spinner mb-3"></div>
+        <p class="text-[9px] font-black uppercase tracking-widest text-slate-400">Gerando Palpite de Alta Confiança...</p>
     </div>
 
     <header class="bg-white px-5 py-5 sticky top-0 z-50 border-b border-slate-100 flex justify-between items-center">
         <div>
             <h1 class="text-xl font-black italic tracking-tighter uppercase">Palpite<span class="text-sky-500">Bet</span></h1>
-            <p class="text-[8px] font-black text-sky-400 uppercase tracking-widest">Global Intelligence</p>
+            <p class="text-[8px] font-black text-sky-400 uppercase tracking-widest">Dicas e Estatísticas VIP</p>
         </div>
-        <button onclick="goToPix()" class="bg-sky-500 text-white px-4 py-2.5 rounded-xl text-[10px] font-black uppercase shadow-lg shadow-sky-100">Acesso VIP</button>
+        <button onclick="openPix()" class="bg-sky-500 text-white px-4 py-2.5 rounded-xl text-[10px] font-black uppercase shadow-lg shadow-sky-100">Acesso VIP</button>
     </header>
 
-    <div class="p-4 bg-white border-b border-slate-50">
-        <div class="bg-slate-50 rounded-[25px] p-5 border border-slate-100">
+    <div class="p-4">
+        <div class="bg-white rounded-[25px] p-5 border border-slate-50 shadow-sm">
             <div class="flex items-center gap-2 mb-3">
                 <span class="text-xs">🔎</span>
-                <span class="text-[9px] font-black text-slate-400 uppercase tracking-tighter">Scanner de Bilhetes (Todos os Esportes)</span>
+                <span class="text-[9px] font-black text-slate-400 uppercase">Scanner de Probabilidades AI</span>
             </div>
             <div class="flex gap-2">
-                <input id="ticketInput" type="text" placeholder="Cole o código do bilhete aqui..." class="flex-1 bg-white border border-slate-200 p-3 rounded-xl text-xs font-bold outline-none">
-                <button onclick="goToPix()" class="bg-slate-900 text-white px-5 rounded-xl font-black text-[9px] uppercase italic">Analisar</button>
+                <input id="ticketInput" type="text" placeholder="Cole o código do seu bilhete..." class="flex-1 bg-slate-50 border border-slate-100 p-3 rounded-xl text-xs font-bold outline-none">
+                <button onclick="openPix()" class="bg-slate-900 text-white px-5 rounded-xl font-black text-[9px] uppercase italic">Analisar</button>
             </div>
         </div>
     </div>
 
-    <nav class="bg-white border-b border-slate-100 overflow-x-auto no-scrollbar flex py-3 px-4 gap-4">
-        <div class="date-btn">
-            <div class="text-[7px] uppercase">Ter</div>
-            <div class="text-[11px]">07.04</div>
-        </div>
-        <div class="date-btn">
-            <div class="text-[7px] uppercase">Qua</div>
-            <div class="text-[11px]">08.04</div>
-        </div>
-        <div class="date-btn active">
-            <div class="text-[7px] uppercase text-red-500 font-black italic">Hoje</div>
-            <div class="text-[11px]">09.04</div>
-        </div>
-        <div class="date-btn">
-            <div class="text-[7px] uppercase">Sex</div>
-            <div class="text-[11px]">10.04</div>
-        </div>
-        <div class="date-btn">
-            <div class="text-[7px] uppercase">Sáb</div>
-            <div class="text-[11px]">11.04</div>
-        </div>
-        <div class="date-btn">
-            <div class="text-[7px] uppercase">Dom</div>
-            <div class="text-[11px]">12.04</div>
-        </div>
+    <nav class="bg-white border-b border-slate-100 overflow-x-auto no-scrollbar flex py-3 px-4 gap-5">
+        <div class="date-btn"><div>TER</div><div class="text-[11px]">07.04</div></div>
+        <div class="date-btn"><div>QUA</div><div class="text-[11px]">08.04</div></div>
+        <div class="date-btn active"><div class="text-red-500 italic">HOJE</div><div class="text-[11px]">09.04</div></div>
+        <div class="date-btn"><div>SEX</div><div class="text-[11px]">10.04</div></div>
+        <div class="date-btn"><div>SÁB</div><div class="text-[11px]">11.04</div></div>
+        <div class="date-btn"><div>DOM</div><div class="text-[11px]">12.04</div></div>
     </nav>
 
-    <div class="flex gap-3 p-4 overflow-x-auto no-scrollbar bg-slate-50/50">
-        <button onclick="renderAll('Futebol')" class="bg-sky-500 text-white text-[9px] font-black uppercase px-6 py-2.5 rounded-full shadow-md">⚽ Futebol</button>
-        <button onclick="renderAll('NBA')" class="bg-white text-slate-400 border border-slate-200 text-[9px] font-black uppercase px-6 py-2.5 rounded-full">🏀 Basquete</button>
-        <button onclick="renderAll('Tênis')" class="bg-white text-slate-400 border border-slate-200 text-[9px] font-black uppercase px-6 py-2.5 rounded-full">🎾 Tênis</button>
-        <button onclick="renderAll('Vôlei')" class="bg-white text-slate-400 border border-slate-200 text-[9px] font-black uppercase px-6 py-2.5 rounded-full">🏐 Vôlei</button>
-        <button onclick="renderAll('MMA')" class="bg-white text-slate-400 border border-slate-200 text-[9px] font-black uppercase px-6 py-2.5 rounded-full">🥊 MMA</button>
-        <button onclick="renderAll('Futsal')" class="bg-white text-slate-400 border border-slate-200 text-[9px] font-black uppercase px-6 py-2.5 rounded-full">👟 Futsal</button>
-        <button onclick="renderAll('E-Sports')" class="bg-white text-slate-400 border border-slate-200 text-[9px] font-black uppercase px-6 py-2.5 rounded-full">🎮 E-Sports</button>
+    <div class="flex gap-2 p-4 overflow-x-auto no-scrollbar">
+        <button class="bg-sky-500 text-white text-[9px] font-black uppercase px-6 py-2.5 rounded-full">⚽ Futebol</button>
+        <button class="bg-white text-slate-400 border border-slate-200 text-[9px] font-black uppercase px-6 py-2.5 rounded-full">🏀 Basquete</button>
+        <button class="bg-white text-slate-400 border border-slate-200 text-[9px] font-black uppercase px-6 py-2.5 rounded-full">🎾 Tênis</button>
+        <button class="bg-white text-slate-400 border border-slate-200 text-[9px] font-black uppercase px-6 py-2.5 rounded-full">🏐 Vôlei</button>
     </div>
 
-    <main class="px-4 py-2 space-y-6" id="games-feed">
+    <main class="px-4" id="games-feed">
         </main>
 
-    <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-100 flex justify-around p-5 z-50 rounded-t-[35px] shadow-[0_-10px_30px_rgba(0,0,0,0.05)]">
+    <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-100 flex justify-around p-5 z-50 rounded-t-[30px] shadow-xl">
         <div class="flex flex-col items-center gap-1 text-red-500 font-black text-[9px] uppercase">
             <span class="text-xl">🏠</span>Hoje
         </div>
-        <div onclick="goToPix()" class="flex flex-col items-center gap-1 text-slate-300 font-black text-[9px] uppercase cursor-pointer">
+        <div onclick="openPix()" class="flex flex-col items-center gap-1 text-slate-300 font-black text-[9px] uppercase">
             <span class="text-xl opacity-30">📡</span>Ao Vivo
         </div>
-        <div onclick="goToPix()" class="flex flex-col items-center gap-1 text-slate-300 font-black text-[9px] uppercase cursor-pointer">
-            <span class="text-xl opacity-30">⭐</span>Favoritos
-        </div>
-        <div onclick="goToPix()" class="flex flex-col items-center gap-1 text-slate-300 font-black text-[9px] uppercase cursor-pointer">
+        <div onclick="openPix()" class="flex flex-col items-center gap-1 text-slate-300 font-black text-[9px] uppercase">
             <span class="text-xl opacity-30">👤</span>Perfil
         </div>
     </nav>
 
+    <div id="auth-modal">
+        <div class="bg-white w-full max-w-xs rounded-[35px] p-8 text-center shadow-2xl">
+            <h4 class="text-lg font-black text-slate-900 uppercase italic">Acesso Rápido</h4>
+            <p class="text-[10px] text-slate-400 font-bold mb-6">Informe seu nome para liberar as dicas.</p>
+            <input type="text" id="userName" placeholder="Seu Nome" class="w-full bg-slate-50 border border-slate-100 p-4 rounded-2xl text-xs font-bold outline-none mb-4">
+            <button onclick="finalizeAuth()" class="w-full bg-sky-500 text-white py-4 rounded-2xl font-black text-[11px] uppercase shadow-lg">Entrar e Ver Palpites</button>
+        </div>
+    </div>
+
     <script>
-        // REDIRECIONAMENTO PIX
-        function goToPix() {
-            document.getElementById('loader').style.display = 'flex';
-            setTimeout(() => {
-                window.location.href = "https://pay.kiwify.com.br/mj9n838";
-            }, 1200);
+        let authenticated = false;
+        const checkoutUrl = "https://pay.kiwify.com.br/mj9n838";
+
+        function openPix() {
+            if(!authenticated) {
+                document.getElementById('auth-modal').style.display = 'flex';
+            } else {
+                document.getElementById('loader').style.display = 'flex';
+                setTimeout(() => { window.location.href = checkoutUrl; }, 1000);
+            }
         }
 
-        const getLogo = (name) => `https://www.google.com/s2/favicons?domain=${name.toLowerCase().replace(/ /g, '')}.com&sz=128`;
-        const getLogoFallback = (name) => `https://ui-avatars.com/api/?name=${name}&background=f1f5f9&color=0ea5e9&bold=true`;
+        function finalizeAuth() {
+            if(document.getElementById('userName').value.length < 3) return alert("Digite seu nome.");
+            authenticated = true;
+            document.getElementById('auth-modal').style.display = 'none';
+            openPix(); // Já redireciona após o nome
+        }
 
-        // BANCO DE DADOS EXPANDIDO (SIMULANDO TODOS OS ESPORTES)
-        const database = [
-            {
-                category: "Futebol",
-                leagues: [
-                    { name: "CONMEBOL LIBERTADORES", icon: "🌎", matches: [
-                        { h: "Flamengo", a: "Palestino", o: "1.25" },
-                        { h: "Atlético-MG", a: "Rosario", o: "1.60" },
-                        { h: "São Paulo", a: "Cobresal", o: "1.35" }
-                    ]},
-                    { name: "UEFA CHAMPIONS LEAGUE", icon: "🇪🇺", matches: [
-                        { h: "Real Madrid", a: "Man City", o: "2.10" },
-                        { h: "Arsenal", a: "Bayern", o: "1.75" }
-                    ]},
-                    { name: "PREMIER LEAGUE", icon: "🏴󠁧󠁢󠁥󠁮󠁧󠁿", matches: [
-                        { h: "Liverpool", a: "Crystal Palace", o: "1.20" },
-                        { h: "Arsenal", a: "Aston Villa", o: "1.30" }
-                    ]}
-                ]
-            },
-            {
-                category: "NBA",
-                leagues: [
-                    { name: "NBA - USA", icon: "🏀", matches: [
-                        { h: "Lakers", a: "Warriors", o: "1.85" },
-                        { h: "Celtics", a: "Bucks", o: "1.55" },
-                        { h: "Nuggets", a: "Suns", o: "1.65" }
-                    ]}
-                ]
-            },
-            {
-                category: "MMA",
-                leagues: [
-                    { name: "UFC 300", icon: "🥊", matches: [
-                        { h: "Alex Poatan", a: "Jamahal Hill", o: "1.70" },
-                        { h: "Charles Do Bronx", a: "Arman Tsarukyan", o: "2.50" }
-                    ]}
-                ]
-            }
+        const data = [
+            { league: "COPA LIBERTADORES", icon: "🌎", games: [
+                { h: "Flamengo", a: "Palestino", o: "1.25" },
+                { h: "Atlético-MG", a: "Rosario", o: "1.60" },
+                { h: "São Paulo", a: "Cobresal", o: "1.35" }
+            ]},
+            { league: "CHAMPIONS LEAGUE", icon: "🇪🇺", games: [
+                { h: "Real Madrid", a: "Man City", o: "2.10" },
+                { h: "Arsenal", a: "Bayern", o: "1.75" }
+            ]},
+            { league: "BRASILEIRÃO SÉRIE A", icon: "🇧🇷", games: [
+                { h: "Palmeiras", a: "Vasco", o: "1.45" },
+                { h: "Grêmio", a: "Bahia", o: "1.90" }
+            ]}
         ];
 
-        function renderAll(filter = 'Futebol') {
+        function render() {
             const feed = document.getElementById('games-feed');
-            let html = '';
-            
-            const selected = database.filter(d => filter === 'Todas' || d.category.includes(filter) || filter === 'Futebol');
-
-            selected.forEach(cat => {
-                cat.leagues.forEach(lg => {
-                    html += `
-                        <div class="space-y-2">
-                            <div class="league-row">
-                                <span class="text-xs">${lg.icon}</span>
-                                <span class="text-[9px] font-black text-slate-500 uppercase tracking-widest">${lg.name}</span>
+            feed.innerHTML = data.map(lg => `
+                <div class="league-row">
+                    <span class="text-xs">${lg.icon}</span>
+                    <span class="text-[9px] font-black text-slate-500 tracking-widest uppercase">${lg.league}</span>
+                </div>
+                ${lg.games.map(m => `
+                    <div class="match-card" onclick="openPix()">
+                        <div class="space-y-3 flex-1">
+                            <div class="flex items-center gap-3">
+                                <div class="w-1.5 h-1.5 bg-slate-200 rounded-full"></div>
+                                <span class="text-[11px] font-black uppercase text-slate-700 tracking-tighter">${m.h}</span>
                             </div>
-                            ${lg.matches.map(m => `
-                                <div class="match-card" onclick="goToPix()">
-                                    <div class="space-y-3 flex-1">
-                                        <div class="flex items-center gap-3">
-                                            <img src="${getLogo(m.h)}" onerror="this.src='${getLogoFallback(m.h)}'" class="team-logo">
-                                            <span class="text-[11px] font-black uppercase text-slate-700 tracking-tighter">${m.h}</span>
-                                        </div>
-                                        <div class="flex items-center gap-3">
-                                            <img src="${getLogo(m.a)}" onerror="this.src='${getLogoFallback(m.a)}'" class="team-logo">
-                                            <span class="text-[11px] font-black uppercase text-slate-700 tracking-tighter">${m.a}</span>
-                                        </div>
-                                    </div>
-                                    <div class="bg-sky-50 px-5 py-3 rounded-2xl text-right border border-sky-100">
-                                        <p class="text-[7px] text-sky-400 font-black uppercase mb-1">Entrada</p>
-                                        <p class="text-[12px] font-black text-sky-600">@${m.o}</p>
-                                    </div>
-                                </div>
-                            `).join('')}
+                            <div class="flex items-center gap-3">
+                                <div class="w-1.5 h-1.5 bg-slate-200 rounded-full"></div>
+                                <span class="text-[11px] font-black uppercase text-slate-700 tracking-tighter">${m.away || m.a}</span>
+                            </div>
                         </div>
-                    `;
-                });
-            });
-            feed.innerHTML = html;
+                        <div class="bg-sky-50 px-4 py-2.5 rounded-xl text-right border border-sky-100">
+                            <p class="text-[7px] text-sky-400 font-black uppercase mb-1">Palpite @</p>
+                            <p class="text-[12px] font-black text-sky-600">${m.o}</p>
+                        </div>
+                    </div>
+                `).join('')}
+            `).join('');
         }
 
-        renderAll();
+        render();
     </script>
 </body>
 </html>
