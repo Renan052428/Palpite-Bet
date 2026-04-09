@@ -3,201 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PalpiteBet Premium</title>
+    <title>PalpiteBet Elite</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #F8FAFC; color: #1e293b; }
-        .card-shadow { box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.04); }
-        .pix-btn { background: linear-gradient(135deg, #0ea5e9 0%, #0369a1 100%); }
+        body { font-family: 'Inter', sans-serif; background: #F4F7F9; color: #1A1C1E; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         
-        /* Escudos Melhorados */
-        .team-logo-container { width: 40px; height: 40px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid #f1f5f9; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .team-logo { width: 28px; height: 28px; object-fit: contain; }
+        /* Estilo Calendário Flashscore */
+        .date-btn { color: #8E9194; font-weight: 800; text-align: center; min-width: 65px; position: relative; }
+        .date-btn.active { color: #000; }
+        .date-btn.active::after { content: ''; position: absolute; bottom: 0; left: 25%; width: 50%; height: 3px; background: #EF4444; border-radius: 2px; }
+
+        /* Estilo Liga */
+        .league-row { background: #FFF; border-radius: 12px; border-left: 4px solid #0EA5E9; padding: 10px 15px; display: flex; align-items: center; gap: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+
+        /* Card de Jogo */
+        .match-card { background: #FFF; border-radius: 20px; padding: 15px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+        .team-logo { width: 24px; height: 24px; object-fit: contain; }
         
-        /* Calendário - Estilo Referência */
-        .date-item { color: #000; opacity: 0.4; font-weight: 800; transition: all 0.3s; cursor: pointer; }
-        .date-item.active { opacity: 1; border-bottom: 3px solid #ef4444; color: #ef4444; }
+        /* Botão Pix/VIP */
+        .btn-vip { background: #0EA5E9; box-shadow: 0 4px 14px rgba(14, 165, 233, 0.4); border-radius: 12px; font-weight: 900; }
         
-        /* Barra de Liga */
-        .league-header { background: #fff; border-left: 4px solid #0ea5e9; padding: 12px 20px; border-radius: 12px; margin-top: 20px; display: flex; align-items: center; gap: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.02); }
-        
-        #game-details { display: none; position: fixed; inset: 0; background: #F8FAFC; z-index: 100; overflow-y: auto; }
-        #auth-modal { display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.95); z-index: 200; backdrop-filter: blur(10px); align-items: center; justify-content: center; padding: 20px; }
+        #game-details { display: none; position: fixed; inset: 0; background: #F4F7F9; z-index: 100; overflow-y: auto; }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
 </head>
-<body class="pb-32">
+<body class="pb-24">
 
-    <div id="main-content">
-        <header class="bg-white px-6 py-5 sticky top-0 z-50 border-b border-slate-50 flex justify-between items-center shadow-sm">
-            <div class="flex flex-col">
-                <h1 class="text-xl font-black italic text-slate-900 uppercase tracking-tighter">Palpite<span class="text-sky-500">Bet</span></h1>
-                <p class="text-[8px] font-bold text-sky-400 uppercase tracking-[3px] mt-0.5">Sinais VIP Liberados</p>
-            </div>
-            <button onclick="window.location.href='https://pay.kiwify.com.br/mj9n838'" class="pix-btn text-white px-4 py-2.5 rounded-xl text-[9px] font-black uppercase shadow-lg shadow-sky-100">Acesso VIP</button>
-        </header>
-
-        <section class="p-4">
-            <div class="bg-white rounded-[30px] p-6 border border-slate-50 card-shadow">
-                <div class="flex items-center gap-2 mb-4">
-                    <span class="text-xs">🔍</span>
-                    <h3 class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Analisador de Bilhetes AI</h3>
-                </div>
-                <div class="flex flex-col gap-3">
-                    <input id="ticketInput" type="text" placeholder="Cole o código do seu bilhete..." class="w-full bg-slate-50 border border-slate-100 p-4 rounded-2xl text-[11px] font-bold outline-none focus:ring-2 focus:ring-sky-500/20">
-                    <button onclick="checkAuth('analisar')" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-black text-[10px] uppercase tracking-widest active:scale-95 transition-all">Verificar Probabilidade</button>
-                </div>
-            </div>
-        </section>
-
-        <nav class="bg-white border-y border-slate-50 overflow-x-auto no-scrollbar flex justify-between px-6">
-            <div class="date-item flex flex-col items-center py-4 px-3">
-                <span class="text-[8px] uppercase">Ter</span>
-                <span class="text-[12px]">07.04.</span>
-            </div>
-            <div class="date-item flex flex-col items-center py-4 px-3">
-                <span class="text-[8px] uppercase">Qua</span>
-                <span class="text-[12px]">08.04.</span>
-            </div>
-            <div class="date-item active flex flex-col items-center py-4 px-3">
-                <span class="text-[8px] uppercase">Hoje</span>
-                <span class="text-[12px]">09.04.</span>
-            </div>
-            <div class="date-item flex flex-col items-center py-4 px-3">
-                <span class="text-[8px] uppercase">Sex</span>
-                <span class="text-[12px]">10.04.</span>
-            </div>
-            <div class="date-item flex flex-col items-center py-4 px-3">
-                <span class="text-[8px] uppercase">Sáb</span>
-                <span class="text-[12px]">11.04.</span>
-            </div>
-        </nav>
-
-        <div class="flex gap-3 px-5 py-6 overflow-x-auto no-scrollbar">
-            <button class="bg-sky-500 text-white text-[9px] font-black uppercase px-6 py-2.5 rounded-full shadow-lg shadow-sky-100 flex items-center gap-2">⚽ Futebol</button>
-            <button class="bg-white text-slate-400 border border-slate-100 text-[9px] font-black uppercase px-6 py-2.5 rounded-full">🏀 NBA</button>
-            <button class="bg-white text-slate-400 border border-slate-100 text-[9px] font-black uppercase px-6 py-2.5 rounded-full">🥊 MMA</button>
+    <header class="bg-white px-5 py-4 sticky top-0 z-50 border-b border-slate-100 flex justify-between items-center">
+        <div>
+            <h1 class="text-xl font-black italic tracking-tighter">PALPITE<span class="text-sky-500">BET</span></h1>
+            <p class="text-[8px] font-bold text-sky-400 uppercase tracking-widest">Sinais VIP Liberados</p>
         </div>
+        <button onclick="window.location.href='https://pay.kiwify.com.br/mj9n838'" class="btn-vip text-white px-4 py-2 text-[10px] uppercase">Acesso VIP</button>
+    </header>
 
-        <main class="px-5 space-y-4" id="games-feed">
-            </main>
+    <div class="p-4">
+        <div class="bg-white rounded-[25px] p-5 border border-slate-50 shadow-sm">
+            <div class="flex items-center gap-2 mb-3">
+                <span class="text-xs">🔍</span>
+                <span class="text-[9px] font-black text-slate-400 uppercase">Analisador de Bilhetes AI</span>
+            </div>
+            <input id="ticketInput" type="text" placeholder="Cole o código do seu bilhete..." class="w-full bg-slate-50 border border-slate-100 p-3 rounded-xl text-xs font-bold outline-none mb-3">
+            <button onclick="checkAuth('analisar')" class="w-full bg-[#1A1C1E] text-white py-3.5 rounded-xl font-black text-[10px] uppercase tracking-widest">Verificar Probabilidade</button>
+        </div>
     </div>
 
-    <div id="game-details">
-        <div class="bg-slate-900 text-white p-6 flex items-center justify-between">
-            <button onclick="closeDetails()" class="text-xl">✕</button>
-            <span id="det-league" class="text-[10px] font-black uppercase tracking-widest text-sky-400"></span>
-            <div class="w-6"></div>
+    <nav class="bg-white border-y border-slate-100 overflow-x-auto no-scrollbar flex py-2 px-2">
+        <div class="date-btn py-2">
+            <div class="text-[7px] uppercase">Ter</div>
+            <div class="text-xs">07.04.</div>
         </div>
-        <div class="bg-white p-10 flex justify-between items-center border-b border-slate-50">
-            <div class="flex flex-col items-center gap-3 flex-1">
-                <div class="team-logo-container"><img id="det-logo-h" src="" class="team-logo"></div>
-                <span id="det-name-h" class="text-[11px] font-black uppercase text-center"></span>
-            </div>
-            <div class="text-center flex-1">
-                <span class="bg-slate-50 px-4 py-2 rounded-full text-[10px] font-black text-slate-300 italic">VS</span>
-            </div>
-            <div class="flex flex-col items-center gap-3 flex-1">
-                <div class="team-logo-container"><img id="det-logo-a" src="" class="team-logo"></div>
-                <span id="det-name-a" class="text-[11px] font-black uppercase text-center"></span>
-            </div>
+        <div class="date-btn py-2">
+            <div class="text-[7px] uppercase">Qua</div>
+            <div class="text-xs">08.04.</div>
         </div>
-        <div id="det-markets" class="p-6 space-y-4"></div>
-    </div>
-
-    <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-100 flex justify-around p-5 z-50 rounded-t-[35px] shadow-[0_-10px_30px_rgba(0,0,0,0.03)]">
-        <button class="flex flex-col items-center gap-1.5 text-red-500 font-black text-[9px] uppercase">
-            <span class="text-xl">🏠</span>Hoje
-        </button>
-        <button class="flex flex-col items-center gap-1.5 text-slate-300 font-black text-[9px] uppercase">
-            <span class="text-xl">📡</span>Ao Vivo
-        </button>
-        <button class="flex flex-col items-center gap-1.5 text-slate-300 font-black text-[9px] uppercase">
-            <span class="text-xl">⭐</span>Favoritos
-        </button>
-        <button onclick="checkAuth('perfil')" class="flex flex-col items-center gap-1.5 text-slate-300 font-black text-[9px] uppercase">
-            <span class="text-xl">👤</span>Perfil
-        </button>
+        <div class="date-btn active py-2">
+            <div class="text-[7px] uppercase text-red-500 italic font-black">Hoje</div>
+            <div class="text-xs">09.04.</div>
+        </div>
+        <div class="date-btn py-2">
+            <div class="text-[7px] uppercase">Sex</div>
+            <div class="text-xs">10.04.</div>
+        </div>
+        <div class="date-btn py-2">
+            <div class="text-[7px] uppercase">Sáb</div>
+            <div class="text-xs">11.04.</div>
+        </div>
     </nav>
 
-    <div id="auth-modal">
-        <div class="bg-white w-full max-w-xs rounded-[40px] p-8 text-center shadow-2xl">
-            <div class="w-16 h-16 bg-sky-50 text-sky-500 rounded-full flex items-center justify-center mx-auto mb-5 text-2xl">⚡</div>
-            <h4 class="text-lg font-black text-slate-900 uppercase italic">PalpiteBet Pro</h4>
-            <p class="text-[10px] text-slate-400 font-bold mb-6 px-4 leading-relaxed">Cadastre-se para desbloquear as ferramentas de análise e o Scanner.</p>
-            <div class="space-y-3">
-                <input type="text" id="regName" placeholder="Nome Completo" class="w-full bg-slate-50 border border-slate-100 p-4 rounded-2xl text-[10px] font-bold outline-none">
-                <input type="email" id="regEmail" placeholder="E-mail principal" class="w-full bg-slate-50 border border-slate-100 p-4 rounded-2xl text-[10px] font-bold outline-none">
-                <button onclick="saveUser()" class="w-full pix-btn text-white py-4 rounded-2xl font-black text-[10px] uppercase shadow-lg">Criar Conta Grátis</button>
-            </div>
-            <button onclick="document.getElementById('auth-modal').style.display='none'" class="mt-4 text-[9px] font-black text-slate-200 uppercase">Voltar</button>
-        </div>
+    <div class="flex gap-2 p-4 overflow-x-auto no-scrollbar">
+        <button class="bg-sky-500 text-white text-[9px] font-black uppercase px-5 py-2 rounded-full">⚽ Futebol</button>
+        <button class="bg-white text-slate-400 border border-slate-100 text-[9px] font-black uppercase px-5 py-2 rounded-full">🏀 NBA</button>
+        <button class="bg-white text-slate-400 border border-slate-100 text-[9px] font-black uppercase px-5 py-2 rounded-full">🎾 Tênis</button>
     </div>
+
+    <main class="px-4 space-y-5" id="games-feed">
+        </main>
+
+    <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-100 flex justify-around p-4 z-50 rounded-t-[30px] shadow-lg">
+        <div class="flex flex-col items-center gap-1 text-red-500 font-black text-[8px] uppercase">
+            <img src="https://cdn-icons-png.flaticon.com/512/1946/1946436.png" class="w-5 opacity-80">Hoje
+        </div>
+        <div class="flex flex-col items-center gap-1 text-slate-300 font-black text-[8px] uppercase">
+            <img src="https://cdn-icons-png.flaticon.com/512/711/711245.png" class="w-5 grayscale opacity-30">Ao Vivo
+        </div>
+        <div class="flex flex-col items-center gap-1 text-slate-300 font-black text-[8px] uppercase">
+            <img src="https://cdn-icons-png.flaticon.com/512/1828/1828884.png" class="w-5 grayscale opacity-30">Favoritos
+        </div>
+        <div onclick="checkAuth('perfil')" class="flex flex-col items-center gap-1 text-slate-300 font-black text-[8px] uppercase cursor-pointer">
+            <img src="https://cdn-icons-png.flaticon.com/512/1077/1077063.png" class="w-5 grayscale opacity-30">Perfil
+        </div>
+    </nav>
 
     <script>
         let userIsLogged = false;
-        
-        // Função de Logo Melhorada (Busca automática de escudo)
-        const getLogo = (name) => `https://img.vavel.com/team-logos/${name.toLowerCase().replace(/ /g, '-')}.png`;
-        const getLogoFallback = (name) => `https://ui-avatars.com/api/?name=${name}&background=f8fafc&color=0ea5e9&bold=true`;
 
         const leagues = [
             {
                 name: "CONMEBOL LIBERTADORES",
                 icon: "🌎",
-                games: [
-                    { id: 1, h: "Flamengo", a: "Palestino", o: "1.25", markets: [{title: "🚩 ESCANTEIOS", desc: "Mais 9.5", o: "1.80"}] },
-                    { id: 2, h: "Atlético-MG", a: "Rosario Central", o: "1.60", markets: [{title: "⚽ GOLS", desc: "Ambos Marcam: Sim", o: "2.10"}] }
+                matches: [
+                    { id: 1, home: "Flamengo", away: "Palestino", sugg: "Vitoria Casa", odd: "1.25" },
+                    { id: 2, home: "Atlético-MG", away: "Rosario Central", sugg: "Mais 1.5 Gols", odd: "1.60" }
                 ]
             },
             {
                 name: "UEFA CHAMPIONS LEAGUE",
                 icon: "🇪🇺",
-                games: [
-                    { id: 3, h: "Real Madrid", a: "Man City", o: "2.05", markets: [{title: "🎯 FINALIZAÇÕES", desc: "Mais 22.5 Chutes", o: "1.95"}] },
-                    { id: 4, h: "Arsenal", a: "Bayern", o: "1.75", markets: [{title: "🚩 ESCANTEIOS", desc: "Arsenal +5.5 Cantos", o: "1.70"}] }
+                matches: [
+                    { id: 3, home: "Real Madrid", away: "Man City", sugg: "Ambos Marcam", odd: "1.85" }
                 ]
             }
         ];
 
-        function checkAuth(action) {
-            if(!userIsLogged) { document.getElementById('auth-modal').style.display = 'flex'; return; }
-            if(action === 'analisar') {
-                alert("Analisando probabilidades...");
-                setTimeout(() => window.location.href = "https://pay.kiwify.com.br/mj9n838", 1500);
-            }
-        }
-
-        function saveUser() {
-            if(!document.getElementById('regName').value) return alert("Digite seu nome");
-            userIsLogged = true;
-            document.getElementById('auth-modal').style.display = 'none';
-            alert("Bem-vindo à elite, " + document.getElementById('regName').value + "!");
-            renderLeagues();
-        }
-
-        function renderLeagues() {
-            document.getElementById('games-feed').innerHTML = leagues.map(league => `
+        function render() {
+            const feed = document.getElementById('games-feed');
+            feed.innerHTML = leagues.map(lg => `
                 <div class="space-y-3">
-                    <div class="league-header">
-                        <span class="text-xs">${league.icon}</span>
-                        <span class="text-[9px] font-black text-slate-600 tracking-widest">${league.name}</span>
+                    <div class="league-row">
+                        <span class="text-xs">${lg.icon}</span>
+                        <span class="text-[9px] font-black text-slate-500 uppercase tracking-widest">${lg.name}</span>
                     </div>
-                    ${league.games.map(g => `
-                        <div onclick="openDetails(${g.id})" class="bg-white rounded-3xl p-5 border border-slate-50 card-shadow flex items-center justify-between">
-                            <div class="space-y-4 flex-1">
+                    ${lg.matches.map(m => `
+                        <div class="match-card" onclick="alert('Cadastre-se para ver detalhes')">
+                            <div class="space-y-2">
                                 <div class="flex items-center gap-3">
-                                    <div class="team-logo-container"><img src="${getLogo(g.h)}" onerror="this.src='${getLogoFallback(g.h)}'" class="team-logo"></div>
-                                    <span class="text-[11px] font-black uppercase text-slate-800 tracking-tighter">${g.h}</span>
+                                    <div class="w-1 h-1 bg-slate-200 rounded-full"></div>
+                                    <span class="text-[11px] font-black uppercase text-slate-700">${m.home}</span>
                                 </div>
                                 <div class="flex items-center gap-3">
-                                    <div class="team-logo-container"><img src="${getLogo(g.a)}" onerror="this.src='${getLogoFallback(g.a)}'" class="team-logo"></div>
-                                    <span class="text-[11px] font-black uppercase text-slate-800 tracking-tighter">${g.a}</span>
+                                    <div class="w-1 h-1 bg-slate-200 rounded-full"></div>
+                                    <span class="text-[11px] font-black uppercase text-slate-700">${m.away}</span>
                                 </div>
                             </div>
-                            <div class="bg-sky-50 px-5 py-3 rounded-2xl text-center border border-sky-100">
-                                <p class="text-[7px] text-sky-400 font-black uppercase tracking-widest mb-1">Cotação</p>
-                                <p class="text-[12px] font-black text-sky-600">@${g.o}</p>
+                            <div class="bg-sky-50 px-4 py-2 rounded-xl text-right">
+                                <p class="text-[7px] text-sky-400 font-black uppercase">Sugestão</p>
+                                <p class="text-[12px] font-black text-sky-600">@${m.odd}</p>
                             </div>
                         </div>
                     `).join('')}
@@ -205,36 +147,12 @@
             `).join('');
         }
 
-        function openDetails(id) {
-            if(!userIsLogged) return checkAuth();
-            let g; leagues.forEach(l => { const found = l.games.find(item => item.id === id); if(found) g = found; });
-            
-            document.getElementById('det-league').innerText = "ESTATÍSTICAS AO VIVO";
-            document.getElementById('det-name-h').innerText = g.h;
-            document.getElementById('det-name-a').innerText = g.a;
-            document.getElementById('det-logo-h').src = getLogo(g.h);
-            document.getElementById('det-logo-a').src = getLogo(g.a);
-            document.getElementById('det-markets').innerHTML = g.markets.map(mark => `
-                <div class="bg-white p-6 rounded-3xl border border-slate-50 flex justify-between items-center card-shadow">
-                    <div>
-                        <p class="text-[8px] text-sky-500 font-black uppercase mb-1">${mark.title}</p>
-                        <p class="text-[11px] font-black uppercase tracking-tighter text-slate-900">${mark.desc}</p>
-                    </div>
-                    <div class="text-xl font-black text-slate-900 italic tracking-tighter">@${mark.o}</div>
-                </div>
-            `).join('') + `<a href="https://pay.kiwify.com.br/mj9n838" class="block w-full bg-slate-900 text-white text-center py-5 rounded-[25px] font-black uppercase text-[10px] mt-4 shadow-xl">Desbloquear Guia de Entradas VIP</a>`;
-            
-            document.getElementById('main-content').style.display = 'none';
-            document.getElementById('game-details').style.display = 'block';
-            window.scrollTo(0, 0);
+        function checkAuth(type) {
+            // Simulação de redirecionamento para o checkout do Pix/VIP
+            window.location.href = "https://pay.kiwify.com.br/mj9n838";
         }
 
-        function closeDetails() {
-            document.getElementById('main-content').style.display = 'block';
-            document.getElementById('game-details').style.display = 'none';
-        }
-
-        renderLeagues();
+        render();
     </script>
 </body>
 </html>
