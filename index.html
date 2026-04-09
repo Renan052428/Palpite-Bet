@@ -3,122 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PalpiteBet AI - Inteligência de Banca</title>
+    <title>PalpiteBet AI - Lucro Pro</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { font-family: -apple-system, sans-serif; background: #F4F7FA; color: #1e293b; }
-        .card-premium { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); }
-        .vip-blur { filter: blur(5px); opacity: 0.3; }
-        .scanner-line { height: 2px; background: #0ea5e9; position: absolute; width: 100%; top: 0; animation: scan 2s linear infinite; }
-        @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
+        body { font-family: -apple-system, sans-serif; background: #F1F5F9; color: #0F172A; }
+        .pix-gradient { background: linear-gradient(135deg, #32BCAD 0%, #1B9B8E 100%); }
+        .card-premium { background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%); border: 1px solid rgba(255,255,255,0.1); }
+        .scanner-active { height: 3px; background: #32BCAD; position: absolute; width: 100%; top: 0; animation: scan 1.5s ease-in-out infinite; box-shadow: 0 0 15px #32BCAD; }
+        @keyframes scan { 0% { top: 0; } 50% { top: 100%; } 100% { top: 0; } }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
     </style>
 </head>
 <body class="pb-32">
 
-    <header class="bg-white p-6 sticky top-0 z-50 border-b border-slate-100 flex justify-between items-center shadow-sm">
-        <h1 class="text-2xl font-black italic uppercase text-slate-900">Palpite<span class="text-sky-500">Bet</span></h1>
-        <button onclick="window.location.href='https://linkdepagamento.com.br'" class="bg-amber-400 text-amber-900 px-4 py-2 rounded-2xl text-[10px] font-black shadow-lg shadow-amber-200">ASSINAR VIP</button>
+    <header class="bg-white p-6 sticky top-0 z-50 border-b border-slate-200 flex justify-between items-center shadow-sm">
+        <h1 class="text-2xl font-black italic uppercase tracking-tighter">Palpite<span class="text-teal-500">Bet</span></h1>
+        <button onclick="checkOutPix()" class="pix-gradient text-white px-5 py-2.5 rounded-2xl text-[11px] font-black shadow-lg shadow-teal-500/20 active:scale-95 transition-all">
+            VIP POR R$ 9,99
+        </button>
     </header>
 
-    <main class="max-w-md mx-auto p-5 space-y-6">
+    <main class="max-w-md mx-auto p-5 space-y-8">
 
-        <section class="bg-white rounded-[35px] p-6 border border-sky-100 shadow-xl overflow-hidden relative">
-            <h3 class="text-[11px] font-black uppercase tracking-widest text-slate-400 mb-4 italic">🔎 Analisador Pro</h3>
-            <p class="text-[10px] text-slate-500 mb-4 font-bold uppercase">Cole o link/ID da sua aposta para analisar a probabilidade:</p>
+        <section class="bg-white rounded-[40px] p-8 shadow-2xl shadow-slate-200 relative overflow-hidden border border-white">
+            <div id="scanLine" class="hidden scanner-active"></div>
+            <div class="flex items-center gap-2 mb-6">
+                <span class="bg-teal-100 text-teal-600 p-2 rounded-xl text-xs font-black">AI</span>
+                <h3 class="text-[11px] font-black uppercase tracking-widest text-slate-400">Analisar Bilhete da Casa</h3>
+            </div>
             
-            <div class="relative mb-3">
-                <input id="ticketId" type="text" placeholder="Ex: bet365-123x78..." class="w-full bg-slate-50 border border-slate-100 p-4 rounded-2xl text-xs outline-none focus:border-sky-500">
-                <div id="scanLine" class="hidden scanner-line"></div>
+            <div class="space-y-4">
+                <input id="ticketInput" type="text" placeholder="Cole o link ou ID da aposta..." class="w-full bg-slate-50 border border-slate-100 p-5 rounded-2xl text-xs font-bold outline-none focus:ring-2 focus:ring-teal-500/20">
+                <button onclick="startAnalysis()" class="w-full bg-slate-900 text-white py-5 rounded-2xl font-black text-xs uppercase tracking-widest shadow-xl active:scale-95 transition-all">
+                    Verificar Probabilidade
+                </button>
             </div>
 
-            <button onclick="analisarBilhete()" class="w-full bg-sky-500 text-white py-4 rounded-2xl font-black text-xs uppercase tracking-widest active:scale-95 transition-all">Analisar Probabilidades</button>
-            
-            <div id="resultBox" class="hidden mt-5 p-4 bg-slate-900 rounded-2xl text-white">
-                <div class="flex justify-between items-center mb-2">
-                    <span class="text-[9px] font-black uppercase opacity-60">Probabilidade de Green:</span>
-                    <span id="probScore" class="text-lg font-black text-green-400">0%</span>
+            <div id="resAnalysis" class="hidden mt-8 p-6 bg-slate-50 rounded-[30px] border border-slate-100">
+                <div class="flex justify-between items-end mb-4">
+                    <div>
+                        <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Chance de Acerto</p>
+                        <h4 id="score" class="text-4xl font-black text-slate-900 tracking-tighter">0%</h4>
+                    </div>
+                    <span id="labelStatus" class="bg-green-100 text-green-600 px-3 py-1 rounded-full text-[9px] font-black mb-1 italic uppercase">VALOR ALTO</span>
                 </div>
-                <div class="w-full bg-white/10 h-2 rounded-full overflow-hidden">
-                    <div id="probBar" class="bg-green-400 h-full transition-all duration-1000" style="width: 0%"></div>
+                <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+                    <div id="progressBar" class="bg-teal-500 h-full transition-all duration-1000" style="width: 0%"></div>
                 </div>
-                <p id="feedbackText" class="text-[10px] mt-3 font-bold italic leading-relaxed text-slate-300"></p>
+                <p id="msgFeedback" class="text-[10px] mt-4 font-bold leading-relaxed text-slate-500 italic"></p>
             </div>
         </section>
 
-        <div class="flex gap-4 overflow-x-auto no-scrollbar py-2 text-[10px] font-black uppercase tracking-widest text-slate-400">
-            <span class="text-sky-500 border-b-2 border-sky-500 pb-1">Futebol</span>
-            <span>Basquete (NBA)</span>
-            <span>Tênis</span>
-            <span>UFC</span>
-        </div>
-
-        <div id="games-list" class="space-y-4">
+        <section class="space-y-5">
+            <div class="flex justify-between items-center px-2">
+                <h3 class="text-[11px] font-black text-slate-400 uppercase tracking-widest italic">Principais da Rodada</h3>
+                <span id="currentDate" class="text-[9px] font-bold text-slate-400">--/--</span>
             </div>
+            <div id="gamesContainer" class="space-y-4">
+                <div class="animate-pulse bg-white h-32 rounded-[35px]"></div>
+            </div>
+        </section>
 
     </main>
 
-    <nav class="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-xl border-t border-slate-100 flex justify-around p-6 z-50 rounded-t-[40px]">
-        <div class="flex flex-col items-center text-sky-500"><span class="text-2xl">⚡</span><p class="text-[8px] font-black uppercase">Tips</p></div>
-        <div class="flex flex-col items-center text-slate-300"><span class="text-2xl">🤖</span><p class="text-[8px] font-black uppercase">Análise</p></div>
-        <div onclick="window.location.href='https://linkdepagamento.com.br'" class="flex flex-col items-center text-slate-300"><span class="text-2xl">💎</span><p class="text-[8px] font-black uppercase">VIP</p></div>
+    <nav class="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-slate-100 flex justify-around p-6 z-50 rounded-t-[40px] shadow-[0_-10px_30px_rgba(0,0,0,0.05)]">
+        <div class="flex flex-col items-center gap-1 text-teal-600"><span class="text-2xl">⚡</span><p class="text-[9px] font-black uppercase">Tips</p></div>
+        <div onclick="checkOutPix()" class="flex flex-col items-center gap-1 text-slate-300"><span class="text-2xl">💰</span><p class="text-[9px] font-black uppercase">VIP Pix</p></div>
+        <div class="flex flex-col items-center gap-1 text-slate-300"><span class="text-2xl">👤</span><p class="text-[9px] font-black uppercase">Conta</p></div>
     </nav>
 
     <script>
-        // Função de Análise Automática
-        function analisarBilhete() {
-            const input = document.getElementById('ticketId').value;
-            const res = document.getElementById('resultBox');
-            const scan = document.getElementById('scanLine');
-            
-            if(!input) return alert("Insira o ID do bilhete!");
+        // Atualiza Data
+        document.getElementById('currentDate').innerText = new Date().toLocaleDateString('pt-BR');
 
-            scan.classList.remove('hidden');
+        // Simulação de Jogos Reais (Futebol e Basquete)
+        const gamesData = [
+            { h: "Real Madrid", a: "Man. City", time: "16:00", liga: "Champions League", tip: "Ambos Marcam", odd: "1.72", vip: false },
+            { h: "Flamengo", a: "Palmeiras", time: "20:00", liga: "Brasileirão A", tip: "Vitória Casa", odd: "2.15", vip: true },
+            { h: "Lakers", a: "Celtics", time: "22:30", liga: "NBA", tip: "Over 224 pts", odd: "1.88", vip: true }
+        ];
+
+        function renderGames() {
+            const container = document.getElementById('gamesContainer');
+            container.innerHTML = gamesData.map(g => `
+                <div class="${g.vip ? 'card-premium text-white' : 'bg-white text-slate-900'} rounded-[35px] p-7 border border-slate-100 shadow-sm relative overflow-hidden">
+                    ${g.vip ? '<div class="absolute top-0 right-0 bg-amber-400 text-amber-900 text-[8px] px-4 py-1.5 rounded-bl-xl font-black italic">ANÁLISE VIP</div>' : ''}
+                    <div class="flex justify-between items-center mb-5">
+                        <span class="text-[9px] font-black uppercase opacity-40">${g.liga}</span>
+                        <span class="text-[9px] font-black ${g.vip ? 'text-amber-400' : 'text-teal-500'} italic underline">${g.time}</span>
+                    </div>
+                    <div class="flex justify-between items-center mb-6 font-black text-sm uppercase tracking-tighter">
+                        <span class="flex-1">${g.h}</span>
+                        <span class="px-3 opacity-20 italic">vs</span>
+                        <span class="flex-1 text-right">${g.a}</span>
+                    </div>
+                    <div class="${g.vip ? 'bg-white/5' : 'bg-slate-50'} rounded-2xl p-4 flex justify-between items-center">
+                        <div class="flex flex-col">
+                            <span class="text-[8px] font-bold uppercase opacity-50">Sugestão AI</span>
+                            <span class="text-[11px] font-black uppercase ${g.tip.includes('Vitória') ? 'text-green-500' : ''}">${g.tip}</span>
+                        </div>
+                        <span class="text-xl font-black">@${g.odd}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+        renderGames();
+
+        // Lógica de Análise de Bilhete
+        function startAnalysis() {
+            const ticket = document.getElementById('ticketInput').value;
+            if(!ticket) return;
+
+            const res = document.getElementById('resAnalysis');
+            const line = document.getElementById('scanLine');
             
+            res.classList.add('hidden');
+            line.classList.remove('hidden');
+
             setTimeout(() => {
-                scan.classList.add('hidden');
+                line.classList.add('hidden');
                 res.classList.remove('hidden');
                 
-                // Simulação de lógica de IA: gera uma nota entre 65 e 94
-                const score = Math.floor(Math.random() * (94 - 65 + 1)) + 65;
-                document.getElementById('probScore').innerText = score + "%";
-                document.getElementById('probBar').style.width = score + "%";
+                const scoreValue = Math.floor(Math.random() * (96 - 72 + 1)) + 72;
+                document.getElementById('score').innerText = scoreValue + "%";
+                document.getElementById('progressBar').style.width = scoreValue + "%";
                 
-                const feedbacks = [
-                    "Esta é uma entrada de alto valor! A tendência estatística favorece o mercado escolhido.",
-                    "Análise concluída: Baixa exposição ao risco identificada nas últimas 5 rodadas destes times.",
-                    "Atenção: A probabilidade é boa, mas o histórico recente indica risco de zebra no segundo tempo."
+                const msgs = [
+                    "ANÁLISE: Padrão de vitória identificado nos últimos confrontos. Entrada com alto valor matemático.",
+                    "ALERTA: A probabilidade é alta, mas recomendamos entrar com apenas 50% da sua unidade padrão.",
+                    "SISTEMA: Dados de escalação de última hora confirmam a vantagem para este bilhete."
                 ];
-                document.getElementById('feedbackText').innerText = feedbacks[Math.floor(Math.random() * feedbacks.length)];
+                document.getElementById('msgFeedback').innerText = msgs[Math.floor(Math.random() * msgs.length)];
             }, 2000);
         }
 
-        // Dados dos Jogos com Datas
-        const games = [
-            { h: "Real Madrid", a: "Man City", date: "Hoje, 16:00", league: "Champions League", tip: "Ambos Marcam", odd: "1.65" },
-            { h: "Flamengo", a: "Palmeiras", date: "Amanhã, 21:30", league: "Brasileirão", tip: "Vitória Casa", odd: "2.10" },
-            { h: "Lakers", a: "Warriors", date: "Hoje, 23:00", league: "NBA", tip: "Over 220.5 pts", odd: "1.90" }
-        ];
-
-        document.getElementById('games-list').innerHTML = games.map(g => `
-            <div class="bg-white rounded-[30px] p-6 border border-slate-100 shadow-sm relative overflow-hidden">
-                <div class="flex justify-between items-center mb-4">
-                    <span class="text-[9px] font-black text-slate-300 uppercase italic">${g.league}</span>
-                    <span class="text-[9px] font-black text-sky-500 uppercase tracking-widest">${g.date}</span>
-                </div>
-                <div class="flex justify-between items-center mb-6">
-                    <span class="text-xs font-black text-slate-800 uppercase">${g.h}</span>
-                    <span class="text-[10px] font-bold text-slate-200">VS</span>
-                    <span class="text-xs font-black text-slate-800 uppercase">${g.a}</span>
-                </div>
-                <div class="bg-slate-50 p-4 rounded-2xl flex justify-between items-center border border-slate-100">
-                    <div class="flex flex-col">
-                        <span class="text-[8px] font-black text-slate-400 uppercase">Sugestão</span>
-                        <span class="text-[10px] font-black text-slate-900 uppercase">${g.tip}</span>
-                    </div>
-                    <span class="text-xl font-black text-slate-900 tracking-tighter">@${g.odd}</span>
-                </div>
-            </div>
-        `).join('');
+        // Link de Pagamento PIX R$ 9,99
+        function checkOutPix() {
+            // Recomendo usar Kirvano ou Kiwify para criar o link de R$ 9,99 via PIX
+            window.location.href = "https://SEU_LINK_DE_PAGAMENTO_AQUI.com";
+        }
     </script>
 </body>
 </html>
