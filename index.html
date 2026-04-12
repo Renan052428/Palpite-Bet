@@ -3,25 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PALPITE-BET | FINAL</title>
+    <title>PALPITE-BET | OFICIAL</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; background: #F2F5F8; color: #334155; margin: 0; padding: 0; }
         
-        /* Barra de Esportes Horizontal */
+        /* BARRA DE ESPORTES (TRAVADA - NÃO MEXER) */
         .scroll-x { overflow-x: auto; display: flex; gap: 10px; padding: 15px; scrollbar-width: none; -ms-overflow-style: none; }
         .scroll-x::-webkit-scrollbar { display: none; }
         .sport-btn { min-width: 110px; background: white; padding: 10px; border-radius: 12px; text-align: center; border: 1px solid #e2e8f0; font-size: 11px; font-weight: 700; flex-shrink: 0; }
         .sport-btn.active { background: #3b82f6; color: white; border-color: #3b82f6; }
 
-        /* Ligas e Cards */
+        /* LIGAS E CARDS */
         .league-row { background: #E5E9F0; padding: 8px 18px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #d1d5db; }
         .league-txt { font-size: 10px; font-weight: 700; text-transform: uppercase; color: #475569; display: flex; align-items: center; gap: 8px; }
         .game-card { background: white; padding: 15px 18px; display: flex; align-items: center; border-bottom: 1px solid #f1f5f9; min-height: 95px; }
         
-        /* ESCUDOS CORRIGIDOS (Fallback Automático) */
-        .team-logo { width: 22px; height: 22px; object-fit: contain; border-radius: 4px; }
+        /* ESCUDOS E SÍMBOLOS (CORREÇÃO DEFINITIVA) */
+        .team-logo { width: 24px; height: 24px; object-fit: contain; display: block !important; }
         
         .teams-area { flex: 1; padding: 0 15px; }
         .row-team { display: flex; align-items: center; justify-content: space-between; font-size: 14px; margin: 4px 0; font-weight: 600; }
@@ -72,53 +72,105 @@
     </div>
 
     <main>
-        <script>
-            const ligas = [
-                {n: "🇧🇷 Brasil: Brasileirão", t1: "Athletico-PR", i1: "1967", t2: "Chapecoense", i2: "1981", s1: "2", s2: "0", l: "LIVE"},
-                {n: "🇩🇪 Alemanha: Bundesliga", t1: "FC Köln", i1: "2674", t2: "Werder Bremen", i2: "2533", s1: "2", s2: "1", l: "83'"},
-                {n: "🇪🇸 Espanha: La Liga", t1: "Real Madrid", i1: "2817", t2: "Barcelona", i2: "2816", s1: "-", s2: "-", l: "21:00"},
-                {n: "🇬🇧 Inglaterra: Premier", t1: "Man. City", i1: "17", t2: "Liverpool", i2: "31", s1: "-", s2: "-", l: "19:00"},
-                {n: "🇫🇷 França: Ligue 1", t1: "PSG", i1: "1647", t2: "Lyon", i2: "1631", s1: "-", s2: "-", l: "20:30"},
-                {n: "🇮🇹 Itália: Serie A", t1: "Juventus", i1: "2697", t2: "Milan", i2: "2714", s1: "-", s2: "-", l: "HOJE"},
-                {n: "🇦迷 Argentina: Liga", t1: "Boca Juniors", i1: "2026", t2: "River Plate", i2: "2021", s1: "-", s2: "-", l: "22:00"},
-                {n: "🇵🇹 Portugal: Liga", t1: "Benfica", i1: "3006", t2: "Porto", i2: "3002", s1: "1", s2: "1", l: "LIVE"},
-                {n: "🇧🇷 Brasil: Série B", t1: "Santos", i1: "1968", t2: "Sport", i2: "1957", s1: "-", s2: "-", l: "AMANHÃ"},
-                {n: "🇳🇱 Holanda: Eredivisie", t1: "Ajax", i1: "2352", t2: "PSV", i2: "2339", s1: "-", s2: "-", l: "FINALIZADO"}
-            ];
+        <div class="league-row"><div class="league-txt">🇧🇷 Brasil: Brasileirão</div><span class="bg-red-500 text-white text-[9px] px-2 py-0.5 rounded font-bold uppercase">Live</span></div>
+        <div class="game-card">
+            <div class="text-black font-bold text-[11px] w-10">54'</div>
+            <div class="teams-area">
+                <div class="row-team text-emerald-500">
+                    <div class="flex items-center gap-2">
+                        <img src="https://cdn.footystats.org/img/teams/brazil-clube-atletico-paranaense.png" class="team-logo"> Athletico-PR
+                    </div>
+                    <span>2</span>
+                </div>
+                <div class="row-team">
+                    <div class="flex items-center gap-2">
+                        <img src="https://cdn.footystats.org/img/teams/brazil-associacao-chapecoense-de-futebol.png" class="team-logo"> Chapecoense
+                    </div>
+                    <span>0</span>
+                </div>
+            </div>
+            <a href="https://mpago.la/16fRczK" class="btn-analisar">Analisar</a>
+        </div>
 
-            // Injetar os jogos via Loop para garantir que a barra seja infinita
-            ligas.forEach(j => {
-                document.write(`
-                    <div class="league-row"><div class="league-txt">${j.n}</div><span class="bg-red-500 text-white text-[9px] px-2 py-0.5 rounded font-bold uppercase">${j.l}</span></div>
-                    <div class="game-card">
-                        <div class="text-black font-bold text-[11px] w-10">⏱️</div>
-                        <div class="teams-area">
-                            <div class="row-team"><div class="flex items-center gap-2">
-                                <img src="https://api.sofascore.app/api/v1/team/${j.i1}/image" class="team-logo" onerror="this.src='https://www.fifaindex.com/static/FIFA24/images/crest/25/light/1.png'"> ${j.t1}</div><span>${j.s1}</span></div>
-                            <div class="row-team"><div class="flex items-center gap-2">
-                                <img src="https://api.sofascore.app/api/v1/team/${j.i2}/image" class="team-logo" onerror="this.src='https://www.fifaindex.com/static/FIFA24/images/crest/25/light/2.png'"> ${j.t2}</div><span>${j.s2}</span></div>
-                        </div>
-                        <a href="https://mpago.la/16fRczK" class="btn-analisar">Analisar</a>
+        <div class="league-row"><div class="league-txt">🇩🇪 Alemanha: Bundesliga</div><span class="bg-red-500 text-white text-[9px] px-2 py-0.5 rounded font-bold uppercase">3</span></div>
+        <div class="game-card">
+            <div class="text-black font-bold text-[11px] w-10">83'</div>
+            <div class="teams-area">
+                <div class="row-team text-emerald-500">
+                    <div class="flex items-center gap-2">
+                        <img src="https://cdn.footystats.org/img/teams/germany-1-fc-koln.png" class="team-logo"> FC Köln
                     </div>
-                `);
-            });
-            // Duplicar a lista para forçar a rolagem longa
-            ligas.forEach(j => {
-                document.write(`
-                    <div class="league-row"><div class="league-txt">${j.n}</div><span class="bg-slate-300 text-slate-600 text-[9px] px-2 py-0.5 rounded font-bold uppercase">OUTRO</span></div>
-                    <div class="game-card">
-                        <div class="text-black font-bold text-[11px] w-10">--</div>
-                        <div class="teams-area">
-                            <div class="row-team"><div class="flex items-center gap-2">
-                                <img src="https://api.sofascore.app/api/v1/team/${j.i1}/image" class="team-logo"> ${j.t1}</div><span>-</span></div>
-                            <div class="row-team"><div class="flex items-center gap-2">
-                                <img src="https://api.sofascore.app/api/v1/team/${j.i2}/image" class="team-logo"> ${j.t2}</div><span>-</span></div>
-                        </div>
-                        <a href="https://mpago.la/16fRczK" class="btn-analisar">Analisar</a>
+                    <span>2</span>
+                </div>
+                <div class="row-team">
+                    <div class="flex items-center gap-2">
+                        <img src="https://cdn.footystats.org/img/teams/germany-sv-werder-bremen.png" class="team-logo"> Werder Bremen
                     </div>
-                `);
-            });
-        </script>
+                    <span>1</span>
+                </div>
+            </div>
+            <a href="https://mpago.la/16fRczK" class="btn-analisar">Analisar</a>
+        </div>
+
+        <div class="league-row"><div class="league-txt">🇪🇸 Espanha: La Liga</div><span class="bg-slate-400 text-white text-[9px] px-2 py-0.5 rounded font-bold uppercase">Final</span></div>
+        <div class="game-card">
+            <div class="text-black font-bold text-[11px] w-10">FT</div>
+            <div class="teams-area">
+                <div class="row-team">
+                    <div class="flex items-center gap-2">
+                        <img src="https://cdn.footystats.org/img/teams/spain-real-madrid-cf.png" class="team-logo"> Real Madrid
+                    </div>
+                    <span>1</span>
+                </div>
+                <div class="row-team text-emerald-500">
+                    <div class="flex items-center gap-2">
+                        <img src="https://cdn.footystats.org/img/teams/spain-fc-barcelona.png" class="team-logo"> Barcelona
+                    </div>
+                    <span>2</span>
+                </div>
+            </div>
+            <a href="https://mpago.la/16fRczK" class="btn-analisar">Analisar</a>
+        </div>
+
+        <div class="league-row"><div class="league-txt">🇬🇧 Inglaterra: Premier League</div><span class="bg-slate-300 text-slate-600 text-[9px] px-2 py-0.5 rounded font-bold uppercase">20:00</span></div>
+        <div class="game-card">
+            <div class="text-slate-400 font-bold text-[11px] w-10">Hoje</div>
+            <div class="teams-area">
+                <div class="row-team">
+                    <div class="flex items-center gap-2">
+                        <img src="https://cdn.footystats.org/img/teams/england-manchester-city-fc.png" class="team-logo"> Man. City
+                    </div>
+                    <span>-</span>
+                </div>
+                <div class="row-team">
+                    <div class="flex items-center gap-2">
+                        <img src="https://cdn.footystats.org/img/teams/england-liverpool-fc.png" class="team-logo"> Liverpool
+                    </div>
+                    <span>-</span>
+                </div>
+            </div>
+            <a href="https://mpago.la/16fRczK" class="btn-analisar">Analisar</a>
+        </div>
+
+        <div class="league-row"><div class="league-txt">🇫🇷 França: Ligue 1</div><span class="bg-slate-300 text-slate-600 text-[9px] px-2 py-0.5 rounded font-bold uppercase">21:00</span></div>
+        <div class="game-card">
+            <div class="text-slate-400 font-bold text-[11px] w-10">Hoje</div>
+            <div class="teams-area">
+                <div class="row-team">
+                    <div class="flex items-center gap-2">
+                        <img src="https://cdn.footystats.org/img/teams/france-paris-saint-germain-fc.png" class="team-logo"> PSG
+                    </div>
+                    <span>-</span>
+                </div>
+                <div class="row-team">
+                    <div class="flex items-center gap-2">
+                        <img src="https://cdn.footystats.org/img/teams/france-olympique-lyonnais.png" class="team-logo"> Lyon
+                    </div>
+                    <span>-</span>
+                </div>
+            </div>
+            <a href="https://mpago.la/16fRczK" class="btn-analisar">Analisar</a>
+        </div>
     </main>
 
     <nav class="nav-bottom">
