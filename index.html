@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PALPITE-BET | OFICIAL V7</title>
+    <title>PALPITE-BET | FINAL PRO</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -27,12 +27,12 @@
 </head>
 <body class="pb-44">
 
-    <header class="p-5 bg-white flex justify-between items-center">
+    <header class="p-5 bg-white flex justify-between items-center shadow-sm">
         <div>
             <h1 class="text-2xl font-bold italic tracking-tighter uppercase leading-none">PALPITE<span class="text-blue-600">BET</span></h1>
             <p class="text-[8px] font-bold text-slate-400 uppercase tracking-widest mt-1">Global Intelligence</p>
         </div>
-        <div onclick="window.location.href='https://wa.me/5511999999999'" class="bg-blue-600 text-white px-4 py-2 rounded-xl text-[10px] font-bold uppercase text-center cursor-pointer shadow-md">
+        <div onclick="window.location.href='https://wa.me/5511999999999'" class="bg-blue-600 text-white px-4 py-2 rounded-xl text-[10px] font-bold uppercase text-center shadow-md cursor-pointer">
             Ativar VIP <br> <span class="text-[8px] opacity-70">R$ 9,99</span>
         </div>
     </header>
@@ -42,7 +42,7 @@
         <div class="sport-btn" onclick="switchTab('basquete', this)">🏀 Basquete</div>
         <div class="sport-btn" onclick="switchTab('tenis', this)">🎾 Tênis</div>
         <div class="sport-btn" onclick="switchTab('mma', this)">🥊 MMA</div>
-        <div class="sport-btn">🎮 E-Sports</div>
+        <div class="sport-btn" onclick="switchTab('esports', this)">🎮 E-Sports</div>
     </div>
 
     <div class="px-5 mb-4">
@@ -75,20 +75,35 @@
             <div class="game-card"><div class="teams-area"><div class="row-team">Real Madrid</div><div class="row-team">Barcelona</div></div><div class="btn-analisar">Analisar</div></div>
             <div class="league-row"><div class="league-txt">🇮🇹 Itália: Serie A</div><span>19:30</span></div>
             <div class="game-card"><div class="teams-area"><div class="row-team">Juventus</div><div class="row-team">Milan</div></div><div class="btn-analisar">Analisar</div></div>
+            <div class="league-row"><div class="league-txt">🇩🇪 Alemanha: Bundesliga</div><span>15:30</span></div>
+            <div class="game-card"><div class="teams-area"><div class="row-team">Bayern</div><div class="row-team">Dortmund</div></div><div class="btn-analisar">Analisar</div></div>
+            <div class="league-row"><div class="league-txt">🇫🇷 França: Ligue 1</div><span>17:00</span></div>
+            <div class="game-card"><div class="teams-area"><div class="row-team">PSG</div><div class="row-team">Marseille</div></div><div class="btn-analisar">Analisar</div></div>
+            <div class="league-row"><div class="league-txt">🇵🇹 Portugal: Liga NOS</div><span>18:00</span></div>
+            <div class="game-card"><div class="teams-area"><div class="row-team">Benfica</div><div class="row-team">Porto</div></div><div class="btn-analisar">Analisar</div></div>
         </div>
 
         <div id="basquete" class="tab-content">
             <div class="league-row"><div class="league-txt">🇺🇸 EUA: NBA</div><span class="bg-red-500 text-white text-[9px] px-2 py-0.5 rounded font-bold uppercase">Live</span></div>
-            <div class="game-card"><div class="teams-area"><div class="row-team">🏀 Lakers<span>110</span></div><div class="row-team">🏀 Warriors<span>105</span></div></div><div class="btn-analisar">Analisar</div></div>
+            <div class="game-card"><div class="teams-area"><div class="row-team">🏀 Lakers<span>112</span></div><div class="row-team">🏀 Warriors<span>108</span></div></div><div class="btn-analisar">Analisar</div></div>
             <div class="game-card"><div class="teams-area"><div class="row-team">🏀 Celtics</div><div class="row-team">🏀 Heat</div></div><div class="btn-analisar">Analisar</div></div>
+            <div class="game-card"><div class="teams-area"><div class="row-team">🏀 Bulls</div><div class="row-team">🏀 Bucks</div></div><div class="btn-analisar">Analisar</div></div>
             <div class="game-card"><div class="teams-area"><div class="row-team">🏀 Suns</div><div class="row-team">🏀 Mavericks</div></div><div class="btn-analisar">Analisar</div></div>
             <div class="game-card"><div class="teams-area"><div class="row-team">🏀 Nuggets</div><div class="row-team">🏀 Clippers</div></div><div class="btn-analisar">Analisar</div></div>
+            <div class="game-card"><div class="teams-area"><div class="row-team">🏀 76ers</div><div class="row-team">🏀 Knicks</div></div><div class="btn-analisar">Analisar</div></div>
         </div>
 
         <div id="tenis" class="tab-content">
             <div class="league-row"><div class="league-txt">🎾 ATP: Roland Garros</div><span>LIVE</span></div>
-            <div class="game-card"><div class="teams-area"><div class="row-team">🎾 Alcaraz</div><div class="row-team">🎾 Djokovic</div></div><div class="btn-analisar">Analisar</div></div>
-            <div class="game-card"><div class="teams-area"><div class="row-team">🎾 Sinner</div><div class="row-team">🎾 Zverev</div></div><div class="btn-analisar">Analisar</div></div>
+            <div class="game-card"><div class="teams-area"><div class="row-team">🎾 Carlos Alcaraz</div><div class="row-team">🎾 Novak Djokovic</div></div><div class="btn-analisar">Analisar</div></div>
+            <div class="game-card"><div class="teams-area"><div class="row-team">🎾 Jannik Sinner</div><div class="row-team">🎾 Daniil Medvedev</div></div><div class="btn-analisar">Analisar</div></div>
+            <div class="game-card"><div class="teams-area"><div class="row-team">🎾 Alexander Zverev</div><div class="row-team">🎾 Casper Ruud</div></div><div class="btn-analisar">Analisar</div></div>
+        </div>
+
+        <div id="mma" class="tab-content">
+            <div class="league-row"><div class="league-txt">🥊 UFC 300</div><span>Card Principal</span></div>
+            <div class="game-card"><div class="teams-area"><div class="row-team">🥊 Alex Pereira</div><div class="row-team">🥊 Jamahal Hill</div></div><div class="btn-analisar">Analisar</div></div>
+            <div class="game-card"><div class="teams-area"><div class="row-team">🥊 Charles Oliveira</div><div class="row-team">🥊 Arman Tsarukyan</div></div><div class="btn-analisar">Analisar</div></div>
         </div>
     </main>
 
@@ -110,4 +125,3 @@
     </script>
 </body>
 </html>
-
