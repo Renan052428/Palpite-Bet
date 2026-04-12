@@ -3,175 +3,179 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PALPITE-BET | Sistema Profissional</title>
+    <title>PALPITE-BET | Oficial</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background: #F3F6F9; color: #1e293b; margin: 0; padding: 0; }
+        body { font-family: 'Inter', sans-serif; background: #F3F6F9; color: #1e293b; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         
-        /* Layout Header e Cards conforme Prints */
-        .card-shadow { background: white; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); border: 1px solid #f1f5f9; }
+        /* Layout de Cards e Identidade */
+        .card-shadow { background: white; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); border: 1px solid #f1f5f9; position: relative; overflow: hidden; }
         
-        /* Menu Inferior Estilo App */
+        /* Menu Inferior Fixo */
         .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: flex; justify-content: space-around; padding: 12px 0 25px; border-top: 1px solid #edf2f7; z-index: 9999; }
-        .nav-item { text-align: center; font-size: 9px; font-weight: 900; color: #cbd5e1; text-transform: uppercase; cursor: pointer; transition: 0.2s; }
+        .nav-item { text-align: center; font-size: 9px; font-weight: 900; color: #cbd5e1; text-transform: uppercase; cursor: pointer; }
         .nav-item.active { color: #ef4444; }
 
-        /* Barra de Esportes com Ícones */
-        .sport-btn { background: white; border: 1px solid #f1f5f9; padding: 10px 20px; border-radius: 50px; font-size: 10px; font-weight: 900; white-space: nowrap; display: flex; align-items: center; gap: 8px; color: #64748b; }
-        .sport-btn.active { background: #3b82f6; color: white; border-color: #3b82f6; box-shadow: 0 4px 15px rgba(59,130,246,0.3); }
+        /* Barra de Esportes */
+        .sport-btn { background: white; border: 1px solid #f1f5f9; padding: 10px 20px; border-radius: 50px; font-size: 10px; font-weight: 900; white-space: nowrap; color: #64748b; }
+        .sport-btn.active { background: #3b82f6; color: white; border-color: #3b82f6; }
 
-        /* Linha de Campeonato */
-        .league-row { display: flex; align-items: center; gap: 8px; padding: 10px 20px; font-size: 10px; font-weight: 900; color: #94a3b8; text-transform: uppercase; }
-        .league-indicator { width: 3px; height: 15px; background: #3b82f6; border-radius: 10px; }
+        /* Estilo Campeonatos */
+        .league-header { display: flex; align-items: center; gap: 8px; padding: 15px 20px 5px; font-size: 10px; font-weight: 900; color: #94a3b8; text-transform: uppercase; }
+        .league-indicator { width: 3px; height: 14px; background: #3b82f6; border-radius: 10px; }
 
-        /* Modal de Cadastro */
-        #modal-reg { display: none; position: fixed; inset: 0; background: white; z-index: 10000; padding: 30px; overflow-y: auto; }
-        .input-style { width: 100%; background: #f8fafc; border: 2px solid #f1f5f9; padding: 18px; rounded: 20px; font-size: 14px; font-weight: 700; outline: none; margin-bottom: 12px; border-radius: 18px; }
-        
-        .live-dot { width: 6px; height: 6px; background: #ef4444; border-radius: 50%; display: inline-block; animation: pulse 1s infinite; }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+        /* LINK DO PIX (Cobre o Card Inteiro) */
+        .pix-link { position: absolute; inset: 0; z-index: 10; cursor: pointer; }
+
+        #modal-reg { display: none; position: fixed; inset: 0; background: white; z-index: 10000; padding: 30px; }
+        .input-style { width: 100%; background: #f8fafc; border: 2px solid #f1f5f9; padding: 18px; border-radius: 18px; font-size: 14px; font-weight: 700; margin-bottom: 12px; outline: none; }
     </style>
 </head>
 <body class="pb-32">
 
-    <header class="p-6 bg-white flex justify-between items-center sticky top-0 z-50">
+    <header class="p-6 bg-white flex justify-between items-center sticky top-0 z-50 shadow-sm">
         <div>
             <h1 class="text-2xl font-black italic tracking-tighter uppercase leading-none">PALPITE<span class="text-blue-600">BET</span></h1>
-            <p id="header-user" class="text-[9px] font-black text-slate-400 uppercase tracking-widest mt-1">Global Intelligence</p>
+            <p id="header-status" class="text-[9px] font-black text-slate-400 uppercase tracking-widest mt-1">Global Intelligence</p>
         </div>
-        <button onclick="window.open('https://pay.kiwify.com.br/mj9n838', '_blank')" class="bg-blue-600 text-white px-5 py-2.5 rounded-2xl text-[10px] font-black uppercase shadow-lg shadow-blue-100">Ativar VIP</button>
+        <a href="https://pay.kiwify.com.br/mj9n838" target="_blank" class="bg-blue-600 text-white px-5 py-2.5 rounded-2xl text-[10px] font-black uppercase shadow-lg">Ativar VIP</a>
     </header>
 
     <div class="px-5 mt-4">
         <div class="card-shadow p-6">
             <h3 class="text-[9px] font-black text-slate-300 uppercase mb-4 tracking-widest">🔍 Scanner de Bilhetes AI</h3>
             <div class="flex gap-2">
-                <input id="ticket" type="text" placeholder="Cole o código do bilhete aqui..." class="flex-1 bg-slate-50 p-4 rounded-2xl text-xs font-bold outline-none border-none">
-                <button onclick="startScan()" class="bg-slate-900 text-white px-6 rounded-2xl font-black text-[10px] uppercase">Analisar</button>
+                <input id="ticket" type="text" placeholder="Código do bilhete..." class="flex-1 bg-slate-50 p-4 rounded-2xl text-xs font-bold outline-none border-none">
+                <button onclick="simulateScan()" class="bg-slate-900 text-white px-6 rounded-2xl font-black text-[10px] uppercase">Analisar</button>
             </div>
             <p id="risk-alert" class="hidden mt-4 text-[9px] text-red-500 font-black uppercase italic leading-tight">
-                * Aviso: A taxa de acerto via satélite é de 96%. Risco de Red existente.
+                * Aviso: Taxa de 96% via satélite. Risco de Red existente em jogos ao vivo.
             </p>
         </div>
     </div>
 
     <div class="flex overflow-x-auto gap-3 p-5 no-scrollbar">
-        <button onclick="selSport(this)" class="sport-btn active">⚽ Futebol</button>
-        <button onclick="selSport(this)" class="sport-btn">🏀 Basquete</button>
-        <button onclick="selSport(this)" class="sport-btn">🎾 Tênis</button>
-        <button onclick="selSport(this)" class="sport-btn">🥊 MMA/UFC</button>
-        <button onclick="selSport(this)" class="sport-btn">🏐 Vôlei</button>
-        <button onclick="selSport(this)" class="sport-btn">🏎️ F1</button>
+        <button class="sport-btn active">⚽ Futebol</button>
+        <button class="sport-btn">🏀 Basquete</button>
+        <button class="sport-btn">🎾 Tênis</button>
+        <button class="sport-btn">🥊 MMA</button>
+        <button class="sport-btn">🏐 Vôlei</button>
+        <button class="sport-btn">🎮 E-Sports</button>
     </div>
 
-    <div id="main-content">
-        <div class="league-row"><div class="league-indicator"></div> Copa Libertadores</div>
+    <main id="main-content">
+        <div class="league-header"><div class="league-indicator"></div> Brasileirão Série A</div>
         <div class="px-5 mb-4">
-            <div class="card-shadow p-5 flex justify-between items-center" onclick="openPix()">
+            <div class="card-shadow p-5 flex justify-between items-center">
+                <a href="https://pay.kiwify.com.br/mj9n838" target="_blank" class="pix-link"></a>
                 <div class="space-y-3">
                     <div class="font-black text-xs uppercase">Flamengo</div>
-                    <div class="font-black text-xs uppercase text-slate-400">Palestino</div>
+                    <div class="font-black text-xs uppercase text-slate-400">Corinthians</div>
                 </div>
                 <div class="bg-blue-50 border border-blue-100 px-5 py-3 rounded-2xl text-center">
                     <span class="block text-[8px] font-black text-blue-400">PALPITE</span>
-                    <span class="text-sm font-black text-blue-600">@1.25</span>
+                    <span class="text-sm font-black text-blue-600">@1.85</span>
                 </div>
             </div>
         </div>
 
-        <div class="league-row"><div class="league-indicator"></div> Champions League</div>
+        <div class="league-header"><div class="league-indicator"></div> UEFA Champions League</div>
         <div class="px-5 mb-4">
-            <div class="card-shadow p-5 flex justify-between items-center" onclick="openPix()">
+            <div class="card-shadow p-5 flex justify-between items-center">
+                <a href="https://pay.kiwify.com.br/mj9n838" target="_blank" class="pix-link"></a>
                 <div class="space-y-3">
                     <div class="font-black text-xs uppercase">Real Madrid</div>
-                    <div class="font-black text-xs uppercase text-slate-400">Man. City</div>
+                    <div class="font-black text-xs uppercase text-slate-400">Bayern</div>
                 </div>
                 <div class="bg-blue-50 border border-blue-100 px-5 py-3 rounded-2xl text-center">
                     <span class="block text-[8px] font-black text-blue-400">PALPITE</span>
-                    <span class="text-sm font-black text-blue-600">@1.95</span>
+                    <span class="text-sm font-black text-blue-600">@2.10</span>
                 </div>
             </div>
         </div>
-    </div>
+
+        <div class="league-header"><div class="league-indicator"></div> Basquete NBA</div>
+        <div class="px-5 mb-4">
+            <div class="card-shadow p-5 flex justify-between items-center">
+                <a href="https://pay.kiwify.com.br/mj9n838" target="_blank" class="pix-link"></a>
+                <div class="space-y-3">
+                    <div class="font-black text-xs uppercase">Lakers</div>
+                    <div class="font-black text-xs uppercase text-slate-400">Warriors</div>
+                </div>
+                <div class="bg-blue-50 border border-blue-100 px-5 py-3 rounded-2xl text-center">
+                    <span class="block text-[8px] font-black text-blue-400">PALPITE</span>
+                    <span class="text-sm font-black text-blue-600">@1.90</span>
+                </div>
+            </div>
+        </div>
+    </main>
 
     <nav class="bottom-nav">
         <div onclick="location.reload()" class="nav-item active">🏠<br>Hoje</div>
-        <div onclick="showAoVivo()" class="nav-item">📡<br>Ao Vivo</div>
-        <div onclick="alert('Funcionalidade VIP')" class="nav-item">⭐<br>Favoritos</div>
+        <div onclick="showLive()" class="nav-item">📡<br>Ao Vivo</div>
+        <div class="nav-item">⭐<br>Favoritos</div>
         <div onclick="document.getElementById('modal-reg').style.display='block'" class="nav-item">👤<br>Perfil</div>
     </nav>
 
     <div id="modal-reg">
-        <button onclick="document.getElementById('modal-reg').style.display='none'" class="mb-10 font-black text-slate-300">FECHAR</button>
-        <h2 class="text-3xl font-black uppercase italic mb-8">Criar Conta</h2>
-        <input id="user-name" type="text" placeholder="Nome Completo" class="input-style">
-        <input id="user-email" type="email" placeholder="E-mail principal" class="input-style">
-        <input id="user-cpf" type="text" placeholder="CPF" class="input-style">
-        <button onclick="handleReg()" class="w-full bg-blue-600 text-white py-5 rounded-2xl font-black uppercase shadow-xl mt-4">Salvar Cadastro</button>
+        <button onclick="document.getElementById('modal-reg').style.display='none'" class="mb-10 font-black text-slate-300 text-sm">FECHAR</button>
+        <h2 class="text-3xl font-black uppercase italic mb-8">Criar Cadastro</h2>
+        <input id="reg-nome" type="text" placeholder="Nome Completo" class="input-style">
+        <input id="reg-email" type="email" placeholder="E-mail" class="input-style">
+        <input id="reg-cpf" type="text" placeholder="CPF" class="input-style">
+        <button onclick="saveUser()" class="w-full bg-blue-600 text-white py-5 rounded-2xl font-black uppercase shadow-xl">Salvar e Entrar</button>
     </div>
 
     <script>
-        // Função de Registro e Login
-        function handleReg() {
-            const nome = document.getElementById('user-name').value;
-            const email = document.getElementById('user-email').value;
+        function saveUser() {
+            const nome = document.getElementById('reg-nome').value;
+            const email = document.getElementById('reg-email').value;
             if(!nome || !email) return alert("Preencha Nome e E-mail.");
             
-            localStorage.setItem('pb_user', nome);
-            localStorage.setItem('pb_email', email);
-            
-            updateHeader();
+            localStorage.setItem('pb_name', nome);
             document.getElementById('modal-reg').style.display = 'none';
+            updateHeader();
         }
 
         function updateHeader() {
-            const user = localStorage.getItem('pb_user');
+            const user = localStorage.getItem('pb_name');
             if(user) {
-                document.getElementById('header-user').innerText = "Olá, " + user.toUpperCase();
-                document.getElementById('header-user').style.color = "#3b82f6";
+                document.getElementById('header-status').innerText = "OLÁ, " + user.toUpperCase();
+                document.getElementById('header-status').classList.add('text-blue-600');
             }
         }
         updateHeader();
 
-        // Função Pix Melhorada
-        function openPix() {
-            window.open('https://pay.kiwify.com.br/mj9n838', '_blank');
-        }
-
-        function startScan() {
+        function simulateScan() {
             const btn = event.target;
             btn.innerText = "SCANNING...";
             setTimeout(() => {
                 btn.innerText = "ANALISAR";
                 document.getElementById('risk-alert').classList.remove('hidden');
-                openPix();
+                // Redireciona após o scan
+                window.location.href = "https://pay.kiwify.com.br/mj9n838";
             }, 2000);
         }
 
-        function showAoVivo() {
+        function showLive() {
             const content = document.getElementById('main-content');
             content.innerHTML = `
-                <div class="league-row"><div class="league-indicator" style="background:red"></div> Sinais Ao Vivo (Satélite)</div>
+                <div class="league-header"><div class="league-indicator" style="background:red"></div> Ao Vivo - Satélite</div>
                 <div class="px-5 mb-4">
-                    <div class="card-shadow p-5 flex justify-between items-center" onclick="openPix()">
+                    <div class="card-shadow p-5 flex justify-between items-center">
+                        <a href="https://pay.kiwify.com.br/mj9n838" target="_blank" class="pix-link"></a>
                         <div>
-                            <div class="font-black text-xs text-red-500 mb-1"><span class="live-dot"></span> 74' - FLAMENGO 2x1 PALMEIRAS</div>
-                            <div class="text-[9px] font-bold text-slate-400 uppercase">Sugestão: Próximo Gol Flamengo</div>
+                            <div class="font-black text-xs text-red-500 mb-1">● 82' - Man. City 3x2 Liverpool</div>
+                            <div class="text-[9px] font-bold text-slate-400 uppercase">Sugestão: Vitória City</div>
                         </div>
-                        <div class="bg-slate-900 text-white px-5 py-3 rounded-2xl text-center font-black">@1.90</div>
+                        <div class="bg-slate-900 text-white px-5 py-3 rounded-2xl font-black text-xs">@1.70</div>
                     </div>
                 </div>
             `;
             document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
             event.target.classList.add('active');
-        }
-
-        function selSport(btn) {
-            document.querySelectorAll('.sport-btn').forEach(el => el.classList.remove('active'));
-            btn.classList.add('active');
-            alert("Carregando novos campeonatos de " + btn.innerText);
         }
     </script>
 </body>
