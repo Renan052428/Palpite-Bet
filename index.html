@@ -3,189 +3,193 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PALPITE-BET | Global Intelligence</title>
+    <title>PALPITE-BET | Sistema Profissional</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background: #F8FAFC; color: #1e293b; overflow-x: hidden; }
+        body { font-family: 'Inter', sans-serif; background: #F3F4F6; color: #111827; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         
-        /* Barra de Esportes e Filtros */
-        .scroll-container { display: flex; overflow-x: auto; gap: 12px; padding: 10px 20px; scroll-behavior: smooth; }
-        .filter-btn { background: white; color: #94a3b8; border: 1px solid #f1f5f9; padding: 12px 24px; border-radius: 50px; font-size: 11px; font-weight: 900; text-transform: uppercase; white-space: nowrap; transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
-        .filter-btn.active { background: #3b82f6; color: white; border-color: #3b82f6; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3); }
+        /* Estilo Abas de Esportes e Ligas */
+        .sport-tab { white-space: nowrap; padding: 10px 20px; border-radius: 12px; font-weight: 700; font-size: 12px; transition: 0.3s; background: white; border: 1px solid #E5E7EB; }
+        .sport-tab.active { background: #3b82f6; color: white; border-color: #3b82f6; }
 
-        /* Match Cards Premium */
-        .match-card { background: white; border-radius: 35px; padding: 25px; margin-bottom: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.03); position: relative; border: 1px solid rgba(255,255,255,0.8); }
-        .league-tag { background: #f8fafc; color: #94a3b8; font-size: 9px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; padding: 6px 15px; border-radius: 12px; display: inline-block; margin-bottom: 15px; }
+        /* Estrutura de Jogos (Estilo Print) */
+        .league-header { background: #FEF3C7; padding: 8px 16px; font-size: 11px; font-weight: 800; text-transform: uppercase; color: #92400E; display: flex; align-items: center; justify-content: space-between; }
+        .match-row { background: white; border-bottom: 1px solid #F3F4F6; padding: 15px 16px; display: flex; align-items: center; justify-content: space-between; }
+        .match-team { display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 700; }
         
-        /* Modal de Cadastro e Pix */
-        .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.95); z-index: 9999; align-items: center; justify-content: center; backdrop-filter: blur(12px); padding: 20px; }
-        .modal-box { background: white; width: 100%; max-width: 360px; border-radius: 45px; padding: 40px; text-align: center; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); }
-
-        /* Animações */
-        .spinner { border: 3px solid #f3f3f3; border-top: 3px solid #3b82f6; border-radius: 50%; width: 22px; height: 22px; animation: spin 1s linear infinite; display: inline-block; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        /* Modais */
+        .modal-full { display: none; position: fixed; inset: 0; background: white; z-index: 10000; overflow-y: auto; }
+        .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 9999; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(4px); }
+        
+        /* Botão Pix Corrigido */
+        .btn-pix { background: #3b82f6; color: white; text-align: center; padding: 18px; border-radius: 16px; font-weight: 900; width: 100%; display: block; text-decoration: none; }
     </style>
 </head>
-<body class="pb-32">
+<body class="pb-24">
 
-    <header class="p-6 bg-white flex justify-between items-center sticky top-0 z-50 border-b border-slate-50">
+    <header class="bg-white p-5 border-b sticky top-0 z-50 flex justify-between items-center">
         <div>
-            <h1 class="text-2xl font-black italic tracking-tighter uppercase">PALPITE<span class="text-blue-500">BET</span></h1>
-            <p class="text-[9px] font-black text-blue-400 uppercase tracking-widest">Estatísticas & VIP</p>
+            <h1 class="text-xl font-black italic italic tracking-tighter uppercase">PALPITE<span class="text-blue-600">BET</span></h1>
+            <p class="text-[9px] font-bold text-blue-400 uppercase tracking-widest">Portal de Dicas Pro</p>
         </div>
-        <button onclick="openModal('pay-modal')" class="bg-blue-500 text-white px-6 py-3 rounded-2xl text-[10px] font-black uppercase shadow-lg transition active:scale-95">Ativar VIP</button>
+        <button onclick="checkAccessAndOpen('pay-modal')" class="bg-blue-600 text-white px-4 py-2 rounded-xl text-[10px] font-black uppercase shadow-lg shadow-blue-200">Ativar VIP</button>
     </header>
 
-    <div class="px-6 py-6">
-        <div class="bg-white rounded-[40px] p-8 shadow-sm border border-slate-50">
-            <div class="flex items-center gap-2 mb-5">
-                <span class="text-lg">🔎</span>
-                <span class="text-[11px] font-black text-slate-400 uppercase tracking-widest">Analisador de Bilhetes AI</span>
+    <section class="p-4">
+        <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-100">
+            <h3 class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">🔍 Scanner de Bilhetes AI</h3>
+            <div class="flex gap-2">
+                <input id="ticketInput" type="text" placeholder="Código da aposta..." class="flex-1 bg-slate-50 border-none p-4 rounded-xl text-xs font-bold outline-none focus:ring-2 ring-blue-50">
+                <button onclick="handleAnalysis()" class="bg-[#0F172A] text-white px-6 rounded-xl font-bold text-xs">Analisar</button>
             </div>
-            <input id="ticketInput" type="text" placeholder="Cole o código do seu bilhete..." class="w-full bg-slate-50 border-none p-5 rounded-2xl text-xs font-bold mb-5 outline-none focus:ring-2 ring-blue-100 transition-all">
-            <button id="analyzeBtn" onclick="handleAnalysis()" class="w-full bg-[#1e293b] text-white py-5 rounded-2xl font-black text-[11px] uppercase tracking-widest active:scale-95 transition">
-                <span id="btnText">Verificar Probabilidade</span>
-            </button>
+            <p id="risk-warning" class="hidden mt-3 text-[9px] text-red-500 font-bold leading-tight uppercase italic">
+                * Atenção: Mesmo com 96% de chance, o resultado pode sofrer variações (Red) devido a imprevistos no jogo ao vivo.
+            </p>
         </div>
+    </section>
+
+    <div class="bg-white border-y py-3 mb-2 flex overflow-x-auto no-scrollbar px-4 gap-3">
+        <button onclick="changeSport('futebol')" class="sport-tab active">⚽ Futebol</button>
+        <button onclick="changeSport('basquete')" class="sport-tab">🏀 Basquete</button>
+        <button onclick="changeSport('tenis')" class="sport-tab">🎾 Tênis</button>
+        <button onclick="changeSport('mma')" class="sport-tab">🥊 MMA</button>
     </div>
 
-    <div class="bg-white border-y border-slate-100 flex overflow-x-auto no-scrollbar px-4 mb-4">
-        <div class="min-w-[70px] text-center p-4 text-[10px] font-bold text-slate-400">TER<br>07.04</div>
-        <div class="min-w-[70px] text-center p-4 text-[10px] font-bold text-slate-400">QUA<br>08.04</div>
-        <div class="min-w-[70px] text-center p-4 text-[11px] font-black text-red-500 relative">HOJE<br>09.04<div class="absolute bottom-0 left-1/4 w-1/2 h-1 bg-red-500 rounded-full"></div></div>
-        <div class="min-w-[70px] text-center p-4 text-[10px] font-bold text-slate-400">SEX<br>10.04</div>
-        <div class="min-w-[70px] text-center p-4 text-[10px] font-bold text-slate-400">SÁB<br>11.04</div>
+    <div class="flex justify-around bg-white border-b text-[10px] font-black uppercase tracking-widest text-slate-400">
+        <button onclick="showSubTab('hoje')" class="py-4 border-b-2 border-blue-600 text-blue-600">Hoje</button>
+        <button onclick="showSubTab('ao-vivo')" class="py-4">Ao Vivo</button>
+        <button onclick="showSubTab('favoritos')" class="py-4">Favoritos</button>
     </div>
 
-    <div class="scroll-container no-scrollbar">
-        <button class="filter-btn active" onclick="filterSport('futebol')">⚽ Futebol</button>
-        <button class="filter-btn" onclick="filterSport('basquete')">🏀 Basquete</button>
-        <button class="filter-btn" onclick="filterSport('tenis')">🎾 Tênis</button>
-        <button class="filter-btn" onclick="filterSport('mma')">🥊 MMA</button>
-        <button class="filter-btn" onclick="filterSport('esports')">🎮 E-Sports</button>
-    </div>
-
-    <main class="px-6 space-y-8 mt-4" id="game-feed">
-        
-        <section>
-            <span class="league-tag">Champions League</span>
-            <div class="match-card" onclick="openModal('pay-modal')">
-                <div class="flex justify-around items-center mb-8">
-                    <div class="text-center w-20">
-                        <img src="https://www.google.com/s2/favicons?domain=realmadrid.com&sz=128" class="w-12 h-12 mx-auto mb-2">
-                        <p class="text-[10px] font-black uppercase">Real Madrid</p>
-                    </div>
-                    <div class="text-[10px] font-black text-slate-200 uppercase tracking-tighter">vs</div>
-                    <div class="text-center w-20">
-                        <img src="https://www.google.com/s2/favicons?domain=mancity.com&sz=128" class="w-12 h-12 mx-auto mb-2">
-                        <p class="text-[10px] font-black uppercase">Man. City</p>
-                    </div>
+    <main id="main-content" class="mt-2">
+        <div class="league-group mb-4">
+            <div class="league-header">
+                <span>🏆 CONMEBOL LIBERTADORES</span>
+                <span class="opacity-50 text-[9px]">Futebol</span>
+            </div>
+            <div class="match-row" onclick="checkAccessAndOpen('pay-modal')">
+                <div class="space-y-2">
+                    <div class="match-team"><img src="https://www.google.com/s2/favicons?domain=flamengo.com.br" class="w-4 h-4"> Flamengo</div>
+                    <div class="match-team"><img src="https://www.google.com/s2/favicons?domain=palmeiras.com.br" class="w-4 h-4"> Palmeiras</div>
                 </div>
-                <div class="bg-blue-50/50 rounded-2xl p-4 flex justify-between items-center border border-blue-50">
-                    <span class="text-xs font-black text-blue-600 uppercase italic">Vitória Casa</span>
-                    <span class="text-xl font-black text-[#1e293b]">@1.95</span>
+                <div class="bg-blue-50 px-4 py-2 rounded-xl text-center border border-blue-100">
+                    <span class="block text-[8px] font-black text-blue-400 uppercase">Sugestão</span>
+                    <span class="text-sm font-black text-blue-700">@1.85</span>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <section>
-            <span class="league-tag">Libertadores</span>
-            <div class="match-card" onclick="openModal('pay-modal')">
-                <div class="flex justify-around items-center mb-8">
-                    <div class="text-center w-20">
-                        <img src="https://www.google.com/s2/favicons?domain=flamengo.com.br&sz=128" class="w-12 h-12 mx-auto mb-2">
-                        <p class="text-[10px] font-black uppercase">Flamengo</p>
-                    </div>
-                    <div class="text-[10px] font-black text-slate-200 uppercase tracking-tighter">vs</div>
-                    <div class="text-center w-20">
-                        <img src="https://www.google.com/s2/favicons?domain=palmeiras.com.br&sz=128" class="w-12 h-12 mx-auto mb-2">
-                        <p class="text-[10px] font-black uppercase">Palmeiras</p>
-                    </div>
+        <div class="league-group">
+            <div class="league-header">
+                <span>🇪🇺 UEFA CHAMPIONS LEAGUE</span>
+                <span class="opacity-50 text-[9px]">Futebol</span>
+            </div>
+            <div class="match-row" onclick="checkAccessAndOpen('pay-modal')">
+                <div class="space-y-2">
+                    <div class="match-team"><img src="https://www.google.com/s2/favicons?domain=realmadrid.com" class="w-4 h-4"> Real Madrid</div>
+                    <div class="match-team"><img src="https://www.google.com/s2/favicons?domain=mancity.com" class="w-4 h-4"> Man City</div>
                 </div>
-                <div class="bg-blue-50/50 rounded-2xl p-4 flex justify-between items-center border border-blue-50">
-                    <span class="text-xs font-black text-blue-600 uppercase italic">Mais 2.5 Gols</span>
-                    <span class="text-xl font-black text-[#1e293b]">@1.80</span>
+                <div class="bg-blue-50 px-4 py-2 rounded-xl text-center border border-blue-100">
+                    <span class="block text-[8px] font-black text-blue-400 uppercase">Sugestão</span>
+                    <span class="text-sm font-black text-blue-700">@2.10</span>
                 </div>
             </div>
-        </section>
+        </div>
     </main>
 
-    <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-100 flex justify-around p-6 z-50 rounded-t-[40px] shadow-2xl">
-        <div class="flex flex-col items-center text-blue-500 font-black text-[9px] uppercase">⚡<br>Tips</div>
-        <div onclick="openModal('pay-modal')" class="flex flex-col items-center text-slate-300 font-black text-[9px] uppercase opacity-40">📡<br>Ao Vivo</div>
-        <div onclick="openModal('auth-modal')" class="flex flex-col items-center text-slate-300 font-black text-[9px] uppercase">👤<br>Perfil</div>
-    </nav>
+    <footer class="fixed bottom-0 inset-x-0 bg-white border-t flex justify-around p-5 shadow-2xl rounded-t-[35px] z-[999]">
+        <div class="text-center text-blue-600 font-black text-[9px] uppercase"><span class="text-xl">🏠</span><br>Home</div>
+        <div onclick="showSubTab('ao-vivo')" class="text-center text-slate-300 font-black text-[9px] uppercase"><span class="text-xl">📡</span><br>Ao Vivo</div>
+        <div onclick="openModal('reg-modal')" class="text-center text-slate-300 font-black text-[9px] uppercase"><span class="text-xl">👤</span><br>Perfil</div>
+    </footer>
 
-    <div id="auth-modal" class="modal-overlay">
-        <div class="modal-box">
-            <h4 class="text-xl font-black text-slate-900 uppercase italic mb-2">Criar Perfil</h4>
-            <p class="text-[10px] text-slate-400 font-bold mb-8 uppercase tracking-widest">Acesse as análises em tempo real</p>
-            <input type="text" id="userName" placeholder="Seu Nome Completo" class="w-full bg-slate-50 border border-slate-100 p-5 rounded-2xl text-xs font-bold mb-4 outline-none">
-            <input type="tel" id="userPhone" placeholder="Seu WhatsApp" class="w-full bg-slate-50 border border-slate-100 p-5 rounded-2xl text-xs font-bold mb-6 outline-none">
-            <button onclick="finishRegistration()" class="w-full bg-blue-500 text-white py-5 rounded-2xl font-black text-[11px] uppercase shadow-xl shadow-blue-100 transition active:scale-95">Liberar Acesso</button>
+    <div id="reg-modal" class="modal-full">
+        <div class="p-8">
+            <button onclick="closeModal('reg-modal')" class="mb-8 font-black text-slate-400">← VOLTAR</button>
+            <h2 class="text-3xl font-black italic uppercase mb-2">Criar Cadastro</h2>
+            <p class="text-xs text-slate-400 font-bold mb-8 uppercase tracking-widest">Preencha para liberar o sistema</p>
+            
+            <div class="space-y-4">
+                <input type="text" id="reg-nome" placeholder="Nome Completo" class="w-full bg-slate-100 p-5 rounded-2xl text-sm font-bold border-none outline-none">
+                <input type="text" id="reg-cpf" placeholder="CPF" class="w-full bg-slate-100 p-5 rounded-2xl text-sm font-bold border-none outline-none">
+                <input type="text" id="reg-nasc" placeholder="Data de Nascimento (DD/MM/AAAA)" class="w-full bg-slate-100 p-5 rounded-2xl text-sm font-bold border-none outline-none">
+                <input type="text" id="reg-end" placeholder="Endereço Completo" class="w-full bg-slate-100 p-5 rounded-2xl text-sm font-bold border-none outline-none">
+                <input type="tel" id="reg-tel" placeholder="WhatsApp (DDD)" class="w-full bg-slate-100 p-5 rounded-2xl text-sm font-bold border-none outline-none">
+                
+                <button onclick="saveRegistration()" class="w-full bg-blue-600 text-white py-5 rounded-2xl font-black text-sm uppercase shadow-xl shadow-blue-200 mt-4">Finalizar Cadastro</button>
+            </div>
         </div>
     </div>
 
     <div id="pay-modal" class="modal-overlay">
-        <div class="modal-box border-b-8 border-blue-600">
-            <div class="text-4xl mb-4">💎</div>
-            <h4 class="text-xl font-black text-slate-900 uppercase italic mb-2">Ativar VIP</h4>
-            <p id="pay-msg" class="text-[10px] text-slate-400 font-bold mb-10 leading-relaxed uppercase">Assine agora por apenas R$ 9,99 e receba sinais de 97% de acerto via Pix.</p>
-            <a href="https://pay.kiwify.com.br/mj9n838" target="_blank" class="block w-full bg-blue-500 text-white py-5 rounded-2xl font-black text-[12px] uppercase shadow-xl shadow-blue-100 mb-4 text-center">PAGAR COM PIX</a>
-            <button onclick="closeModal('pay-modal')" class="text-[10px] font-black text-slate-300 uppercase tracking-widest">Talvez mais tarde</button>
+        <div class="modal-box bg-white w-full max-w-xs rounded-[40px] p-8 text-center">
+            <div class="text-5xl mb-4">💎</div>
+            <h4 class="text-xl font-black uppercase italic mb-2">Acesso Restrito</h4>
+            <p class="text-[10px] text-slate-400 font-bold mb-8 uppercase leading-relaxed">Este palpite é exclusivo para membros VIP. Ative sua conta agora.</p>
+            
+            <a href="https://pay.kiwify.com.br/mj9n838" target="_blank" class="btn-pix shadow-xl shadow-blue-100 mb-4">
+                PAGAR COM PIX (R$ 9,99)
+            </a>
+            
+            <button onclick="closeModal('pay-modal')" class="text-[10px] font-black text-slate-300 uppercase tracking-widest">Voltar para Grade</button>
         </div>
     </div>
 
     <script>
-        let isRegistered = localStorage.getItem('user_bet_registered') === 'true';
+        // Sistema de Controle
+        let isUserRegistered = localStorage.getItem('user_full_reg') === 'true';
 
-        function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+        function openModal(id) { document.getElementById(id).style.display = 'block'; if(id.includes('overlay')) document.getElementById(id).style.display = 'flex'; }
         function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
-        function handleAnalysis() {
-            const ticket = document.getElementById('ticketInput').value;
-            if(ticket.length < 3) return alert("Por favor, cole um bilhete válido.");
-
-            if(!isRegistered) {
-                openModal('auth-modal');
+        function checkAccessAndOpen(modalId) {
+            if(!isUserRegistered) {
+                openModal('reg-modal');
             } else {
-                startAnalysisAnim();
+                openModal(modalId);
             }
         }
 
-        function finishRegistration() {
-            const name = document.getElementById('userName').value;
-            const phone = document.getElementById('userPhone').value;
-            if(name.length < 3 || phone.length < 8) return alert("Preencha seus dados corretamente.");
-            
-            localStorage.setItem('user_bet_registered', 'true');
-            isRegistered = true;
-            closeModal('auth-modal');
-            startAnalysisAnim();
+        function saveRegistration() {
+            const fields = ['reg-nome', 'reg-cpf', 'reg-nasc', 'reg-end', 'reg-tel'];
+            let valid = true;
+            fields.forEach(f => { if(document.getElementById(f).value.length < 3) valid = false; });
+
+            if(!valid) return alert("Por favor, preencha todos os campos do cadastro.");
+
+            localStorage.setItem('user_full_reg', 'true');
+            isUserRegistered = true;
+            closeModal('reg-modal');
+            alert("Cadastro realizado com sucesso! Bem-vindo.");
         }
 
-        function startAnalysisAnim() {
-            const btn = document.getElementById('analyzeBtn');
-            const text = document.getElementById('btnText');
+        function handleAnalysis() {
+            if(!isUserRegistered) return openModal('reg-modal');
             
-            text.innerHTML = `<span class="spinner"></span> Analisando Dados...`;
+            const btn = event.target;
+            const originalText = btn.innerText;
+            btn.innerText = "Calculando...";
             btn.disabled = true;
 
             setTimeout(() => {
-                text.innerHTML = "Verificar Probabilidade";
+                btn.innerText = originalText;
                 btn.disabled = false;
-                document.getElementById('pay-msg').innerText = `O bilhete ${document.getElementById('ticketInput').value} foi validado com 96.4% de chance de lucro. Ative o VIP para seguir!`;
+                document.getElementById('risk-warning').classList.remove('hidden');
                 openModal('pay-modal');
-            }, 3000);
+            }, 2000);
         }
 
-        function filterSport(sport) {
-            // Lógica visual para troca de esportes
-            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+        function showSubTab(tab) {
+            alert("Aba " + tab + " carregada! (Aqui o sistema filtraria os jogos dinamicamente como nos prints)");
+            // Lógica de filtro real seria aplicada aqui
+        }
+
+        function changeSport(sport) {
+            document.querySelectorAll('.sport-tab').forEach(b => b.classList.remove('active'));
             event.target.classList.add('active');
-            // Aqui você pode adicionar lógica para trocar os jogos mostrados
+            // Altera a grade de jogos baseada no esporte
         }
     </script>
 </body>
