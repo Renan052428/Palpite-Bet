@@ -3,193 +3,187 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PALPITE-BET | Sistema Profissional</title>
+    <title>PALPITE-BET | Live Intelligence</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; background: #F3F4F6; color: #111827; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         
-        /* Estilo Abas de Esportes e Ligas */
-        .sport-tab { white-space: nowrap; padding: 10px 20px; border-radius: 12px; font-weight: 700; font-size: 12px; transition: 0.3s; background: white; border: 1px solid #E5E7EB; }
-        .sport-tab.active { background: #3b82f6; color: white; border-color: #3b82f6; }
+        /* Barra de Esportes Ampliada */
+        .sport-bar { display: flex; overflow-x: auto; gap: 10px; padding: 15px; background: white; border-bottom: 1px solid #E5E7EB; }
+        .sport-item { min-width: 100px; background: #f8fafc; border: 1px solid #e2e8f0; padding: 12px; border-radius: 16px; text-align: center; font-size: 11px; font-weight: 800; text-transform: uppercase; cursor: pointer; }
+        .sport-item.active { background: #3b82f6; color: white; border-color: #3b82f6; box-shadow: 0 4px 12px rgba(59,130,246,0.3); }
 
-        /* Estrutura de Jogos (Estilo Print) */
-        .league-header { background: #FEF3C7; padding: 8px 16px; font-size: 11px; font-weight: 800; text-transform: uppercase; color: #92400E; display: flex; align-items: center; justify-content: space-between; }
-        .match-row { background: white; border-bottom: 1px solid #F3F4F6; padding: 15px 16px; display: flex; align-items: center; justify-content: space-between; }
-        .match-team { display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 700; }
-        
-        /* Modais */
-        .modal-full { display: none; position: fixed; inset: 0; background: white; z-index: 10000; overflow-y: auto; }
-        .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 9999; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(4px); }
-        
-        /* Botão Pix Corrigido */
-        .btn-pix { background: #3b82f6; color: white; text-align: center; padding: 18px; border-radius: 16px; font-weight: 900; width: 100%; display: block; text-decoration: none; }
+        /* Estilo Profissional de Ligas */
+        .league-card { margin-bottom: 2px; }
+        .league-title { background: #1e293b; color: #f8fafc; padding: 10px 16px; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; display: flex; justify-content: space-between; }
+        .match-box { background: white; padding: 16px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f1f5f9; }
+        .live-pulse { width: 6px; height: 6px; background: #ef4444; border-radius: 50%; display: inline-block; margin-right: 5px; animation: pulse 1s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+
+        /* Modal Full */
+        .modal-full { display: none; position: fixed; inset: 0; background: white; z-index: 10000; overflow-y: auto; padding-bottom: 50px; }
+        .payment-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 10001; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
     </style>
 </head>
 <body class="pb-24">
 
     <header class="bg-white p-5 border-b sticky top-0 z-50 flex justify-between items-center">
-        <div>
-            <h1 class="text-xl font-black italic italic tracking-tighter uppercase">PALPITE<span class="text-blue-600">BET</span></h1>
-            <p class="text-[9px] font-bold text-blue-400 uppercase tracking-widest">Portal de Dicas Pro</p>
+        <div id="user-info">
+            <h1 class="text-xl font-black italic tracking-tighter uppercase leading-none">PALPITE<span class="text-blue-600">BET</span></h1>
+            <p id="welcome-msg" class="text-[9px] font-bold text-slate-400 uppercase mt-1">Visitante</p>
         </div>
-        <button onclick="checkAccessAndOpen('pay-modal')" class="bg-blue-600 text-white px-4 py-2 rounded-xl text-[10px] font-black uppercase shadow-lg shadow-blue-200">Ativar VIP</button>
+        <div class="flex gap-2">
+            <button id="btn-reg" onclick="openModal('reg-modal')" class="bg-slate-100 text-slate-600 px-4 py-2 rounded-xl text-[10px] font-black uppercase">Cadastro</button>
+            <button onclick="openPayment()" class="bg-blue-600 text-white px-4 py-2 rounded-xl text-[10px] font-black uppercase shadow-lg">VIP</button>
+        </div>
     </header>
 
-    <section class="p-4">
-        <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-100">
-            <h3 class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">🔍 Scanner de Bilhetes AI</h3>
-            <div class="flex gap-2">
-                <input id="ticketInput" type="text" placeholder="Código da aposta..." class="flex-1 bg-slate-50 border-none p-4 rounded-xl text-xs font-bold outline-none focus:ring-2 ring-blue-50">
-                <button onclick="handleAnalysis()" class="bg-[#0F172A] text-white px-6 rounded-xl font-bold text-xs">Analisar</button>
-            </div>
-            <p id="risk-warning" class="hidden mt-3 text-[9px] text-red-500 font-bold leading-tight uppercase italic">
-                * Atenção: Mesmo com 96% de chance, o resultado pode sofrer variações (Red) devido a imprevistos no jogo ao vivo.
-            </p>
-        </div>
-    </section>
-
-    <div class="bg-white border-y py-3 mb-2 flex overflow-x-auto no-scrollbar px-4 gap-3">
-        <button onclick="changeSport('futebol')" class="sport-tab active">⚽ Futebol</button>
-        <button onclick="changeSport('basquete')" class="sport-tab">🏀 Basquete</button>
-        <button onclick="changeSport('tenis')" class="sport-tab">🎾 Tênis</button>
-        <button onclick="changeSport('mma')" class="sport-tab">🥊 MMA</button>
+    <div class="sport-bar no-scrollbar">
+        <div class="sport-item active">⚽ Futebol</div>
+        <div class="sport-item">🏀 Basquete</div>
+        <div class="sport-item">🎾 Tênis</div>
+        <div class="sport-item">🥊 MMA/UFC</div>
+        <div class="sport-item">🏐 Vôlei</div>
+        <div class="sport-item">🎮 E-Sports</div>
+        <div class="sport-item">🏎️ F1</div>
+        <div class="sport-item">🏈 NFL</div>
     </div>
 
     <div class="flex justify-around bg-white border-b text-[10px] font-black uppercase tracking-widest text-slate-400">
-        <button onclick="showSubTab('hoje')" class="py-4 border-b-2 border-blue-600 text-blue-600">Hoje</button>
-        <button onclick="showSubTab('ao-vivo')" class="py-4">Ao Vivo</button>
-        <button onclick="showSubTab('favoritos')" class="py-4">Favoritos</button>
+        <button onclick="changeView('hoje')" class="py-4 border-b-2 border-blue-600 text-blue-600 flex-1">Hoje</button>
+        <button onclick="changeView('ao-vivo')" class="py-4 flex-1">Ao Vivo <span class="text-red-500 ml-1">●</span></button>
+        <button onclick="changeView('favoritos')" class="py-4 flex-1">Favoritos</button>
     </div>
 
-    <main id="main-content" class="mt-2">
-        <div class="league-group mb-4">
-            <div class="league-header">
-                <span>🏆 CONMEBOL LIBERTADORES</span>
-                <span class="opacity-50 text-[9px]">Futebol</span>
+    <div class="p-4">
+        <div class="bg-slate-900 rounded-3xl p-6 text-white">
+            <h3 class="text-[10px] font-black text-blue-400 uppercase tracking-widest mb-4">🛰️ Analisador Via Satélite</h3>
+            <div class="flex gap-2">
+                <input id="ticketInput" type="text" placeholder="Código do bilhete..." class="flex-1 bg-white/10 border-none p-4 rounded-xl text-xs font-bold outline-none text-white">
+                <button onclick="runAnalysis()" class="bg-blue-600 px-6 rounded-xl font-black text-xs uppercase">Analisar</button>
             </div>
-            <div class="match-row" onclick="checkAccessAndOpen('pay-modal')">
-                <div class="space-y-2">
-                    <div class="match-team"><img src="https://www.google.com/s2/favicons?domain=flamengo.com.br" class="w-4 h-4"> Flamengo</div>
-                    <div class="match-team"><img src="https://www.google.com/s2/favicons?domain=palmeiras.com.br" class="w-4 h-4"> Palmeiras</div>
+            <p id="risk-warning" class="hidden mt-4 text-[9px] text-yellow-400 font-bold uppercase italic border-t border-white/10 pt-4">
+                ⚠ AVISO: A precisão de 96% é baseada em dados históricos. Jogos ao vivo podem sofrer alterações drásticas (Red).
+            </p>
+        </div>
+    </div>
+
+    <main id="game-list">
+        <div class="league-card">
+            <div class="league-title"><span>🇧🇷 Brasileirão Série A</span><span>Ao Vivo</span></div>
+            <div class="match-box" onclick="openPayment()">
+                <div class="flex-1">
+                    <div class="flex items-center gap-3 mb-2 font-bold text-sm text-red-600"><span class="live-pulse"></span> 74' - Flamengo 2x1 Palmeiras</div>
+                    <div class="text-[10px] font-black text-slate-400 uppercase">Sugestão: Próximo Gol Flamengo</div>
                 </div>
-                <div class="bg-blue-50 px-4 py-2 rounded-xl text-center border border-blue-100">
-                    <span class="block text-[8px] font-black text-blue-400 uppercase">Sugestão</span>
-                    <span class="text-sm font-black text-blue-700">@1.85</span>
-                </div>
+                <div class="bg-blue-600 text-white font-black p-3 rounded-xl text-xs">@1.90</div>
             </div>
         </div>
 
-        <div class="league-group">
-            <div class="league-header">
-                <span>🇪🇺 UEFA CHAMPIONS LEAGUE</span>
-                <span class="opacity-50 text-[9px]">Futebol</span>
+        <div class="league-card">
+            <div class="league-title"><span>🏴󠁧󠁢󠁥󠁮󠁧󠁿 Premier League</span><span>12:00</span></div>
+            <div class="match-box" onclick="openPayment()">
+                <div class="flex-1">
+                    <div class="font-bold text-sm mb-1">Liverpool vs Arsenal</div>
+                    <div class="text-[10px] font-black text-slate-400 uppercase">Sugestão: Ambas Marcam</div>
+                </div>
+                <div class="bg-slate-100 text-slate-600 font-black p-3 rounded-xl text-xs">@1.75</div>
             </div>
-            <div class="match-row" onclick="checkAccessAndOpen('pay-modal')">
-                <div class="space-y-2">
-                    <div class="match-team"><img src="https://www.google.com/s2/favicons?domain=realmadrid.com" class="w-4 h-4"> Real Madrid</div>
-                    <div class="match-team"><img src="https://www.google.com/s2/favicons?domain=mancity.com" class="w-4 h-4"> Man City</div>
+        </div>
+
+        <div class="league-card">
+            <div class="league-title"><span>🇺🇸 NBA</span><span>21:00</span></div>
+            <div class="match-box" onclick="openPayment()">
+                <div class="flex-1">
+                    <div class="font-bold text-sm mb-1">LA Lakers vs Golden State</div>
+                    <div class="text-[10px] font-black text-slate-400 uppercase">Sugestão: Mais de 220 pts</div>
                 </div>
-                <div class="bg-blue-50 px-4 py-2 rounded-xl text-center border border-blue-100">
-                    <span class="block text-[8px] font-black text-blue-400 uppercase">Sugestão</span>
-                    <span class="text-sm font-black text-blue-700">@2.10</span>
-                </div>
+                <div class="bg-slate-100 text-slate-600 font-black p-3 rounded-xl text-xs">@1.88</div>
             </div>
         </div>
     </main>
 
-    <footer class="fixed bottom-0 inset-x-0 bg-white border-t flex justify-around p-5 shadow-2xl rounded-t-[35px] z-[999]">
-        <div class="text-center text-blue-600 font-black text-[9px] uppercase"><span class="text-xl">🏠</span><br>Home</div>
-        <div onclick="showSubTab('ao-vivo')" class="text-center text-slate-300 font-black text-[9px] uppercase"><span class="text-xl">📡</span><br>Ao Vivo</div>
-        <div onclick="openModal('reg-modal')" class="text-center text-slate-300 font-black text-[9px] uppercase"><span class="text-xl">👤</span><br>Perfil</div>
-    </footer>
-
     <div id="reg-modal" class="modal-full">
         <div class="p-8">
-            <button onclick="closeModal('reg-modal')" class="mb-8 font-black text-slate-400">← VOLTAR</button>
-            <h2 class="text-3xl font-black italic uppercase mb-2">Criar Cadastro</h2>
-            <p class="text-xs text-slate-400 font-bold mb-8 uppercase tracking-widest">Preencha para liberar o sistema</p>
-            
+            <div class="flex justify-between items-center mb-10">
+                <h2 class="text-2xl font-black italic uppercase">Cadastro Pro</h2>
+                <button onclick="closeModal('reg-modal')" class="text-slate-400 font-bold">FECHAR</button>
+            </div>
             <div class="space-y-4">
-                <input type="text" id="reg-nome" placeholder="Nome Completo" class="w-full bg-slate-100 p-5 rounded-2xl text-sm font-bold border-none outline-none">
-                <input type="text" id="reg-cpf" placeholder="CPF" class="w-full bg-slate-100 p-5 rounded-2xl text-sm font-bold border-none outline-none">
-                <input type="text" id="reg-nasc" placeholder="Data de Nascimento (DD/MM/AAAA)" class="w-full bg-slate-100 p-5 rounded-2xl text-sm font-bold border-none outline-none">
-                <input type="text" id="reg-end" placeholder="Endereço Completo" class="w-full bg-slate-100 p-5 rounded-2xl text-sm font-bold border-none outline-none">
-                <input type="tel" id="reg-tel" placeholder="WhatsApp (DDD)" class="w-full bg-slate-100 p-5 rounded-2xl text-sm font-bold border-none outline-none">
-                
-                <button onclick="saveRegistration()" class="w-full bg-blue-600 text-white py-5 rounded-2xl font-black text-sm uppercase shadow-xl shadow-blue-200 mt-4">Finalizar Cadastro</button>
+                <input id="in-nome" type="text" placeholder="Nome Completo" class="w-full bg-slate-100 p-5 rounded-2xl text-sm font-bold outline-none border-2 border-transparent focus:border-blue-500">
+                <input id="in-cpf" type="text" placeholder="CPF" class="w-full bg-slate-100 p-5 rounded-2xl text-sm font-bold outline-none">
+                <input id="in-nasc" type="text" placeholder="Data Nasc. (DD/MM/AAAA)" class="w-full bg-slate-100 p-5 rounded-2xl text-sm font-bold outline-none">
+                <input id="in-end" type="text" placeholder="Endereço Completo" class="w-full bg-slate-100 p-5 rounded-2xl text-sm font-bold outline-none">
+                <input id="in-tel" type="tel" placeholder="WhatsApp" class="w-full bg-slate-100 p-5 rounded-2xl text-sm font-bold outline-none">
+                <button onclick="doRegister()" class="w-full bg-blue-600 text-white py-5 rounded-2xl font-black text-sm uppercase shadow-xl mt-4">Criar Minha Conta</button>
             </div>
         </div>
     </div>
 
-    <div id="pay-modal" class="modal-overlay">
-        <div class="modal-box bg-white w-full max-w-xs rounded-[40px] p-8 text-center">
-            <div class="text-5xl mb-4">💎</div>
-            <h4 class="text-xl font-black uppercase italic mb-2">Acesso Restrito</h4>
-            <p class="text-[10px] text-slate-400 font-bold mb-8 uppercase leading-relaxed">Este palpite é exclusivo para membros VIP. Ative sua conta agora.</p>
+    <div id="pay-modal" class="payment-overlay">
+        <div class="bg-white w-[90%] max-w-sm rounded-[40px] p-10 text-center relative">
+            <div class="text-5xl mb-4">🚀</div>
+            <h4 class="text-xl font-black uppercase italic mb-2">Liberação VIP</h4>
+            <p class="text-[10px] text-slate-400 font-bold mb-8 uppercase leading-relaxed">Você precisa de uma assinatura ativa para ver os detalhes desta entrada.</p>
             
-            <a href="https://pay.kiwify.com.br/mj9n838" target="_blank" class="btn-pix shadow-xl shadow-blue-100 mb-4">
-                PAGAR COM PIX (R$ 9,99)
+            <a href="https://pay.kiwify.com.br/mj9n838" target="_blank" class="block w-full bg-blue-600 text-white py-5 rounded-2xl font-black text-sm uppercase shadow-lg shadow-blue-200">
+                ASSINAR VIA PIX (R$ 9,99)
             </a>
             
-            <button onclick="closeModal('pay-modal')" class="text-[10px] font-black text-slate-300 uppercase tracking-widest">Voltar para Grade</button>
+            <button onclick="document.getElementById('pay-modal').style.display='none'" class="mt-6 text-[10px] font-black text-slate-300 uppercase">Fechar</button>
         </div>
     </div>
 
     <script>
-        // Sistema de Controle
-        let isUserRegistered = localStorage.getItem('user_full_reg') === 'true';
+        // Persistência de Dados
+        function checkLogin() {
+            const user = localStorage.getItem('palpitebet_user');
+            if(user) {
+                document.getElementById('welcome-msg').innerText = "Olá, " + user;
+                document.getElementById('btn-reg').style.display = 'none';
+            }
+        }
+        checkLogin();
 
-        function openModal(id) { document.getElementById(id).style.display = 'block'; if(id.includes('overlay')) document.getElementById(id).style.display = 'flex'; }
+        function openModal(id) { document.getElementById(id).style.display = 'block'; }
         function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
-        function checkAccessAndOpen(modalId) {
-            if(!isUserRegistered) {
+        function doRegister() {
+            const nome = document.getElementById('in-nome').value;
+            if(nome.length < 3) return alert("Preencha o cadastro completo.");
+            
+            localStorage.setItem('palpitebet_user', nome);
+            alert("Conta criada com sucesso!");
+            location.reload();
+        }
+
+        function openPayment() {
+            if(!localStorage.getItem('palpitebet_user')) {
                 openModal('reg-modal');
             } else {
-                openModal(modalId);
+                document.getElementById('pay-modal').style.display = 'flex';
             }
         }
 
-        function saveRegistration() {
-            const fields = ['reg-nome', 'reg-cpf', 'reg-nasc', 'reg-end', 'reg-tel'];
-            let valid = true;
-            fields.forEach(f => { if(document.getElementById(f).value.length < 3) valid = false; });
-
-            if(!valid) return alert("Por favor, preencha todos os campos do cadastro.");
-
-            localStorage.setItem('user_full_reg', 'true');
-            isUserRegistered = true;
-            closeModal('reg-modal');
-            alert("Cadastro realizado com sucesso! Bem-vindo.");
-        }
-
-        function handleAnalysis() {
-            if(!isUserRegistered) return openModal('reg-modal');
+        function runAnalysis() {
+            if(!localStorage.getItem('palpitebet_user')) return openModal('reg-modal');
             
             const btn = event.target;
-            const originalText = btn.innerText;
-            btn.innerText = "Calculando...";
+            btn.innerText = "CONECTANDO SATÉLITE...";
             btn.disabled = true;
 
             setTimeout(() => {
-                btn.innerText = originalText;
+                btn.innerText = "ANALISAR";
                 btn.disabled = false;
                 document.getElementById('risk-warning').classList.remove('hidden');
-                openModal('pay-modal');
-            }, 2000);
+                openPayment();
+            }, 3000);
         }
 
-        function showSubTab(tab) {
-            alert("Aba " + tab + " carregada! (Aqui o sistema filtraria os jogos dinamicamente como nos prints)");
-            // Lógica de filtro real seria aplicada aqui
-        }
-
-        function changeSport(sport) {
-            document.querySelectorAll('.sport-tab').forEach(b => b.classList.remove('active'));
-            event.target.classList.add('active');
-            // Altera a grade de jogos baseada no esporte
+        function changeView(view) {
+            alert("Sincronizando aba " + view + " com o satélite...");
         }
     </script>
 </body>
