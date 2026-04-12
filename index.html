@@ -3,136 +3,149 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PALPITE-BET | Live Intelligence</title>
+    <title>PALPITE-BET | Global Intelligence</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background: #F3F6F9; color: #1e293b; overflow-x: hidden; }
+        body { font-family: 'Inter', sans-serif; background: #F8FAFC; color: #1e293b; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; overflow-x: auto; display: flex; gap: 10px; padding: 10px 20px; }
-        .card-shadow { background: white; border-radius: 25px; box-shadow: 0 8px 25px rgba(0,0,0,0.02); border: 1px solid #f1f5f9; margin-bottom: 12px; position: relative; transition: all 0.3s; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; overflow-x: auto; display: flex; gap: 15px; padding: 10px 20px; }
+        
+        /* Estilo das Datas igual ao print */
+        .date-item { text-align: center; min-width: 60px; cursor: pointer; }
+        .date-day { font-size: 10px; font-weight: 900; color: #94a3b8; text-transform: uppercase; }
+        .date-num { font-size: 14px; font-weight: 900; color: #1e293b; padding-bottom: 5px; }
+        .date-item.active .date-num { color: #ef4444; border-bottom: 3px solid #ef4444; }
+        .date-item.active .date-day { color: #ef4444; }
+
+        /* Estrutura de Ligas */
+        .league-row { background: #FFFFFF; padding: 12px 20px; border-bottom: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+        .league-info { display: flex; align-items: center; gap: 10px; }
+        .league-name { font-size: 11px; font-weight: 800; text-transform: uppercase; color: #64748b; }
+        .game-count { background: #ef4444; color: white; font-size: 10px; font-weight: 900; padding: 2px 8px; border-radius: 6px; }
+
+        /* Card de Jogo Profissional */
+        .game-card { background: white; padding: 15px 20px; border-bottom: 1px solid #f8fafc; display: flex; align-items: center; justify-content: space-between; }
+        .game-status { font-size: 10px; font-weight: 900; color: #ef4444; width: 40px; }
+        .teams-col { flex: 1; padding-left: 10px; border-left: 1px solid #f1f5f9; }
+        .team-row { font-size: 13px; font-weight: 800; display: flex; justify-content: space-between; margin: 2px 0; }
+        .score { color: #ef4444; }
+        
+        .btn-analisar { background: #f1f5f9; color: #3b82f6; font-size: 10px; font-weight: 900; padding: 8px 12px; border-radius: 10px; text-transform: uppercase; }
+        
         .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: flex; justify-content: space-around; padding: 15px 0 30px; border-top: 1px solid #edf2f7; z-index: 999; }
-        .nav-item { text-align: center; font-size: 9px; font-weight: 900; color: #cbd5e1; text-transform: uppercase; cursor: pointer; }
-        .nav-item.active { color: #3b82f6; }
-        .live-pulse { width: 8px; height: 8px; background: #ef4444; border-radius: 50%; display: inline-block; animation: pulse 1s infinite; margin-right: 5px; }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
-        .league-tag { font-size: 10px; font-weight: 900; color: #94a3b8; text-transform: uppercase; padding: 10px 20px 5px; display: flex; align-items: center; gap: 6px; }
-        .indicator { width: 3px; height: 12px; background: #3b82f6; border-radius: 10px; }
+        .nav-item { text-align: center; font-size: 9px; font-weight: 900; color: #cbd5e1; text-transform: uppercase; }
+        .nav-item.active { color: #ef4444; }
     </style>
 </head>
 <body class="pb-32">
 
-    <header class="p-6 bg-white flex justify-between items-center sticky top-0 z-50 shadow-sm">
+    <header class="p-6 bg-white flex justify-between items-center shadow-sm">
         <div>
             <h1 class="text-2xl font-black italic tracking-tighter uppercase leading-none">PALPITE<span class="text-blue-600">BET</span></h1>
-            <p id="user-header" class="text-[9px] font-black text-slate-400 uppercase tracking-widest mt-1">🛰️ Conexão Satélite Ativa</p>
+            <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mt-1">Global Intelligence</p>
         </div>
         <a href="https://mpago.la/16fRczK" target="_blank" class="bg-blue-600 text-white px-5 py-2.5 rounded-2xl text-[10px] font-black uppercase shadow-lg">Ativar VIP</a>
     </header>
 
+    <div class="no-scrollbar bg-white border-b border-slate-100">
+        <div class="date-item"> <div class="date-day">Ter</div> <div class="date-num">07.04</div> </div>
+        <div class="date-item"> <div class="date-day">Qua</div> <div class="date-num">08.04</div> </div>
+        <div class="date-item active"> <div class="date-day">Hoje</div> <div class="date-num">12.04</div> </div>
+        <div class="date-item"> <div class="date-day">Seg</div> <div class="date-num">13.04</div> </div>
+        <div class="date-item"> <div class="date-day">Ter</div> <div class="date-num">14.04</div> </div>
+    </div>
+
     <div class="px-5 mt-4">
-        <div class="card-shadow p-6">
-            <h3 class="text-[9px] font-black text-slate-300 uppercase mb-4 tracking-widest">Scanner AI de Probabilidades</h3>
+        <div class="bg-white rounded-[30px] p-6 shadow-sm border border-slate-100">
+            <h3 class="text-[10px] font-black text-slate-400 uppercase mb-4 flex items-center gap-2">
+                <span class="text-lg">🔎</span> Analisador de Bilhetes Profissional
+            </h3>
             <div class="flex gap-2">
-                <input id="ticket" type="text" placeholder="Código do bilhete..." class="flex-1 bg-slate-50 p-4 rounded-2xl text-xs font-bold outline-none border-none">
+                <input type="text" placeholder="Cole o código do bilhete aqui..." class="flex-1 bg-slate-50 p-4 rounded-2xl text-xs font-bold outline-none border-none">
                 <button onclick="window.location.href='https://mpago.la/16fRczK'" class="bg-slate-900 text-white px-6 rounded-2xl font-black text-[10px] uppercase">Analisar</button>
             </div>
         </div>
     </div>
 
-    <div class="no-scrollbar">
-        <button class="bg-blue-600 text-white px-6 py-3 rounded-full text-[10px] font-black uppercase whitespace-nowrap">⚽ Futebol</button>
-        <button class="bg-white border border-slate-100 text-slate-400 px-6 py-3 rounded-full text-[10px] font-black uppercase whitespace-nowrap">🏀 Basquete</button>
-        <button class="bg-white border border-slate-100 text-slate-400 px-6 py-3 rounded-full text-[10px] font-black uppercase whitespace-nowrap">🎾 Tênis</button>
-        <button class="bg-white border border-slate-100 text-slate-400 px-6 py-3 rounded-full text-[10px] font-black uppercase whitespace-nowrap">🥊 MMA</button>
-    </div>
+    <main class="mt-6">
+        
+        <div class="league-section">
+            <div class="league-row">
+                <div class="league-info">
+                    <img src="https://flagcdn.com/w20/br.png" class="w-4 h-3">
+                    <span class="league-name">Brasil: Brasileirão Betano</span>
+                </div>
+                <span class="game-count">5</span>
+            </div>
+            
+            <div class="game-card" onclick="window.location.href='https://mpago.la/16fRczK'">
+                <div class="game-status">
+                    <span class="block text-red-600">54'</span>
+                    <span class="block text-[8px] text-slate-300">🎧</span>
+                </div>
+                <div class="teams-col">
+                    <div class="team-row"><span>Athletico-PR</span> <span class="score">0</span></div>
+                    <div class="team-row"><span>Chapecoense</span> <span class="score">0</span></div>
+                </div>
+                <div class="ml-4">
+                    <button class="btn-analisar">Analisar @1.39</button>
+                </div>
+            </div>
+        </div>
 
-    <main id="main-content">
-        <div id="games-container"></div>
+        <div class="league-section">
+            <div class="league-row">
+                <div class="league-info">
+                    <img src="https://flagcdn.com/w20/de.png" class="w-4 h-3">
+                    <span class="league-name">Alemanha: Bundesliga</span>
+                </div>
+                <span class="game-count">3</span>
+            </div>
+            
+            <div class="game-card" onclick="window.location.href='https://mpago.la/16fRczK'">
+                <div class="game-status">
+                    <span class="block text-red-600">83'</span>
+                </div>
+                <div class="teams-col">
+                    <div class="team-row"><span>Köln</span> <span class="score">2</span></div>
+                    <div class="team-row"><span>Bremen</span> <span class="score">1</span></div>
+                </div>
+                <div class="ml-4">
+                    <button class="btn-analisar">Analisar @2.35</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="league-section">
+            <div class="league-row">
+                <div class="league-info">
+                    <img src="https://flagcdn.com/w20/es.png" class="w-4 h-3">
+                    <span class="league-name">Espanha: LaLiga</span>
+                </div>
+                <span class="game-count">4</span>
+            </div>
+            
+            <div class="game-card" onclick="window.location.href='https://mpago.la/16fRczK'">
+                <div class="game-status text-slate-400">Intervalo</div>
+                <div class="teams-col">
+                    <div class="team-row"><span>Mallorca</span> <span class="score">2</span></div>
+                    <div class="team-row"><span>Rayo Vallecano</span> <span class="score">0</span></div>
+                </div>
+                <div class="ml-4">
+                    <button class="btn-analisar">Analisar @2.45</button>
+                </div>
+            </div>
+        </div>
+
     </main>
 
     <nav class="bottom-nav">
-        <div class="nav-item active" onclick="renderGames('all')">🏠<br>Hoje</div>
-        <div class="nav-item" onclick="renderGames('live')">📡<br>Ao Vivo</div>
+        <div class="nav-item active">🏠<br>Hoje</div>
+        <div class="nav-item">📡<br>Ao Vivo</div>
         <div class="nav-item">⭐<br>Favoritos</div>
-        <div class="nav-item">👤<br>Perfil</div>
+        <div class="nav-item">🏆<br>Ligas</div>
     </nav>
 
-    <script>
-        // Dados dos jogos de hoje (12/04) baseados na rodada real
-        const games = [
-            { id: 1, league: 'Brasileirão Série A', home: 'Vasco', away: 'Fluminense', time: '16:00', status: 'scheduled', odd: '1.95', market: 'Vitória Casa' },
-            { id: 2, league: 'Brasileirão Série A', home: 'Criciúma', away: 'Juventude', time: '18:30', status: 'scheduled', odd: '2.10', market: 'Ambos Marcam' },
-            { id: 3, league: 'Premier League', home: 'Arsenal', away: 'Aston Villa', time: '74\'', status: 'live', score: '2x1', odd: '1.80', market: 'Próximo Gol' },
-            { id: 4, league: 'Premier League', home: 'Man. City', away: 'Luton', time: '88\'', status: 'live', score: '4x1', odd: '1.15', market: 'Over 5.5' },
-            { id: 5, league: 'Bundesliga', home: 'Bayern', away: 'Köln', time: 'Intervalo', status: 'live', score: '1x0', odd: '1.45', market: 'Vitória Bayern' },
-            { id: 6, league: 'NBA', home: 'Lakers', away: 'Pelicans', time: '21:00', status: 'scheduled', odd: '1.88', market: 'Mais de 220 pts' }
-        ];
-
-        function renderGames(filter = 'all') {
-            const container = document.getElementById('games-container');
-            container.innerHTML = '';
-
-            const filtered = filter === 'live' ? games.filter(g => g.status === 'live') : games;
-
-            let currentLeague = '';
-
-            filtered.forEach(game => {
-                if (game.league !== currentLeague) {
-                    currentLeague = game.league;
-                    const header = document.createElement('div');
-                    header.className = 'league-tag';
-                    header.innerHTML = `<div class="indicator"></div> ${currentLeague}`;
-                    container.appendChild(header);
-                }
-
-                const card = document.createElement('div');
-                card.className = 'px-5';
-                card.innerHTML = `
-                    <div class="card-shadow p-5 flex justify-between items-center" onclick="window.location.href='https://mpago.la/16fRczK'">
-                        <div>
-                            <div class="flex items-center gap-2 mb-1">
-                                ${game.status === 'live' ? `<span class="live-pulse"></span><span class="text-red-600 font-black text-[10px]">${game.time} ${game.score}</span>` : `<span class="text-slate-400 font-black text-[10px]">${game.time}</span>`}
-                            </div>
-                            <div class="font-black text-xs uppercase">${game.home} x ${game.away}</div>
-                            <div class="text-[9px] font-bold text-slate-300 uppercase mt-1">Sugestão: ${game.market}</div>
-                        </div>
-                        <div class="bg-blue-50 px-4 py-2 rounded-xl text-center">
-                            <span class="block text-[8px] font-black text-blue-400 uppercase">Odd</span>
-                            <span class="text-sm font-black text-blue-600">@${game.odd}</span>
-                        </div>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
-
-            // Atualiza estado visual do menu
-            document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
-            if(filter === 'all') document.querySelectorAll('.nav-item')[0].classList.add('active');
-            if(filter === 'live') document.querySelectorAll('.nav-item')[1].classList.add('active');
-        }
-
-        // Simulação de tempo real (muda o tempo dos jogos a cada 30 segundos)
-        setInterval(() => {
-            games.forEach(g => {
-                if(g.status === 'live' && g.time.includes("'")) {
-                    let t = parseInt(g.time);
-                    if(t < 90) g.time = (t + 1) + "'";
-                }
-            });
-            const activeFilter = document.querySelectorAll('.nav-item')[1].classList.contains('active') ? 'live' : 'all';
-            renderGames(activeFilter);
-        }, 30000);
-
-        // Inicializar
-        renderGames();
-
-        // Nome de usuário (se existir)
-        const savedName = localStorage.getItem('u_name');
-        if(savedName) {
-            document.getElementById('user-header').innerText = "OLÁ, " + savedName.toUpperCase();
-            document.getElementById('user-header').style.color = "#3b82f6";
-        }
-    </script>
 </body>
 </html>
