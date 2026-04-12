@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PALPITE-BET | PREMIUM V5</title>
+    <title>PALPITE-BET | OFICIAL V6</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -12,19 +12,15 @@
         .scroll-x::-webkit-scrollbar { display: none; }
         .sport-btn { min-width: 110px; background: white; padding: 10px; border-radius: 12px; text-align: center; border: 1px solid #e2e8f0; font-size: 11px; font-weight: 700; flex-shrink: 0; cursor: pointer; }
         .sport-btn.active { background: #3b82f6; color: white; border-color: #3b82f6; }
-
         .league-row { background: #E5E9F0; padding: 8px 18px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #d1d5db; }
         .league-txt { font-size: 10px; font-weight: 700; text-transform: uppercase; color: #475569; display: flex; align-items: center; gap: 8px; }
         .game-card { background: white; padding: 15px 18px; display: flex; align-items: center; border-bottom: 1px solid #f1f5f9; min-height: 95px; }
-        
         .team-logo { width: 22px; height: 22px; object-fit: contain; }
         .teams-area { flex: 1; padding: 0 15px; }
         .row-team { display: flex; align-items: center; justify-content: space-between; font-size: 14px; margin: 4px 0; font-weight: 600; }
         .btn-analisar { background: #f8fafc; border: 1px solid #e2e8f0; color: #3b82f6; font-size: 10px; padding: 8px 12px; border-radius: 8px; min-width: 110px; text-align: center; font-weight: 700; text-transform: uppercase; cursor: pointer; }
-
         .nav-bottom { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: flex; justify-content: space-around; padding: 12px 0 30px; border-top: 1px solid #e2e8f0; z-index: 1000; }
         .nav-link { text-align: center; font-size: 9px; color: #94a3b8; font-weight: 700; text-decoration: none; text-transform: uppercase; }
-        
         .tab-content { display: none; }
         .tab-content.active { display: block; }
     </style>
@@ -36,7 +32,7 @@
             <h1 class="text-2xl font-bold italic tracking-tighter uppercase leading-none">PALPITE<span class="text-blue-600">BET</span></h1>
             <p class="text-[8px] font-bold text-slate-400 uppercase tracking-widest mt-1">Global Intelligence</p>
         </div>
-        <div onclick="abrirCadastro()" class="bg-blue-600 text-white px-4 py-2 rounded-xl text-[10px] font-bold uppercase text-center shadow-md cursor-pointer">
+        <div onclick="window.location.href='https://wa.me/5511999999999'" class="bg-blue-600 text-white px-4 py-2 rounded-xl text-[10px] font-bold uppercase text-center cursor-pointer">
             Ativar VIP <br> <span class="text-[8px] opacity-70">R$ 9,99</span>
         </div>
     </header>
@@ -46,7 +42,7 @@
         <div class="sport-btn" onclick="switchTab('basquete', this)">🏀 Basquete</div>
         <div class="sport-btn" onclick="switchTab('tenis', this)">🎾 Tênis</div>
         <div class="sport-btn" onclick="switchTab('mma', this)">🥊 MMA</div>
-        <div class="sport-btn" onclick="switchTab('esports', this)">🎮 E-Sports</div>
+        <div class="sport-btn">🎮 E-Sports</div>
     </div>
 
     <div class="px-5 mb-4">
@@ -57,7 +53,7 @@
             </div>
             <div class="flex gap-2">
                 <input type="text" placeholder="Código do bilhete..." class="flex-1 bg-white/5 border border-white/10 rounded-xl p-3 text-xs text-white outline-none">
-                <button onclick="abrirCadastro()" class="bg-blue-600 text-white px-5 rounded-xl text-[10px] font-bold uppercase">Analisar</button>
+                <button onclick="window.location.href='https://wa.me/5511999999999'" class="bg-blue-600 text-white px-5 rounded-xl text-[10px] font-bold uppercase">Analisar</button>
             </div>
         </div>
     </div>
@@ -68,7 +64,6 @@
     </div>
 
     <main id="main-content">
-        
         <div id="futebol" class="tab-content active">
             <div class="league-row"><div class="league-txt">🇧🇷 Brasil: Brasileirão</div><span class="bg-red-500 text-white text-[9px] px-2 py-0.5 rounded font-bold uppercase">Live</span></div>
             <div class="game-card">
@@ -77,62 +72,34 @@
                     <div class="row-team text-emerald-500"><div class="flex items-center gap-2"><img src="https://s.glbimg.com/es/sde/f/equipes/2013/12/16/atletico_pr_60x60.png" class="team-logo"> Athletico-PR</div><span>2</span></div>
                     <div class="row-team"><div class="flex items-center gap-2"><img src="https://s.glbimg.com/es/sde/f/equipes/2015/05/06/chapecoense_60x60.png" class="team-logo"> Chapecoense</div><span>0</span></div>
                 </div>
-                <div class="btn-analisar" onclick="abrirCadastro()">Analisar</div>
+                <div class="btn-analisar">Analisar</div>
             </div>
-            <div class="league-row"><div class="league-txt">🇬🇧 Inglaterra: Premier League</div><span class="bg-slate-300 text-slate-600 text-[9px] px-2 py-0.5 rounded font-bold uppercase">20:00</span></div>
-            <div class="game-card">
-                <div class="text-slate-400 font-bold text-[11px] w-10">Hoje</div>
-                <div class="teams-area">
-                    <div class="row-team"><div class="flex items-center gap-2"><img src="https://cdn.footystats.org/img/teams/england-manchester-city-fc.png" class="team-logo"> Man. City</div><span>-</span></div>
-                    <div class="row-team"><div class="flex items-center gap-2"><img src="https://cdn.footystats.org/img/teams/england-liverpool-fc.png" class="team-logo"> Liverpool</div><span>-</span></div>
-                </div>
-                <div class="btn-analisar" onclick="abrirCadastro()">Analisar</div>
-            </div>
-            <div class="league-row"><div class="league-txt">🇪🇸 Espanha: La Liga</div><span class="bg-slate-300">HOJE</span></div>
-            <div class="game-card"><div class="text-black font-bold text-[11px] w-10">21h</div><div class="teams-area"><div class="row-team">Real Madrid</div><div class="row-team">Barcelona</div></div><div class="btn-analisar">Analisar</div></div>
-            <div class="league-row"><div class="league-txt">🇮🇹 Itália: Serie A</div><span class="bg-slate-300">HOJE</span></div>
-            <div class="game-card"><div class="text-black font-bold text-[11px] w-10">19h</div><div class="teams-area"><div class="row-team">Juventus</div><div class="row-team">Milan</div></div><div class="btn-analisar">Analisar</div></div>
-            <div class="league-row"><div class="league-txt">🇫🇷 França: Ligue 1</div><span class="bg-slate-300">HOJE</span></div>
-            <div class="game-card"><div class="text-black font-bold text-[11px] w-10">20h</div><div class="teams-area"><div class="row-team">PSG</div><div class="row-team">Lyon</div></div><div class="btn-analisar">Analisar</div></div>
+            <div class="league-row"><div class="league-txt">🇬🇧 Inglaterra: Premier League</div><span class="bg-slate-300 px-2 rounded font-bold">20:00</span></div>
+            <div class="game-card"><div class="teams-area"><div class="row-team">Man. City</div><div class="row-team">Liverpool</div></div><div class="btn-analisar">Analisar</div></div>
+            <div class="league-row"><div class="league-txt">🇪🇸 Espanha: La Liga</div><span>HOJE</span></div>
+            <div class="game-card"><div class="teams-area"><div class="row-team">Real Madrid</div><div class="row-team">Barcelona</div></div><div class="btn-analisar">Analisar</div></div>
         </div>
 
         <div id="basquete" class="tab-content">
             <div class="league-row"><div class="league-txt">🇺🇸 EUA: NBA</div><span class="bg-red-500 text-white text-[9px] px-2 py-0.5 rounded font-bold uppercase">Live</span></div>
-            <div class="game-card">
-                <div class="text-black font-bold text-[11px] w-10">Q3</div>
-                <div class="teams-area">
-                    <div class="row-team">🏀 LA Lakers<span>98</span></div>
-                    <div class="row-team">🏀 GS Warriors<span>102</span></div>
-                </div>
-                <div class="btn-analisar">Analisar</div>
-            </div>
-            <div class="league-row"><div class="league-txt">🇺🇸 EUA: NBA</div><span>22:00</span></div>
-            <div class="game-card"><div class="text-black font-bold text-[11px] w-10">HOJE</div><div class="teams-area"><div class="row-team">Celtics</div><div class="row-team">Miami Heat</div></div><div class="btn-analisar">Analisar</div></div>
-            <div class="game-card"><div class="text-black font-bold text-[11px] w-10">HOJE</div><div class="teams-area"><div class="row-team">Bulls</div><div class="row-team">Bucks</div></div><div class="btn-analisar">Analisar</div></div>
-            <div class="game-card"><div class="text-black font-bold text-[11px] w-10">HOJE</div><div class="teams-area"><div class="row-team">Suns</div><div class="row-team">Mavericks</div></div><div class="btn-analisar">Analisar</div></div>
-            <div class="game-card"><div class="text-black font-bold text-[11px] w-10">HOJE</div><div class="teams-area"><div class="row-team">Nuggets</div><div class="row-team">Clippers</div></div><div class="btn-analisar">Analisar</div></div>
+            <div class="game-card"><div class="teams-area"><div class="row-team">Lakers<span>102</span></div><div class="row-team">Warriors<span>98</span></div></div><div class="btn-analisar">Analisar</div></div>
+            <div class="game-card"><div class="teams-area"><div class="row-team">Celtics<span>-</span></div><div class="row-team">Heat<span>-</span></div></div><div class="btn-analisar">Analisar</div></div>
+            <div class="game-card"><div class="teams-area"><div class="row-team">Bulls<span>-</span></div><div class="row-team">Bucks<span>-</span></div></div><div class="btn-analisar">Analisar</div></div>
+            <div class="game-card"><div class="teams-area"><div class="row-team">Suns<span>-</span></div><div class="row-team">Mavericks<span>-</span></div></div><div class="btn-analisar">Analisar</div></div>
         </div>
 
         <div id="tenis" class="tab-content">
-            <div class="league-row"><div class="league-txt">🎾 ATP: Roland Garros</div><span>Live</span></div>
-            <div class="game-card"><div class="text-black font-bold text-[11px] w-10">SET 3</div><div class="teams-area"><div class="row-team">Alcaraz</div><div class="row-team">Djokovic</div></div><div class="btn-analisar">Analisar</div></div>
-            <div class="game-card"><div class="text-black font-bold text-[11px] w-10">SET 1</div><div class="teams-area"><div class="row-team">Sinner</div><div class="row-team">Medvedev</div></div><div class="btn-analisar">Analisar</div></div>
+            <div class="league-row"><div class="league-txt">🎾 ATP: Roland Garros</div><span>LIVE</span></div>
+            <div class="game-card"><div class="teams-area"><div class="row-team">Alcaraz</div><div class="row-team">Djokovic</div></div><div class="btn-analisar">Analisar</div></div>
         </div>
-
-        <div id="mma" class="tab-content">
-            <div class="league-row"><div class="league-txt">🥊 UFC 300</div><span>Card Principal</span></div>
-            <div class="game-card"><div class="text-black font-bold text-[11px] w-10">MAIN</div><div class="teams-area"><div class="row-team">Pereira</div><div class="row-team">Hill</div></div><div class="btn-analisar">Analisar</div></div>
-            <div class="game-card"><div class="text-black font-bold text-[11px] w-10">CO-MAIN</div><div class="teams-area"><div class="row-team">Zhang</div><div class="row-team">Yan</div></div><div class="btn-analisar">Analisar</div></div>
-        </div>
-
     </main>
 
     <nav class="nav-bottom">
         <div class="nav-link active">🏠<br>Hoje</div>
         <div class="nav-link">📡<br>Ao Vivo</div>
-        <div onclick="abrirCadastro()" class="nav-link" style="color: #3b82f6;">🏆<br>Ligas</div>
+        <div class="nav-link" style="color: #3b82f6;">🏆<br>Ligas</div>
         <div class="nav-link">👤<br>Conta</div>
-        <div onclick="abrirCadastro()" class="nav-link">👤<br>Cadastro</div>
+        <div onclick="window.location.href='https://wa.me/5511999999999'" class="nav-link">👤<br>Cadastro</div>
     </nav>
 
     <script>
@@ -142,10 +109,6 @@
             document.getElementById(tabId).classList.add('active');
             element.classList.add('active');
         }
-        function abrirCadastro() {
-            window.location.href = "https://mpago.la/16fRczK";
-        }
     </script>
 </body>
 </html>
-
