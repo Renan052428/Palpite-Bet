@@ -7,27 +7,26 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background: #F3F6F9; color: #1e293b; }
+        /* RESOLUÇÃO DA BARRA DE ROLAMENTO */
+        body { font-family: 'Inter', sans-serif; background: #F3F6F9; color: #1e293b; overflow-x: hidden; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; overflow-x: auto; display: flex; gap: 12px; }
         
-        /* Design de Cards do App */
-        .card-shadow { background: white; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); border: 1px solid #f1f5f9; position: relative; }
-        
-        /* Menu Inferior Fixo */
-        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: flex; justify-content: space-around; padding: 12px 0 25px; border-top: 1px solid #edf2f7; z-index: 999; }
-        .nav-item { text-align: center; font-size: 9px; font-weight: 900; color: #cbd5e1; text-transform: uppercase; cursor: pointer; }
-        .nav-item.active { color: #ef4444; }
-
-        /* Campeonatos */
+        /* DESIGN DOS CARDS */
+        .card-shadow { background: white; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); border: 1px solid #f1f5f9; position: relative; margin-bottom: 12px; }
         .league-header { display: flex; align-items: center; gap: 8px; padding: 15px 20px 5px; font-size: 10px; font-weight: 900; color: #94a3b8; text-transform: uppercase; }
         .league-indicator { width: 3px; height: 14px; background: #3b82f6; border-radius: 10px; }
 
-        /* Modais */
-        .modal-screen { display: none; position: fixed; inset: 0; background: white; z-index: 1000; padding: 30px; overflow-y: auto; }
+        /* NAV FIXA */
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: flex; justify-content: space-around; padding: 12px 0 25px; border-top: 1px solid #edf2f7; z-index: 1000; }
+        .nav-item { text-align: center; font-size: 9px; font-weight: 900; color: #cbd5e1; text-transform: uppercase; cursor: pointer; }
+        .nav-item.active { color: #3b82f6; }
+
+        /* MODAL DE SEGURANÇA */
+        .modal-screen { display: none; position: fixed; inset: 0; background: white; z-index: 2000; padding: 30px; overflow-y: auto; }
         .input-style { width: 100%; background: #f8fafc; border: 2px solid #f1f5f9; padding: 18px; border-radius: 18px; font-size: 14px; font-weight: 700; margin-bottom: 12px; outline: none; }
         
-        .live-pulse { width: 8px; height: 8px; background: #ef4444; border-radius: 50%; display: inline-block; animation: pulse 1s infinite; margin-right: 5px; }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+        .live-tag { background: #fee2e2; color: #ef4444; padding: 2px 8px; border-radius: 6px; font-size: 8px; font-weight: 900; }
     </style>
 </head>
 <body class="pb-32">
@@ -35,108 +34,128 @@
     <header class="p-6 bg-white flex justify-between items-center sticky top-0 z-50 shadow-sm">
         <div>
             <h1 class="text-2xl font-black italic tracking-tighter uppercase leading-none">PALPITE<span class="text-blue-600">BET</span></h1>
-            <p id="header-user" class="text-[9px] font-black text-slate-400 uppercase tracking-widest mt-1">Conectado ao Satélite</p>
+            <p id="user-display" class="text-[9px] font-black text-slate-400 uppercase tracking-widest mt-1">Sinais via Satélite</p>
         </div>
-        <button onclick="document.getElementById('modal-login').style.display='block'" class="bg-slate-100 text-slate-600 px-4 py-2 rounded-xl text-[10px] font-black uppercase">Minha Conta</button>
+        <button onclick="openModal()" class="bg-blue-600 text-white px-5 py-2.5 rounded-2xl text-[10px] font-black uppercase shadow-lg">Minha Conta</button>
     </header>
 
     <div class="px-5 mt-4">
         <div class="card-shadow p-6">
-            <h3 class="text-[9px] font-black text-slate-300 uppercase mb-4 tracking-widest">🛰️ Scanner via Satélite AI</h3>
-            <div class="flex gap-2">
-                <input id="ticket" type="text" placeholder="Código do bilhete..." class="flex-1 bg-slate-50 p-4 rounded-2xl text-xs font-bold outline-none border-none">
-                <button onclick="scanTicket()" class="bg-blue-600 text-white px-6 rounded-2xl font-black text-[10px] uppercase">Analisar</button>
+            <div class="flex items-center gap-2 mb-4">
+                <span class="live-tag">LIVE</span>
+                <h3 class="text-[9px] font-black text-slate-300 uppercase tracking-widest">Scanner de Bilhetes AI</h3>
             </div>
-            <p id="risk-alert" class="hidden mt-4 text-[9px] text-red-500 font-black uppercase italic leading-tight">
-                * Aviso: Taxa de 96% de acerto. Bilhetes RED podem ocorrer em oscilações ao vivo.
-            </p>
+            <div class="flex gap-2">
+                <input id="ticket-code" type="text" placeholder="Código do bilhete..." class="flex-1 bg-slate-50 p-4 rounded-2xl text-xs font-bold outline-none">
+                <button onclick="simulateScan()" class="bg-slate-900 text-white px-6 rounded-2xl font-black text-[10px] uppercase">Analisar</button>
+            </div>
         </div>
     </div>
 
-    <div class="flex overflow-x-auto gap-3 p-5 no-scrollbar">
-        <button onclick="filterSport('futebol')" class="bg-blue-600 text-white px-6 py-3 rounded-full text-[10px] font-black uppercase">⚽ Futebol</button>
-        <button class="bg-white border border-slate-100 text-slate-400 px-6 py-3 rounded-full text-[10px] font-black uppercase">🏀 Basquete</button>
-        <button class="bg-white border border-slate-100 text-slate-400 px-6 py-3 rounded-full text-[10px] font-black uppercase">🥊 MMA</button>
+    <div class="px-5 py-4">
+        <div class="no-scrollbar">
+            <button class="bg-blue-600 text-white px-6 py-3 rounded-full text-[10px] font-black uppercase whitespace-nowrap">⚽ Futebol</button>
+            <button class="bg-white border border-slate-100 text-slate-400 px-6 py-3 rounded-full text-[10px] font-black uppercase whitespace-nowrap">🏀 Basquete</button>
+            <button class="bg-white border border-slate-100 text-slate-400 px-6 py-3 rounded-full text-[10px] font-black uppercase whitespace-nowrap">🥊 MMA/UFC</button>
+            <button class="bg-white border border-slate-100 text-slate-400 px-6 py-3 rounded-full text-[10px] font-black uppercase whitespace-nowrap">🎾 Tênis</button>
+            <button class="bg-white border border-slate-100 text-slate-400 px-6 py-3 rounded-full text-[10px] font-black uppercase whitespace-nowrap">🏐 Vôlei</button>
+        </div>
     </div>
 
-    <main id="game-feed">
+    <main id="content">
         <div class="league-header"><div class="league-indicator"></div> Brasileirão Série A</div>
-        <div class="px-5 mb-4">
+        <div id="br-serie-a" class="px-5">
             <div class="card-shadow p-5 flex justify-between items-center">
-                <div class="space-y-3">
+                <div class="space-y-2">
                     <div class="font-black text-xs uppercase">Flamengo</div>
                     <div class="font-black text-xs uppercase text-slate-300">Corinthians</div>
                 </div>
                 <div class="bg-blue-50 border border-blue-100 px-5 py-3 rounded-2xl text-center">
                     <span class="block text-[8px] font-black text-blue-400 uppercase">Sugestão</span>
-                    <span class="text-sm font-black text-blue-600">Vitória Casa</span>
+                    <span class="text-sm font-black text-blue-600">@1.85</span>
                 </div>
             </div>
-        </div>
-
-        <div class="px-5 mb-4">
             <div class="card-shadow p-5 flex justify-between items-center">
-                <div class="space-y-3">
+                <div class="space-y-2">
                     <div class="font-black text-xs uppercase">Palmeiras</div>
                     <div class="font-black text-xs uppercase text-slate-300">São Paulo</div>
                 </div>
                 <div class="bg-blue-50 border border-blue-100 px-5 py-3 rounded-2xl text-center">
                     <span class="block text-[8px] font-black text-blue-400 uppercase">Sugestão</span>
-                    <span class="text-sm font-black text-blue-600">Ambos Marcam</span>
+                    <span class="text-sm font-black text-blue-600">@2.10</span>
+                </div>
+            </div>
+            <div class="card-shadow p-5 flex justify-between items-center">
+                <div class="space-y-2">
+                    <div class="font-black text-xs uppercase">Atlético-MG</div>
+                    <div class="font-black text-xs uppercase text-slate-300">Cruzeiro</div>
+                </div>
+                <div class="bg-blue-50 border border-blue-100 px-5 py-3 rounded-2xl text-center">
+                    <span class="block text-[8px] font-black text-blue-400 uppercase">Sugestão</span>
+                    <span class="text-sm font-black text-blue-600">@1.95</span>
                 </div>
             </div>
         </div>
 
-        <div class="league-header"><div class="league-indicator"></div> Premier League</div>
-        <div class="px-5 mb-4">
+        <div class="league-header"><div class="league-indicator"></div> Champions League</div>
+        <div class="px-5">
             <div class="card-shadow p-5 flex justify-between items-center">
-                <div class="space-y-3">
-                    <div class="font-black text-xs uppercase">Manchester City</div>
-                    <div class="font-black text-xs uppercase text-slate-300">Liverpool</div>
+                <div class="space-y-2">
+                    <div class="font-black text-xs uppercase">Real Madrid</div>
+                    <div class="font-black text-xs uppercase text-slate-300">Man. City</div>
                 </div>
                 <div class="bg-blue-50 border border-blue-100 px-5 py-3 rounded-2xl text-center">
                     <span class="block text-[8px] font-black text-blue-400 uppercase">Sugestão</span>
-                    <span class="text-sm font-black text-blue-600">Over 2.5</span>
+                    <span class="text-sm font-black text-blue-600">@2.40</span>
+                </div>
+            </div>
+            <div class="card-shadow p-5 flex justify-between items-center">
+                <div class="space-y-2">
+                    <div class="font-black text-xs uppercase">Bayern</div>
+                    <div class="font-black text-xs uppercase text-slate-300">Arsenal</div>
+                </div>
+                <div class="bg-blue-50 border border-blue-100 px-5 py-3 rounded-2xl text-center">
+                    <span class="block text-[8px] font-black text-blue-400 uppercase">Sugestão</span>
+                    <span class="text-sm font-black text-blue-600">@1.75</span>
                 </div>
             </div>
         </div>
     </main>
 
     <nav class="bottom-nav">
-        <div onclick="location.reload()" class="nav-item active">🏠<br>Hoje</div>
+        <div class="nav-item active">🏠<br>Hoje</div>
         <div onclick="showLive()" class="nav-item">📡<br>Ao Vivo</div>
         <div class="nav-item">⭐<br>Favoritos</div>
-        <div onclick="document.getElementById('modal-login').style.display='block'" class="nav-item">👤<br>Perfil</div>
+        <div class="nav-item">🏆<br>Ligas</div>
     </nav>
 
-    <div id="modal-login" class="modal-screen">
-        <button onclick="this.parentElement.style.display='none'" class="mb-8 font-black text-slate-300 uppercase text-xs">← Voltar</button>
-        <div id="auth-box">
-            <h2 class="text-2xl font-black uppercase italic mb-6">Acesse sua Conta</h2>
-            <input id="log-email" type="email" placeholder="E-mail" class="input-style">
+    <div id="modal-auth" class="modal-screen">
+        <button onclick="closeModal()" class="mb-8 font-black text-slate-300 uppercase text-xs">← Voltar</button>
+        <div id="login-form">
+            <h2 class="text-3xl font-black uppercase italic mb-8">Acessar Conta</h2>
+            <input id="log-email" type="email" placeholder="Seu E-mail" class="input-style">
             <input id="log-pass" type="password" placeholder="Sua Senha" class="input-style">
-            <button onclick="doLogin()" class="w-full bg-blue-600 text-white py-5 rounded-2xl font-black uppercase shadow-xl mb-4">Entrar</button>
-            <p class="text-center text-[10px] font-bold text-slate-400 uppercase" onclick="showReg()">Não tem conta? <span class="text-blue-600">Cadastre-se</span></p>
+            <button onclick="handleLogin()" class="w-full bg-blue-600 text-white py-5 rounded-2xl font-black uppercase shadow-xl mb-4">Entrar Agora</button>
+            <p class="text-center text-[10px] font-bold text-slate-400 uppercase">Não tem conta? <span class="text-blue-600" onclick="toggleForm()">Criar uma</span></p>
         </div>
-
-        <div id="reg-box" style="display:none">
-            <h2 class="text-2xl font-black uppercase italic mb-6">Criar Cadastro</h2>
+        <div id="reg-form" style="display:none">
+            <h2 class="text-3xl font-black uppercase italic mb-8">Novo Cadastro</h2>
             <input id="reg-nome" type="text" placeholder="Nome Completo" class="input-style">
             <input id="reg-email" type="email" placeholder="E-mail" class="input-style">
             <input id="reg-pass" type="password" placeholder="Crie uma Senha" class="input-style">
-            <input id="reg-cpf" type="text" placeholder="CPF" class="input-style">
-            <button onclick="doRegister()" class="w-full bg-blue-600 text-white py-5 rounded-2xl font-black uppercase shadow-xl">Salvar e Logar</button>
+            <button onclick="handleRegister()" class="w-full bg-slate-900 text-white py-5 rounded-2xl font-black uppercase shadow-xl">Cadastrar</button>
         </div>
     </div>
 
     <script>
-        // Funções de Autenticação
-        function showReg() { 
-            document.getElementById('auth-box').style.display='none'; 
-            document.getElementById('reg-box').style.display='block'; 
+        function openModal() { document.getElementById('modal-auth').style.display='block'; }
+        function closeModal() { document.getElementById('modal-auth').style.display='none'; }
+        function toggleForm() {
+            document.getElementById('login-form').style.display = 'none';
+            document.getElementById('reg-form').style.display = 'block';
         }
 
-        function doRegister() {
+        function handleRegister() {
             const nome = document.getElementById('reg-nome').value;
             const email = document.getElementById('reg-email').value;
             const pass = document.getElementById('reg-pass').value;
@@ -145,66 +164,44 @@
             localStorage.setItem('user_name', nome);
             localStorage.setItem('user_email', email);
             localStorage.setItem('user_pass', pass);
-            alert("Cadastro realizado!");
+            alert("Cadastro realizado com sucesso!");
             location.reload();
         }
 
-        function doLogin() {
+        function handleLogin() {
             const email = document.getElementById('log-email').value;
             const pass = document.getElementById('log-pass').value;
             if(email === localStorage.getItem('user_email') && pass === localStorage.getItem('user_pass')) {
-                alert("Login realizado!");
                 location.reload();
             } else {
-                alert("E-mail ou Senha incorretos!");
+                alert("Dados incorretos!");
             }
         }
 
-        function updateHeader() {
-            const user = localStorage.getItem('user_name');
-            if(user) {
-                document.getElementById('header-user').innerText = "OLÁ, " + user.toUpperCase();
-                document.getElementById('header-user').classList.replace('text-slate-400', 'text-blue-600');
-            }
+        const userName = localStorage.getItem('user_name');
+        if(userName) {
+            document.getElementById('user-display').innerText = "OLÁ, " + userName.toUpperCase();
+            document.getElementById('user-display').classList.add('text-blue-600');
         }
-        updateHeader();
 
-        // Sistema Ao Vivo (Simulando Satélite)
         function showLive() {
-            const feed = document.getElementById('game-feed');
-            feed.innerHTML = `
-                <div class="league-header"><div class="league-indicator" style="background:red"></div> SATÉLITE EM TEMPO REAL</div>
-                <div class="px-5 mb-4">
-                    <div class="card-shadow p-5 flex justify-between items-center border-l-4 border-red-500">
-                        <div>
-                            <div class="font-black text-xs text-red-600 mb-1"><span class="live-pulse"></span> 68' - ATLÉTICO-MG 1x0 GREMIO</div>
-                            <div class="text-[9px] font-bold text-slate-400 uppercase italic">Alta Pressão do Time da Casa</div>
+            const main = document.getElementById('content');
+            main.innerHTML = `
+                <div class="league-header"><div class="league-indicator" style="background:red"></div> SATÉLITE AO VIVO</div>
+                <div class="px-5">
+                    <div class="card-shadow p-5 border-l-4 border-red-500">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-red-500 font-black text-[10px]">● 74' AO VIVO</span>
+                            <span class="text-[10px] font-black">BRASILEIRÃO</span>
                         </div>
-                        <div class="bg-slate-900 text-white px-4 py-2 rounded-xl font-black text-[10px]">@1.55</div>
-                    </div>
-                </div>
-                <div class="px-5 mb-4">
-                    <div class="card-shadow p-5 flex justify-between items-center border-l-4 border-red-500">
-                        <div>
-                            <div class="font-black text-xs text-red-600 mb-1"><span class="live-pulse"></span> 32' - REAL MADRID 0x0 BARCELONA</div>
-                            <div class="text-[9px] font-bold text-slate-400 uppercase italic">Satélite indica: Mais de 0.5 Gols HT</div>
+                        <div class="font-black text-sm uppercase mb-3">FLAMENGO 2x1 PALMEIRAS</div>
+                        <div class="bg-slate-100 p-3 rounded-xl flex justify-between items-center">
+                            <span class="text-[9px] font-black text-slate-400">PRÓXIMO GOL</span>
+                            <span class="text-blue-600 font-black">@1.90</span>
                         </div>
-                        <div class="bg-slate-900 text-white px-4 py-2 rounded-xl font-black text-[10px]">@1.40</div>
                     </div>
                 </div>
             `;
-            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-            event.target.classList.add('active');
-        }
-
-        function scanTicket() {
-            const btn = event.target;
-            btn.innerText = "CONECTANDO...";
-            setTimeout(() => {
-                btn.innerText = "ANALISAR";
-                document.getElementById('risk-alert').classList.remove('hidden');
-                alert("Resultado enviado para o satélite. Ative o VIP para ver o veredito.");
-            }, 2000);
         }
     </script>
 </body>
