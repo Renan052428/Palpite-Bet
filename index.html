@@ -3,145 +3,144 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PALPITE-BET | Global Intelligence</title>
+    <title>PALPITE-BET | Live Intelligence</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background: #F8FAFC; color: #1e293b; }
+        /* Fundo cinza claro solicitado */
+        body { font-family: 'Inter', sans-serif; background: #F1F4F9; color: #1e293b; }
+        
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; overflow-x: auto; display: flex; gap: 15px; padding: 10px 20px; }
         
-        /* Estilo das Datas igual ao print */
+        /* Datas */
         .date-item { text-align: center; min-width: 60px; cursor: pointer; }
         .date-day { font-size: 10px; font-weight: 900; color: #94a3b8; text-transform: uppercase; }
         .date-num { font-size: 14px; font-weight: 900; color: #1e293b; padding-bottom: 5px; }
         .date-item.active .date-num { color: #ef4444; border-bottom: 3px solid #ef4444; }
         .date-item.active .date-day { color: #ef4444; }
 
-        /* Estrutura de Ligas */
-        .league-row { background: #FFFFFF; padding: 12px 20px; border-bottom: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
-        .league-info { display: flex; align-items: center; gap: 10px; }
-        .league-name { font-size: 11px; font-weight: 800; text-transform: uppercase; color: #64748b; }
-        .game-count { background: #ef4444; color: white; font-size: 10px; font-weight: 900; padding: 2px 8px; border-radius: 6px; }
+        /* Ligas Estilo Print */
+        .league-row { background: #EBEEF2; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; }
+        .league-info { display: flex; align-items: center; gap: 8px; }
+        .league-name { font-size: 10px; font-weight: 800; text-transform: uppercase; color: #475569; }
+        .game-count { background: #ef4444; color: white; font-size: 9px; font-weight: 900; padding: 2px 6px; border-radius: 4px; }
 
-        /* Card de Jogo Profissional */
-        .game-card { background: white; padding: 15px 20px; border-bottom: 1px solid #f8fafc; display: flex; align-items: center; justify-content: space-between; }
-        .game-status { font-size: 10px; font-weight: 900; color: #ef4444; width: 40px; }
-        .teams-col { flex: 1; padding-left: 10px; border-left: 1px solid #f1f5f9; }
-        .team-row { font-size: 13px; font-weight: 800; display: flex; justify-content: space-between; margin: 2px 0; }
-        .score { color: #ef4444; }
+        /* Jogo Estilo Print Profissional */
+        .game-card { background: white; padding: 12px 20px; display: flex; align-items: center; border-bottom: 1px solid #F1F4F9; }
+        .game-time { width: 45px; font-size: 11px; font-weight: 900; color: #ef4444; border-right: 1px solid #F1F4F9; }
+        .teams-box { flex: 1; padding: 0 15px; }
+        .team-line { display: flex; justify-content: space-between; font-size: 13px; font-weight: 800; margin: 1px 0; }
+        .score-live { color: #ef4444; }
         
-        .btn-analisar { background: #f1f5f9; color: #3b82f6; font-size: 10px; font-weight: 900; padding: 8px 12px; border-radius: 10px; text-transform: uppercase; }
-        
-        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: flex; justify-content: space-around; padding: 15px 0 30px; border-top: 1px solid #edf2f7; z-index: 999; }
+        .btn-pay { background: #F8FAFC; border: 1px solid #e2e8f0; color: #3b82f6; font-size: 10px; font-weight: 900; padding: 8px 10px; border-radius: 8px; min-width: 90px; text-align: center; }
+
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: flex; justify-content: space-around; padding: 12px 0 25px; border-top: 1px solid #e2e8f0; z-index: 999; }
         .nav-item { text-align: center; font-size: 9px; font-weight: 900; color: #cbd5e1; text-transform: uppercase; }
-        .nav-item.active { color: #ef4444; }
+        .nav-active { color: #ef4444; }
     </style>
 </head>
-<body class="pb-32">
+<body class="pb-24">
 
-    <header class="p-6 bg-white flex justify-between items-center shadow-sm">
+    <header class="p-5 bg-white flex justify-between items-center">
         <div>
-            <h1 class="text-2xl font-black italic tracking-tighter uppercase leading-none">PALPITE<span class="text-blue-600">BET</span></h1>
-            <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mt-1">Global Intelligence</p>
+            <h1 class="text-xl font-black italic tracking-tighter uppercase">PALPITE<span class="text-blue-600">BET</span></h1>
+            <p class="text-[8px] font-black text-slate-400 uppercase tracking-widest">Global Intelligence</p>
         </div>
-        <a href="https://mpago.la/16fRczK" target="_blank" class="bg-blue-600 text-white px-5 py-2.5 rounded-2xl text-[10px] font-black uppercase shadow-lg">Ativar VIP</a>
+        <a href="https://mpago.la/16fRczK" class="bg-blue-600 text-white px-4 py-2 rounded-xl text-[10px] font-black uppercase shadow-lg">Ativar VIP</a>
     </header>
 
     <div class="no-scrollbar bg-white border-b border-slate-100">
-        <div class="date-item"> <div class="date-day">Ter</div> <div class="date-num">07.04</div> </div>
-        <div class="date-item"> <div class="date-day">Qua</div> <div class="date-num">08.04</div> </div>
+        <div class="date-item"> <div class="date-day">Sex</div> <div class="date-num">10.04</div> </div>
+        <div class="date-item"> <div class="date-day">Sáb</div> <div class="date-num">11.04</div> </div>
         <div class="date-item active"> <div class="date-day">Hoje</div> <div class="date-num">12.04</div> </div>
         <div class="date-item"> <div class="date-day">Seg</div> <div class="date-num">13.04</div> </div>
         <div class="date-item"> <div class="date-day">Ter</div> <div class="date-num">14.04</div> </div>
     </div>
 
-    <div class="px-5 mt-4">
-        <div class="bg-white rounded-[30px] p-6 shadow-sm border border-slate-100">
-            <h3 class="text-[10px] font-black text-slate-400 uppercase mb-4 flex items-center gap-2">
-                <span class="text-lg">🔎</span> Analisador de Bilhetes Profissional
-            </h3>
+    <div class="p-4">
+        <div class="bg-white rounded-3xl p-5 shadow-sm">
+            <div class="flex items-center gap-2 mb-3">
+                <span class="text-xs">🔬</span>
+                <span class="text-[10px] font-black text-slate-400 uppercase">Analisador de Bilhetes Profissional</span>
+            </div>
             <div class="flex gap-2">
-                <input type="text" placeholder="Cole o código do bilhete aqui..." class="flex-1 bg-slate-50 p-4 rounded-2xl text-xs font-bold outline-none border-none">
-                <button onclick="window.location.href='https://mpago.la/16fRczK'" class="bg-slate-900 text-white px-6 rounded-2xl font-black text-[10px] uppercase">Analisar</button>
+                <input type="text" placeholder="Cole o código..." class="flex-1 bg-slate-50 p-3 rounded-xl text-xs font-bold outline-none">
+                <button onclick="window.location.href='https://mpago.la/16fRczK'" class="bg-slate-900 text-white px-5 rounded-xl font-black text-[10px] uppercase">Analisar</button>
             </div>
         </div>
     </div>
 
-    <main class="mt-6">
+    <section>
         
-        <div class="league-section">
-            <div class="league-row">
-                <div class="league-info">
-                    <img src="https://flagcdn.com/w20/br.png" class="w-4 h-3">
-                    <span class="league-name">Brasil: Brasileirão Betano</span>
-                </div>
-                <span class="game-count">5</span>
+        <div class="league-row">
+            <div class="league-info">
+                <img src="https://flagcdn.com/w20/br.png" class="w-4">
+                <span class="league-name">Brasil: Brasileirão Betano</span>
             </div>
-            
-            <div class="game-card" onclick="window.location.href='https://mpago.la/16fRczK'">
-                <div class="game-status">
-                    <span class="block text-red-600">54'</span>
-                    <span class="block text-[8px] text-slate-300">🎧</span>
-                </div>
-                <div class="teams-col">
-                    <div class="team-row"><span>Athletico-PR</span> <span class="score">0</span></div>
-                    <div class="team-row"><span>Chapecoense</span> <span class="score">0</span></div>
-                </div>
-                <div class="ml-4">
-                    <button class="btn-analisar">Analisar @1.39</button>
-                </div>
+            <span class="game-count">12</span>
+        </div>
+        <div class="game-card" onclick="location.href='https://mpago.la/16fRczK'">
+            <div class="game-time">54' <br><span class="text-[8px] text-slate-300 font-normal">🎧</span></div>
+            <div class="teams-box">
+                <div class="team-line"><span>Athletico-PR</span> <span class="score-live">2</span></div>
+                <div class="team-line"><span>Chapecoense</span> <span class="score-live">0</span></div>
             </div>
+            <div class="btn-pay">ANALISAR @1.39</div>
         </div>
 
-        <div class="league-section">
-            <div class="league-row">
-                <div class="league-info">
-                    <img src="https://flagcdn.com/w20/de.png" class="w-4 h-3">
-                    <span class="league-name">Alemanha: Bundesliga</span>
-                </div>
-                <span class="game-count">3</span>
+        <div class="league-row">
+            <div class="league-info">
+                <img src="https://flagcdn.com/w20/de.png" class="w-4">
+                <span class="league-name">Alemanha: Bundesliga</span>
             </div>
-            
-            <div class="game-card" onclick="window.location.href='https://mpago.la/16fRczK'">
-                <div class="game-status">
-                    <span class="block text-red-600">83'</span>
-                </div>
-                <div class="teams-col">
-                    <div class="team-row"><span>Köln</span> <span class="score">2</span></div>
-                    <div class="team-row"><span>Bremen</span> <span class="score">1</span></div>
-                </div>
-                <div class="ml-4">
-                    <button class="btn-analisar">Analisar @2.35</button>
-                </div>
+            <span class="game-count">3</span>
+        </div>
+        <div class="game-card" onclick="location.href='https://mpago.la/16fRczK'">
+            <div class="game-time">83'</div>
+            <div class="teams-box">
+                <div class="team-line"><span>Köln</span> <span class="score-live">2</span></div>
+                <div class="team-line"><span>Bremen</span> <span class="score-live">1</span></div>
             </div>
+            <div class="btn-pay">ANALISAR @2.35</div>
         </div>
 
-        <div class="league-section">
-            <div class="league-row">
-                <div class="league-info">
-                    <img src="https://flagcdn.com/w20/es.png" class="w-4 h-3">
-                    <span class="league-name">Espanha: LaLiga</span>
-                </div>
-                <span class="game-count">4</span>
+        <div class="league-row">
+            <div class="league-info">
+                <img src="https://flagcdn.com/w20/pt.png" class="w-4">
+                <span class="league-name">Portugal: Liga Portugal</span>
             </div>
-            
-            <div class="game-card" onclick="window.location.href='https://mpago.la/16fRczK'">
-                <div class="game-status text-slate-400">Intervalo</div>
-                <div class="teams-col">
-                    <div class="team-row"><span>Mallorca</span> <span class="score">2</span></div>
-                    <div class="team-row"><span>Rayo Vallecano</span> <span class="score">0</span></div>
-                </div>
-                <div class="ml-4">
-                    <button class="btn-analisar">Analisar @2.45</button>
-                </div>
+            <span class="game-count">4</span>
+        </div>
+        <div class="game-card" onclick="location.href='https://mpago.la/16fRczK'">
+            <div class="game-time">42'</div>
+            <div class="teams-box">
+                <div class="team-line"><span>Alverca</span> <span class="score-live">0</span></div>
+                <div class="team-line"><span>Casa Pia</span> <span class="score-live">1</span></div>
             </div>
+            <div class="btn-pay">ANALISAR @1.86</div>
         </div>
 
-    </main>
+        <div class="league-row">
+            <div class="league-info">
+                <img src="https://flagcdn.com/w20/us.png" class="w-4">
+                <span class="league-name">EUA: MLS</span>
+            </div>
+            <span class="game-count">8</span>
+        </div>
+        <div class="game-card" onclick="location.href='https://mpago.la/16fRczK'">
+            <div class="game-time">19:30</div>
+            <div class="teams-box">
+                <div class="team-line"><span>Inter Miami</span> <span class="text-slate-300">-</span></div>
+                <div class="team-line"><span>Orlando City</span> <span class="text-slate-300">-</span></div>
+            </div>
+            <div class="btn-pay">PREVIEW @1.90</div>
+        </div>
+
+    </section>
 
     <nav class="bottom-nav">
-        <div class="nav-item active">🏠<br>Hoje</div>
+        <div class="nav-item nav-active">🏠<br>Hoje</div>
         <div class="nav-item">📡<br>Ao Vivo</div>
         <div class="nav-item">⭐<br>Favoritos</div>
         <div class="nav-item">🏆<br>Ligas</div>
